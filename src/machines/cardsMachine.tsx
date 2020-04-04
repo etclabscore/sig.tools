@@ -27,7 +27,7 @@ const cardsMachine = createMachine<IContext, any, any>({
         cards: (ctx: IContext, e) => {
           const results = ctx.cards.map((card: any) => ({
             ...card,
-            ref: spawn(cardMachine.withContext(card)),
+            ref: spawn(cardMachine.withContext({card})),
           }));
           return results;
         },

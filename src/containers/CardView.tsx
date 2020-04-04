@@ -199,7 +199,7 @@ const CardView = (props: IProps) => {
   useEffect(() => {
     refParser.dereference(SignatoryOpenRPCDocument as any || {})
       .then((s) => {
-        const schema = openrpcDocumentToJSONRPCSchema(s, "sign");
+        const schema = openrpcDocumentToJSONRPCSchema(s, "signTypedData");
         setFormSchema(schema);
       })
       .catch((e) => {

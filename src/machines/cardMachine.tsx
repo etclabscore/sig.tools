@@ -6,7 +6,7 @@ const cardMachine = createMachine({
   id: "toggle",
   initial: "idle",
   context: {
-    cards: [],
+    card: {},
   },
   states: {
     idle: {

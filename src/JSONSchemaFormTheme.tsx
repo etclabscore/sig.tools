@@ -2,7 +2,6 @@ import { InputBase } from "@material-ui/core";
 import React from "react";
 
 const MyCustomWidget = (props: any) => {
-  console.log("props", props);
   return (
     <InputBase
       placeholder={props.schema.title}

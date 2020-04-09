@@ -5,3 +5,74 @@
  padding: 0px 10px;
  margin-right: 5px;
 }
+
+
+.card-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.full-screen-square {
+  width: "100%";
+  height: "100%";
+  background: blue;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  background: blue;
+}
+
+.item-animate-in {
+  animation: item-in 0.3s ease-in-out 0.15s both;
+}
+
+.fade-in {
+  animation: fade-in 0.2s ease-in-out 0s both;
+}
+
+.fade-out {
+  animation: fade-out 0.3s ease-in-out 0.15s both;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes qrcode-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

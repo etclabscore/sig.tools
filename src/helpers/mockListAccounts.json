@@ -1,0 +1,161 @@
+{
+  "jsonrpc": "2.0",
+  "result": [
+      {
+          "address": "0x00D51BE4b1ef1858420c103eD3Bd07DD27C311a2",
+          "parent": "976b5ac5-6f2b-437d-bba1-de4cdb1f9845",
+          "hidden": false
+      },
+      {
+          "address": "0x048c530d5C7EC4EAce8180632644cC94FC96a1cE",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0x0c3b2B2FfE310DF1B1a14c163eC3AeDA7Fb08C2E",
+          "name": "Personal Account",
+          "description": "An account for personal",
+          "hidden": false
+      },
+      {
+          "address": "0x13A757389183691CEB5876b91262B1F309827f3C",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0x149A9D1584292Ba48B775E21501333465f0d2832",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0x398f529a123EeB48bb6767Df28F5A02365ddFf1b",
+          "name": "BOAT FUND",
+          "description": "IMMA BUY ME A BOAT",
+          "hidden": false
+      },
+      {
+          "address": "0x3Ce1c53775DB9AcF57EDeFCcDAd226b09945CBC1",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0x3f9FbB7c2164627395A2c45F83c7C76E847d5033",
+          "name": "Potato",
+          "description": "An account for potato",
+          "hidden": false
+      },
+      {
+          "address": "0x4880CB1A9D89d6aBE542F3664f61b6B0abC69dc3",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0x4C54Bbd97a06f9bD184353c504C336B5cC5cA069",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0x4a76d1c737912B82982f856A792BA0d553F61f9f",
+          "name": "Business Account",
+          "description": "An account for business",
+          "hidden": false
+      },
+      {
+          "address": "0x4fE095B6CF3fc469c59a04fD15A4cc8Dd024BF01",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0x535820fc8b7071CE36EceB039bEC2b4a5593Bb2F",
+          "name": "my test wallet",
+          "description": "my test wallet description",
+          "hidden": false
+      },
+      {
+          "address": "0x5400572635278baE4D698d138cAe97Fb0bE26d7B",
+          "name": "my test wallet",
+          "description": "my test wallet description",
+          "hidden": false
+      },
+      {
+          "address": "0x59922EE6b884913926FfDE112e07cC913759a10f",
+          "name": "d98a1f30-6c76-11ea-932d-492590b23b3b",
+          "description": "new account for invoice d98a1f30-6c76-11ea-932d-492590b23b3b",
+          "hidden": false
+      },
+      {
+          "address": "0x653C026Fa85e6C4DF5552949703c3418840596bC",
+          "name": "e70de550-604c-11ea-a5b3-774e686f05cc",
+          "description": "new account for invoice e70de550-604c-11ea-a5b3-774e686f05cc",
+          "hidden": false
+      },
+      {
+          "address": "0x79469b7bE25647f280667fb5E09AbC138b5A510B",
+          "name": "foo",
+          "description": "baz",
+          "hidden": false
+      },
+      {
+          "address": "0x817244A61D1c61575d38317c53d8F043632D3743",
+          "name": "6fec3200-604d-11ea-923f-c5a581cc818a",
+          "description": "new account for invoice 6fec3200-604d-11ea-923f-c5a581cc818a",
+          "hidden": false
+      },
+      {
+          "address": "0xbB8153B18ec183861C22889c924cd94AD5072a49",
+          "name": "TRIP",
+          "description": "Trip Fund",
+          "hidden": false
+      },
+      {
+          "address": "0xc8D0600e1F7a19405d001D7445D4c253E0d52Ebd",
+          "name": "d07263c0-604c-11ea-a5b3-774e686f05cc",
+          "description": "new account for invoice d07263c0-604c-11ea-a5b3-774e686f05cc",
+          "hidden": false
+      },
+      {
+          "address": "0xcB145B9B40eE413D0A9765Ed266F3Bfcb6FCF738",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0xdE5C193A4Fd58bb1fF805E1AA150a3d3F2f19462",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0xdf71C5B1F6835932E4c9475CC81C1f5f1646B0FF",
+          "name": "my test wallet",
+          "description": "my test wallet description",
+          "hidden": false
+      },
+      {
+          "address": "0xe02b478d7D9E3a35346cf5F74920DCA97ec46aC4",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0xe0Bca81FF6D9A7881D00BD8e159C279BAc5b7218",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      },
+      {
+          "address": "0xe2070FC20B8F92ae063a0911ff1F29a35e6a899e",
+          "name": "my test wallet",
+          "description": "my test wallet description",
+          "hidden": false
+      },
+      {
+          "address": "0xe6e5168ec434137C49dfc61Ac85bE89d73bDF60C",
+          "name": "Savings",
+          "description": "Savings account for me",
+          "hidden": false
+      },
+      {
+          "address": "0xf7fb31Ce91d2b92Cf81Fe13f237D0AdaB4C03Ab8",
+          "parent": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hidden": false
+      }
+  ],
+  "id": 1
+}

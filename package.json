@@ -35,17 +35,26 @@
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^8.0.0",
-    "@material-ui/core": "^4.9.8",
+    "@material-ui/core": "^4.9.9",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.48",
     "@open-rpc/meta-schema": "^1.8.0",
     "@rjsf/core": "^2.0.0-alpha.4",
+    "@types/color-hash": "^1.0.0",
+    "@types/lodash": "^4.14.149",
     "@types/react-jsonschema-form": "^1.7.1",
     "@xstate/react": "^0.8.1",
+    "color-hash": "^1.0.3",
+    "flipping": "^1.1.0",
     "json-schema-ref-parser": "^8.0.0",
+    "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-flip-toolkit": "^7.0.9",
     "react-jsonschema-form": "^1.8.1",
+    "react-qrcode-logo": "^2.2.1",
     "rjsf-material-ui": "file:../../rjsf-material-ui-0.3.6.tgz",
+    "use-dark-mode": "^2.3.1",
     "xstate": "^4.8.0"
   }
 }

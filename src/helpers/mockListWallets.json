@@ -1,0 +1,67 @@
+
+{
+  "jsonrpc": "2.0",
+  "result": [
+      {
+          "name": "Foo",
+          "uuid": "1f3c1b5c-1b62-4347-b624-7dd7a4e64c59",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      },
+      {
+          "name": "Baz",
+          "uuid": "257bb888-0c2d-4f08-bc7e-2d6153c7a873",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      },
+      {
+          "name": "Bar",
+          "uuid": "2bb2fe51-2972-436c-aa08-b5a3e168d281",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      },
+      {
+          "name": "Potate",
+          "uuid": "42777629-d2ac-4fb5-8328-3e36424c67a5",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      },
+      {
+          "name": "Banana Fund",
+          "uuid": "5773cbd4-18a9-4c95-a338-ceafb41ad2f0",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      },
+      {
+          "name": "Food Stand Fund",
+          "uuid": "976b5ac5-6f2b-437d-bba1-de4cdb1f9845",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      },
+      {
+          "name": "Banana Stand Fund",
+          "uuid": "9e2abe7f-31d2-4b96-b24f-2a3f0e5d3210",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      },
+      {
+          "name": "Potato Salad Stand Fund",
+          "uuid": "a048651c-eef1-40ff-92f8-940985689eca",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      },
+      {
+          "name": "Farm Fund",
+          "uuid": "e1e9a75d-f6f4-435b-93d5-cbff627eb9cd",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      },
+      {
+          "name": "Garden",
+          "uuid": "fdd0c561-e302-4093-a87a-4be1c45934df",
+          "hdPath": "m/44/60/160720'/0",
+          "hidden": false
+      }
+  ],
+  "id": 0
+}

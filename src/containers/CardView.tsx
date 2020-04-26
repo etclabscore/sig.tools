@@ -22,6 +22,9 @@ interface IProps {
   onBack?: any;
   hideAccountEntryAnimation?: boolean;
   key?: any;
+  onSignMessage?: (card: ICard) => void;
+  onSignTypedData?: (card: ICard) => void;
+  onSignTransaction?: (card: ICard) => void;
 }
 
 const styles = {
@@ -81,18 +84,18 @@ const CardView = (props: IProps) => {
 
   return (
     <>
-      {openrpcDocument &&
+      {openrpcDocument && state.matches("selected") &&
         <FormDrawer
           schema={openrpcDocumentToJSONRPCSchema(openrpcDocument, "sign") as any}
           formData={{
             address: props.card.address,
           }}
           open={state.matches({ selected: "signMessage" })}
-          onSubmit={() => send("SUBMIT")}
+          onSubmit={(e) => send("SUBMIT", e)}
           onClose={() => send("CANCEL")}
         />
       }
-      {openrpcDocument &&
+      {openrpcDocument && state.matches("selected") &&
         <FormDrawer
           schema={openrpcDocumentToJSONRPCSchema(openrpcDocument, "signTransaction") as any}
           formData={{
@@ -105,7 +108,7 @@ const CardView = (props: IProps) => {
           onClose={() => send("CANCEL")}
         />
       }
-      {openrpcDocument &&
+      {openrpcDocument && state.matches("selected") &&
         <FormDrawer
           schema={openrpcDocumentToJSONRPCSchema(openrpcDocument, "signTypedData") as any}
           formData={{
@@ -123,7 +126,7 @@ const CardView = (props: IProps) => {
             position: "relative",
             overflow: "visible",
             cursor: state.matches("selected") ? "initial" : "pointer",
-            zIndex: state.matches("selected") ? 1 : "inherit",
+            zIndex: ((state.history && state.history.value === "selected") || state.matches("selected")) ? 1200 : 1,
           }}
           className={
             state.matches("initial") && state.history && state.history.matches("selected") === false
@@ -132,12 +135,15 @@ const CardView = (props: IProps) => {
           }
         >
           <CardContent style={{ ...styles.cardContent, zIndex: 10 }}>
-            <Grid container direction="column" justify="space-between" style={{ flexGrow: 1, position: "relative" }}>
-              <Flipped flipId={`account-${props.card.name}-${props.card.address || props.card.uuid}-name`} spring="stiff" translate>
-                <Typography color="textSecondary">{props.card.name}</Typography>
-              </Flipped>
-              <Flipped flipId={`account-${props.card.name}-${props.card.address || props.card.uuid}-hd`} spring="stiff" translate>
-                <div style={{ position: "absolute", top: "0", right: props.card.uuid ? "-1px" : "10px" }} >
+            <Grid container direction="column" justify="space-between" style={{ width: "265px" }}>
+              <Grid container justify="space-between">
+                <Flipped flipId={`account-${props.card.name}-${props.card.address || props.card.uuid}-name`} spring="stiff" translate>
+                  <div style={{ width: "230px", overflow: "hidden", textOverflow: "elipsis" }}>
+                    <Typography color="textSecondary">{props.card.name}</Typography>
+                    {state.history && state.history.value}
+                  </div>
+                </Flipped>
+                <Flipped flipId={`account-${props.card.name}-${props.card.address || props.card.uuid}-hd`} spring="stiff" translate>
                   {props.card.uuid
                     ? <Tooltip title={"HD Wallet"} >
                       <Hd />
@@ -146,8 +152,8 @@ const CardView = (props: IProps) => {
                       <VpnKey />
                     </Tooltip>
                   }
-                </div>
-              </Flipped>
+                </Flipped>
+              </Grid>
               <Flipped
                 flipId={`account-${props.card.name}-${props.card.address || props.card.uuid}-${props.card.description}-description`}
                 spring="stiff"
@@ -166,7 +172,7 @@ const CardView = (props: IProps) => {
               {props.card.address &&
                 <div
                   style={{
-                    animation: "qrcode-in 0.25s ease-in-out 0.20s both",
+                    animation: "qrcode-in 0.25s ease-in-out 0.05s both",
                     opacity: state.matches("selected") ? 1 : 0,
                     display: state.matches("selected") ? "inherit" : "none",
                     margin: "0 auto",
@@ -193,8 +199,8 @@ const CardView = (props: IProps) => {
               ...styles.listItem,
               marginRight: "5px",
               marginBottom: "5px",
-              animation: "item-in 0.25s ease-in-out 0.20s both",
-            }} onClick={() => send("SHOW_SIGN_TRANSACTION")}>
+              animation: "item-in 0.25s ease-in-out 0.05s both",
+            }} onClick={() => props.onSignTransaction && props.onSignTransaction(props.card)}>
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                 <CardContent>
                   <Typography>✍️</Typography>
@@ -206,8 +212,8 @@ const CardView = (props: IProps) => {
               ...styles.listItem,
               marginLeft: "5px",
               marginBottom: "5px",
-              animation: "item-in 0.25s ease-in-out 0.20s both",
-            }} onClick={() => send("SHOW_SIGN_MESSAGE")}>
+              animation: "item-in 0.25s ease-in-out 0.05s both",
+            }} onClick={() => props.onSignMessage && props.onSignMessage(props.card)}>
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                 <CardContent style={{ width: "80%", margin: "0 auto" }}>
                   <Typography>🔏</Typography>
@@ -219,8 +225,8 @@ const CardView = (props: IProps) => {
               ...styles.listItem,
               marginRight: "5px",
               marginTop: "5px",
-              animation: "item-in 0.25s ease-in-out 0.30s both",
-            }} onClick={() => send("SHOW_SIGN_TYPED_DATA")}>
+              animation: "item-in 0.25s ease-in-out 0.15s both",
+            }} onClick={() => props.onSignTypedData && props.onSignTypedData(props.card)}>
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                 <CardContent>
                   <Typography>📝</Typography>
@@ -232,7 +238,7 @@ const CardView = (props: IProps) => {
               ...styles.listItem,
               marginLeft: "5px",
               marginTop: "5px",
-              animation: "item-in 0.25s ease-in-out 0.30s both",
+              animation: "item-in 0.25s ease-in-out 0.15s both",
             }} onClick={() => send("SHOW_EXPORT")}>
 
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
@@ -243,26 +249,6 @@ const CardView = (props: IProps) => {
               </Card>
             </ButtonBase>
           </Grid>
-          // <List>
-          //   <ListItem button style={styles.listItem} onClick={() => send("SHOW_SIGN_MESSAGE")}>
-          //     <ListItemText>Sign Message</ListItemText>
-          //     <ListItemIcon style={styles.listItemIcon}>
-          //       <ArrowForwardIos />
-          //     </ListItemIcon>
-          //   </ListItem>
-          //   <ListItem button style={styles.listItem} onClick={() => send("SHOW_SIGN_TYPED_DATA")}>
-          //     <ListItemText>Sign Typed Data</ListItemText>
-          //     <ListItemIcon style={styles.listItemIcon}>
-          //       <ArrowForwardIos />
-          //     </ListItemIcon>
-          //   </ListItem>
-          //   <ListItem button style={styles.listItem}>
-          //     <ListItemText>Export Account</ListItemText>
-          //     <ListItemIcon style={styles.listItemIcon}>
-          //       <ArrowForwardIos />
-          //     </ListItemIcon>
-          //   </ListItem>
-          // </List>
         }
         {state.matches("selected") && props.card.uuid &&
           <Grid style={{

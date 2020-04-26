@@ -2,8 +2,8 @@
   "openrpc": "1.1.12",
   "info": {
     "version": "0.1.0",
-    "title": "Signatory",
-    "description": "🔏Signatory is a transaction and message signer for the Ethereum Stack.",
+    "title": "Signatory UI",
+    "description": "🔏Signatory UI is a transaction and message signer for the Ethereum Stack.",
     "license": {
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
@@ -100,21 +100,17 @@
                 "description": "account description",
                 "type": "string"
               },
+              "passphrase": {
+                "$ref": "#/components/schemas/Passphrase"
+              },
               "privateKey": {
                 "title": "privateKey",
                 "description": "optional private key field for importing",
                 "type": "string"
-              },
-              "passphrase": {
-                "name": "passphrase",
-                "description": "passphrase to keyfile",
-                "summary": "keyfile passphrase",
-                "schema": {
-                  "$ref": "#/components/schemas/Passphrase"
-                }
               }
             },
             "required": [
+              "name",
               "passphrase"
             ]
           },
@@ -133,8 +129,7 @@
               "name": "testAccount",
               "value": {
                 "name": "my test wallet",
-                "description": "my test wallet description",
-                "passphrase": "baz"
+                "description": "my test wallet description"
               }
             }
           ],
@@ -156,15 +151,6 @@
           "required": true,
           "schema": {
             "$ref": "#/components/schemas/Transaction"
-          }
-        },
-        {
-          "name": "passphrase",
-          "required": true,
-          "description": "passphrase to keyfile",
-          "summary": "keyfile passphrase",
-          "schema": {
-            "$ref": "#/components/schemas/Passphrase"
           }
         },
         {
@@ -205,15 +191,6 @@
           "required": true,
           "schema": {
             "$ref": "#/components/schemas/Address"
-          }
-        },
-        {
-          "name": "passphrase",
-          "required": true,
-          "description": "passphrase to keyfile",
-          "summary": "keyfile passphrase",
-          "schema": {
-            "$ref": "#/components/schemas/Passphrase"
           }
         },
         {
@@ -327,12 +304,6 @@
               "value": "0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826"
             },
             {
-              "name": "passphrase",
-              "description": "Passphrase",
-              "summary": "Passphrase to unlock account",
-              "value": "baz"
-            },
-            {
               "name": "chainId",
               "description": "chainId for transaction",
               "summary": "chainId to sign the data with",
@@ -356,9 +327,6 @@
       "summary": "Import an account from Keyfile",
       "description": "Import a new account from an external keyfile. should comply with the [Web3 Secret Storage Definition](https://github.com/ethereumproject/wiki/wiki/Web3-Secret-Storage-Definition)",
       "params": [
-        {
-          "$ref": "#/components/contentDescriptors/Passphrase"
-        },
         {
           "$ref": "#/components/contentDescriptors/Keyfile"
         }
@@ -393,8 +361,8 @@
             "type": "object",
             "required": [
               "mnemonic",
-              "passphrase",
-              "hdPath"
+              "hdPath",
+              "passphrase"
             ],
             "properties": {
               "mnemonic": {
@@ -436,7 +404,6 @@
               "value": {
                 "name": "my imported wallet",
                 "description": "my imported wallet description",
-                "passphrase": "baz",
                 "hdPath": "m/44/60/160720'/0",
                 "mnemonic": "icon suggest road current ripple engage spell clay route large arena climb oxygen electric cupboard dream title immune fit beyond mouse slab bronze salad"
               }
@@ -469,12 +436,6 @@
                   "type": "string"
                 }
               },
-              "passphrase": {
-                "title": "passphrase",
-                "schema": {
-                  "$ref": "#/components/schemas/Passphrase"
-                }
-              },
               "index": {
                 "title": "index",
                 "schema": {
@@ -483,8 +444,7 @@
               }
             },
             "required": [
-              "uuid",
-              "passphrase"
+              "uuid"
             ]
           }
         }
@@ -501,8 +461,7 @@
               "name": "accountFromMnemonicOptions",
               "description": "example of get mnemonic account",
               "value": {
-                "uuid": "35ee9c7a-8ce5-48b7-80c3-7ad6602d43f4",
-                "passphrase": "baz"
+                "uuid": "35ee9c7a-8ce5-48b7-80c3-7ad6602d43f4"
               }
             }
           ],
@@ -549,14 +508,6 @@
           }
         },
         {
-          "name": "passphrase",
-          "description": "passphrase to keyfile",
-          "schema": {
-            "$ref": "#/components/schemas/Passphrase"
-          },
-          "required": true
-        },
-        {
           "name": "chainId",
           "required": true,
           "description": "chain id for the transaction",
@@ -584,10 +535,6 @@
             {
               "name": "address",
               "value": "0x90ee510fb88ea47a84b45a6d983a0bc6b193e385"
-            },
-            {
-              "name": "passphrase",
-              "value": "baz"
             },
             {
               "name": "chainId",
@@ -930,15 +877,6 @@
         "description": "keyfile in json format that MUST comply with the [Web3 Secret Storage Definition](https://github.com/ethereumproject/wiki/wiki/Web3-Secret-Storage-Definition)",
         "schema": {
           "$ref": "#/components/schemas/Keyfile"
-        }
-      },
-      "Passphrase": {
-        "name": "passphrase",
-        "required": true,
-        "summary": "keyfile - passphrase",
-        "description": "passphrase to unlock keyfile storage",
-        "schema": {
-          "$ref": "#/components/schemas/Passphrase"
         }
       },
       "ChainId": {

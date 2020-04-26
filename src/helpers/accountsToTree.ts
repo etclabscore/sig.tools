@@ -10,6 +10,7 @@ const accountsToTree = (accounts: ICard[], wallets: any): ICard[] => {
   const walletsByUuid = _.keyBy(wallets, (account) => {
     return account.uuid;
   });
+  const usedWallets: any = {};
 
   let accountsTree: ICard[] = [];
 
@@ -17,12 +18,17 @@ const accountsToTree = (accounts: ICard[], wallets: any): ICard[] => {
     if (key === "undefined") {
       accountsTree = accountsTree.concat(group);
     } else {
+      usedWallets[key] = true;
       accountsTree = [...accountsTree, {
         ...walletsByUuid[key],
         accounts: group,
       }];
     }
-
+  });
+  _.forEach(walletsByUuid, (wallet, uuid) => {
+    if (!usedWallets[uuid]) {
+      accountsTree = [wallet, ...accountsTree];
+    }
   });
   return accountsTree;
 };

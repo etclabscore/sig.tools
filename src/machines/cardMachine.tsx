@@ -27,7 +27,6 @@ const cardMachine: StateMachine<ICardMachineContext, any, any> = createMachine({
               })),
             };
           }
-
           return card;
         },
       }),
@@ -36,37 +35,8 @@ const cardMachine: StateMachine<ICardMachineContext, any, any> = createMachine({
       },
     },
     selected: {
-      id: "selected",
-      initial: "idle",
       on: {
         DESELECT: "initial",
-      },
-      states: {
-        idle: {
-          on: {
-            SHOW_SIGN_MESSAGE: "signMessage",
-            SHOW_SIGN_TRANSACTION: "signTransaction",
-            SHOW_SIGN_TYPED_DATA: "signTypedData",
-          },
-        },
-        signMessage: {
-          on: {
-            CANCEL: "idle",
-            SUBMIT: "idle",
-          },
-        },
-        signTransaction: {
-          on: {
-            CANCEL: "idle",
-            SUBMIT: "idle",
-          },
-        },
-        signTypedData: {
-          on: {
-            CANCEL: "idle",
-            SUBMIT: "idle",
-          },
-        },
       },
     },
   },

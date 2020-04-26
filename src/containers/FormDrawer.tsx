@@ -1,14 +1,15 @@
 import React from "react";
+import { JSONSchema } from "@open-rpc/meta-schema";
 import { Drawer, Button, IconButton } from "@material-ui/core";
 import { Theme as MuiTheme } from "rjsf-material-ui";
-import { withTheme } from "react-jsonschema-form";
-import { JSONSchema } from "@open-rpc/meta-schema";
+import { withTheme, UiSchema } from "react-jsonschema-form";
 import { Close } from "@material-ui/icons";
 const Form = withTheme(MuiTheme);
 
 interface IProps {
   schema: JSONSchema;
   open: boolean;
+  uiSchema?: UiSchema;
   onChange?: () => void;
   onSubmit?: (data: any) => void;
   onClose: () => void;
@@ -38,15 +39,16 @@ const FormDrawer: React.FC<IProps> = (props) => {
           liveValidate={true}
           uiSchema={{
             "ui:autoFocus": true,
+            ...props.uiSchema,
           }}
           onChange={props.onChange}
           onSubmit={props.onSubmit}
         >
-          <Button type="submit" variant="contained" fullWidth color="primary">Sign</Button>
+          <Button style={{marginTop: "10px"}} type="submit" variant="contained" fullWidth color="primary">Sign</Button>
         </Form>
       </div>
     </Drawer>
   );
 };
 
-export default FormDrawer;
+export default React.memo(FormDrawer);

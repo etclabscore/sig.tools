@@ -13,22 +13,24 @@ interface IProps {
 const MyAppBar: React.FC<IProps> = ({ onDarkModeChange, darkMode, topItem, backItem }) => {
   const theme = useTheme();
   return (
-    <AppBar elevation={0} position="sticky" >
-      <Toolbar style={{ background: theme.palette.background.default }}>
-        <Box width="50px">
-          {backItem}
-        </Box>
-        <Box flexGrow={1} style={{ marginRight: "30px" }}>
-          {topItem}
-        </Box>
-        <Tooltip title="Toggle Theme">
-          <IconButton onClick={() => onDarkModeChange(!!darkMode)} tabIndex={2}>
-            {darkMode ? <Brightness3 /> : <WbSunny />}
-          </IconButton>
-        </Tooltip>
-      </Toolbar>
-    </AppBar>
+    <>
+      <AppBar elevation={0} position="sticky">
+        <Toolbar style={{ background: theme.palette.background.default }}>
+          <Box width="50px">
+            {backItem}
+          </Box>
+          <Box flexGrow={1} style={{ marginRight: "30px" }}>
+            {topItem}
+          </Box>
+          <Tooltip title="Toggle Theme">
+            <IconButton onClick={() => onDarkModeChange(!!darkMode)} tabIndex={2}>
+              {darkMode ? <Brightness3 /> : <WbSunny />}
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 
-export default MyAppBar;
+export default React.memo(MyAppBar);

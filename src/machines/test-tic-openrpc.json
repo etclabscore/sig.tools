@@ -1,0 +1,26 @@
+{
+    paramStructure: "by-name",
+    methods: [
+        {
+            name: "myMethod",
+
+            params: [
+                {
+                    name: "foo",
+                    description: "foo bar baz",
+                    schema: {
+                        title: "baz",
+                        type: "string"
+                    }
+                },
+            ],
+            params: {
+                    foo: {
+
+                        title: "baz",
+                        type: "string"
+                },
+            },
+        }
+    ]
+}

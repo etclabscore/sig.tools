@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "Signatory Browser",
+  "version": "1.0",
+  "description": "Signatory browser signer",
+  "browser_action": {
+    "default_title": "Signatory",
+    "default_popup": "index.html"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

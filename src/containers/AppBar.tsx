@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Tooltip, IconButton, Box, useTheme } from 
 import { Brightness3, WbSunny } from "@material-ui/icons";
 
 interface IProps {
-  //onClick: () => void;
+  // onClick: () => void;
   darkMode: boolean;
   onDarkModeChange: (darkMode: boolean) => void;
   topItem?: ReactNode;
@@ -14,7 +14,7 @@ const MyAppBar: React.FC<IProps> = ({ onDarkModeChange, darkMode, topItem, backI
   const theme = useTheme();
   return (
     <>
-      <AppBar elevation={0} position="sticky">
+      <AppBar elevation={0} position="fixed">
         <Toolbar style={{ background: theme.palette.background.default }}>
           <Box width="50px">
             {backItem}

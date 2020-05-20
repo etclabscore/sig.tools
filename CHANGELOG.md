@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/etclabscore/sig.tools/compare/1.0.2...1.0.3) (2020-05-20)
+
+
+### Bug Fixes
+
+* prefix + remove console logs ([c66cace](https://github.com/etclabscore/sig.tools/commit/c66caceb05f069cdd55db6b939f311d731bd8119))
+
 ## [1.0.2](https://github.com/etclabscore/sig.tools/compare/1.0.1...1.0.2) (2020-05-20)
 
 

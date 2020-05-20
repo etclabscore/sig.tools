@@ -1,3 +1,23 @@
+# 1.0.0 (2020-05-20)
+
+
+### Bug Fixes
+
+* add CNAME ([0d646d7](https://github.com/etclabscore/sig.tools/commit/0d646d7dd2a28d4cb614e18657d8312fddad91b9))
+* add usage warning ([9fb43d0](https://github.com/etclabscore/sig.tools/commit/9fb43d0025e41446f9c9070cd44740eb8ac824f5))
+* disable xstate testplans ([179d6e0](https://github.com/etclabscore/sig.tools/commit/179d6e00ee4a83156a0c616c80c8ffb4ed8b9bba))
+* linting ([39811ef](https://github.com/etclabscore/sig.tools/commit/39811ef2f5ec784c96a283c78612098e8879f256))
+* linting ([8fea1d7](https://github.com/etclabscore/sig.tools/commit/8fea1d735883a6cede8d9fcbf37c9ff154a54e89))
+* stable + add passcode input ([5ae9708](https://github.com/etclabscore/sig.tools/commit/5ae97082eb6d97592b2e92a42dc200d21781a964))
+
+
+### Features
+
+* add export + eserialize conversions + signatory localstorage ([659d481](https://github.com/etclabscore/sig.tools/commit/659d481751f02e47da4dea676afa3c4c2b7a0f1b))
+* initial commit ([58a3326](https://github.com/etclabscore/sig.tools/commit/58a3326b3b7bd9f2e8f8cd16e32348b4758624f8))
+* initial layouts and prototype ([d214a9b](https://github.com/etclabscore/sig.tools/commit/d214a9b8ebf963bd1b3961c9057f40d6f650e1f6))
+* WIP WIP ([272beae](https://github.com/etclabscore/sig.tools/commit/272beaee967f765e7f73c47104faadf4d0a8db39))
+
 ## [1.0.2](https://github.com/etclabscore/pristine-typescript-react/compare/1.0.1...1.0.2) (2019-07-02)
 
 

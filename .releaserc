@@ -18,9 +18,10 @@
     "@semantic-release/github",
     {
       "path": "@qiwi/semantic-release-gh-pages-plugin",
-      "msg": "github pages release",
-      "src": "build/",
-      "branch": "gh-pages"
+      "msg": "deploy: new sig.tools gh-pages release",
+      "src": "build",
+      "branch": "gh-pages",
+      "pullTagsBranch": ""
     }
   ],
   "success": [

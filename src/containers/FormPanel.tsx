@@ -2,7 +2,7 @@ import React, { useState, ReactElement } from "react";
 import { Button, Grid, IconButton, Paper, Typography } from "@material-ui/core";
 import { JSONSchema } from "@apidevtools/json-schema-ref-parser";
 import { Close } from "@material-ui/icons";
-import { Theme as MuiTheme } from "rjsf-material-ui";
+import { Theme as MuiTheme } from "@etclabscore/rjsf-material-ui";
 import PasswordWidget from "../components/PasswordWidget";
 import { withTheme } from "react-jsonschema-form";
 import FormDrawer from "./FormDrawer";
@@ -14,6 +14,7 @@ interface IProps {
   formData: any;
   skipPassphrase?: boolean;
   uiSchema?: any;
+  widgets?: any;
   title?: string;
   header?: ReactElement;
   onSubmit?: (data: any) => void;
@@ -97,6 +98,7 @@ const FormPanel: React.FC<IProps> = (props) => {
             }}
             widgets={{
               password: PasswordWidget as any,
+              ...props.widgets,
             }}
             onSubmit={(data) => {
               if (props.skipPassphrase && props.onSubmit) {

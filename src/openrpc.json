@@ -1,9 +1,9 @@
 {
   "openrpc": "1.1.12",
   "info": {
-    "version": "0.1.0",
-    "title": "Signatory UI",
-    "description": "🔏Signatory UI is a transaction and message signer for the Ethereum Stack.",
+    "version": "0.0.1",
+    "title": "Sig.tools",
+    "description": "🔐 sig.tools is a tool to enable the offline distributed generation and management of cryptographic accounts for the Ethereum Stack.",
     "license": {
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
@@ -11,7 +11,9 @@
   },
   "servers": [
     {
-      "url": "http://localhost:1999"
+      "name": "sig.tools",
+      "description": "sig.tools JSON-RPC API is available over `postMessage`.",
+      "url": "http://sig.tools"
     }
   ],
   "methods": [

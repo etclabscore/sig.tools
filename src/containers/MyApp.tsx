@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useMachine } from "@xstate/react";
 import appMachine, { ICard, IContext } from "../machines/appMachine";
-import { Button, Grid, IconButton, MuiThemeProvider, CssBaseline, Paper, CircularProgress, Typography, FormControlLabel, Checkbox, InputBase, Container, TextField } from "@material-ui/core";
+import { Button, Grid, IconButton, MuiThemeProvider, CssBaseline, Paper, CircularProgress, Typography, FormControlLabel, Checkbox, InputBase, Container, TextField, Link, Collapse } from "@material-ui/core";
 import SignatoryOpenRPCDocument from "../openrpc.json";
 import CardView from "./CardView";
 import refParser, { JSONSchema } from "@apidevtools/json-schema-ref-parser";
@@ -23,6 +23,8 @@ import { green, red, grey } from "@material-ui/core/colors";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import SelectAccount from "./SelectAccount";
 import { State } from "xstate";
+import HexToNumberConverter from "../components/HexToNumberConverter";
+import HexToStringConverter from "../components/HexToString";
 
 interface IProps {
 }
@@ -61,7 +63,6 @@ const MyApp = (props: IProps) => {
     domain = formData.domain;
     delete formData.domain;
   }
-  console.log(state.context);
 
   useEffect(() => {
     if (jsonrpcServer) {
@@ -110,15 +111,34 @@ const MyApp = (props: IProps) => {
   };
   const handleSignTransaction = (e: ICard) => {
     send("SHOW_SIGN_TRANSACTION", {
-      address: e.address,
+      transaction: {
+        from: e.address,
+      },
     });
   };
+  const [showAlpha, setShowAlpha] = useState(true);
 
   return (
     <MuiThemeProvider theme={theme}>
       <div id={state.value} />
       <CssBaseline />
       <div style={{ marginTop: "70px" }} />
+      <Collapse in={showAlpha}>
+        <Alert severity="warning"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setShowAlpha(false);
+              }}
+            >
+              <Close fontSize="inherit" />
+            </IconButton>
+          }
+        ><b>sig.tools</b> is in early development<b> alpha</b>. Some features are not available. <Link href="https://ethereumclassic.org/blog/2017-06-17-private-keys" color="textSecondary">Use at your own risk.</Link> <Link href="https://github.com/etclabscore/sig.tools/issues" color="secondary">Give Feedback.</Link></Alert>
+      </Collapse>
       <AppBar
         onDarkModeChange={darkMode.toggle}
         darkMode={darkMode.value}
@@ -171,7 +191,7 @@ const MyApp = (props: IProps) => {
             </div>
           </Flipper>
           {state.value === "list" &&
-            <CreateMenu onActionClick={(accountOrWallet) => {
+            <CreateMenu offsetTop={showAlpha} onActionClick={(accountOrWallet) => {
               switch (accountOrWallet) {
                 case "account":
                   send("CREATE_ACCOUNT");
@@ -189,6 +209,14 @@ const MyApp = (props: IProps) => {
       {state.matches("signMessage") && state.context.formData &&
         <FormPanel
           id="sign-message"
+          uiSchema={{
+            dataToSign: {
+              "ui:widget": HexToStringConverter,
+            },
+            chainId: {
+              "ui:widget": HexToNumberConverter,
+            },
+          }}
           header={domain &&
             <Alert severity="info" style={{ marginBottom: "10px" }} variant="outlined">
               <Typography variant="body1">
@@ -216,6 +244,25 @@ const MyApp = (props: IProps) => {
               </Typography>
             </Alert>
           }
+          uiSchema={{
+            transaction: {
+              value: {
+                "ui:widget": HexToNumberConverter,
+              },
+              gas: {
+                "ui:widget": HexToNumberConverter,
+              },
+              gasPrice: {
+                "ui:widget": HexToNumberConverter,
+              },
+              nonce: {
+                "ui:widget": HexToNumberConverter,
+              },
+            },
+            chainId: {
+              "ui:widget": HexToNumberConverter,
+            },
+          }}
           schema={openrpcDocumentToJSONRPCSchema(openrpcDocument, "signTransaction") as any}
           formData={state.context.formData}
           onSubmit={(e) => send("SUBMIT", { ...e, type: "SUBMIT" })}
@@ -236,6 +283,11 @@ const MyApp = (props: IProps) => {
           }
           schema={openrpcDocumentToJSONRPCSchema(openrpcDocument, "signTypedData") as any}
           formData={state.context.formData}
+          uiSchema={{
+            chainId: {
+              "ui:widget": HexToNumberConverter,
+            },
+          }}
           title={"Sign"}
           onSubmit={(e) => {
             send("SUBMIT", { ...e, type: "SUBMIT" });
@@ -258,7 +310,7 @@ const MyApp = (props: IProps) => {
           }
           skipPassphrase={true}
           schema={openrpcDocumentToJSONRPCSchema(openrpcDocument, "importMnemonic") as any}
-          formData={state.context.createData}
+          formData={createData}
           onSubmit={(e) => {
             send("SUBMIT", { ...e, type: "SUBMIT" });
           }}
@@ -288,7 +340,6 @@ const MyApp = (props: IProps) => {
           }}
           formData={Object.assign({}, { newAccount: { name: "🧙‍♂️" } }, { newAccount: state.context.createData.newAccount })}
           onSubmit={(e) => {
-            console.log("SUBMIT", e);
             send("SUBMIT", { ...e, type: "SUBMIT" });
           }}
           onCancel={() => send("CANCEL")}
@@ -445,7 +496,7 @@ const MyApp = (props: IProps) => {
         <FormPanel
           id="onboarding"
           skipPassphrase={true}
-          schema={onboardingSchema as any}
+          schema={onboardingSchema as any || {}}
           hideClose={true}
           uiSchema={{
             newAccount: {
@@ -461,7 +512,7 @@ const MyApp = (props: IProps) => {
               </Grid>
               <Grid item container direction="column" xs={8} style={{ marginTop: "20px" }}>
                 <Typography variant="h4" gutterBottom>Welcome to sig.tools</Typography>
-                <Typography variant="caption"><b>sig.tools</b> is a tool to enable the distributed generation and management of cryptographic accounts for the Ethereum Stack.</Typography>
+                <Typography variant="caption"><b>sig.tools</b> is a tool to enable the distributed creation and (non-custodial) management of cryptographic accounts for the Ethereum Stack. <Link href="https://ethereumclassic.org/blog/2017-06-17-private-keys"><b>sig.tools</b> can <b>not</b> recover funds</Link>. Keep your keyfile safe.</Typography>
               </Grid>
             </Grid>
           }

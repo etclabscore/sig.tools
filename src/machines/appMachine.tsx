@@ -1,17 +1,13 @@
 import { createMachine, assign, spawn, Interpreter } from "xstate";
 import cardMachine from "./cardMachine";
-import SignatoryClient from "@etclabscore/signatory-client";
+import { methods as signatoryFactory, MemoryStorage } from "@etclabscore/signatory-core/build/src/index";
 import accountsToTree from "../helpers/accountsToTree";
+import SignatoryLocalStorage from "../storage/signatoryLocalStorage";
+import saveJSON from "../helpers/saveJSON";
 
 const assert: any = (global as any).assert || null;
 
-const signatoryClient = new SignatoryClient({
-  transport: {
-    type: "http",
-    host: "localhost",
-    port: 2999,
-  },
-});
+const signatoryCore = signatoryFactory(new SignatoryLocalStorage());
 
 export interface ICard {
   name?: string;
@@ -115,15 +111,15 @@ export const rawAppMachine = {
       invoke: {
         id: "signatoryListAccounts",
         src: async (context: IContext, event: any) => {
-          const accounts = await signatoryClient.listAccounts();
-          const wallets = await signatoryClient.listWallets();
+          const accounts = await signatoryCore.listAccounts();
+          const wallets = await signatoryCore.listWallets();
           return accountsToTree(accounts, wallets);
         },
         onDone: [
           {
             target: "onboarding",
             cond: (context: IContext, event: any) => {
-              return event.data.length === 0;
+              return event.data && event.data.length === 0;
             },
           },
           {
@@ -191,6 +187,18 @@ export const rawAppMachine = {
         },
         "BACK": {
           target: "list",
+        },
+        "EXPORT": {
+          target: "details",
+          actions: (ctx: IContext, e: any) => {
+            return new Promise((resolve: any, reject: any) => {
+              setTimeout(async () => {
+                const keyfile = await signatoryCore.exportAccount(e.address);
+                saveJSON(keyfile, `${e.address}-keyfile.json`);
+                resolve();
+              }, 200);
+            });
+          },
         },
       },
     },
@@ -262,7 +270,15 @@ export const rawAppMachine = {
       invoke: {
         id: "signatoryCreateAccount",
         src: (context: IContext, event: any) => {
-          return signatoryClient.createAccount(event.newAccount);
+          return new Promise((resolve: any, reject: any) => {
+            setTimeout(() => {
+              signatoryCore.createAccount(event.newAccount).then(async (r) => {
+                const keyfile = await signatoryCore.exportAccount(r);
+                saveJSON(keyfile, `${r}-keyfile.json`);
+                resolve(r);
+              }).catch(reject);
+            }, 200);
+          });
         },
         onDone: {
           target: "success",
@@ -294,7 +310,11 @@ export const rawAppMachine = {
       invoke: {
         id: "signatoryCreateWallet",
         src: (context: IContext, event: any) => {
-          return signatoryClient.importMnemonic(event.importMnemonicOptions);
+          return new Promise((resolve: any, reject: any) => {
+            setTimeout(() => {
+              signatoryCore.importMnemonic(event.importMnemonicOptions).then(resolve).catch(reject);
+            }, 200);
+          });
         },
         onDone: {
           target: "success",
@@ -319,7 +339,7 @@ export const rawAppMachine = {
       invoke: {
         id: "signatorySignTypedData",
         src: (context: IContext, event: any) =>
-          signatoryClient.signTypedData(event.typedData, event.address, event.passphrase, event.chainId),
+          signatoryCore.signTypedData(event.typedData, event.address, event.passphrase, event.chainId),
         onDone: {
           target: "success",
           actions: assign({ result: (context, event: any) => event.data }),
@@ -338,7 +358,16 @@ export const rawAppMachine = {
       },
       invoke: {
         id: "signatorySignTransaction",
-        src: (context: IContext, event: any) => signatoryClient.signTransaction(event.transaction, event.passphrase, event.chainId),
+        src: (context: IContext, event: any) => {
+          return new Promise((resolve: any, reject: any) => {
+            setTimeout(() => {
+              signatoryCore
+                .signTransaction(event.transaction, event.passphrase, event.chainId)
+                .then(resolve)
+                .catch(reject);
+            }, 200);
+          });
+        },
         onDone: {
           target: "success",
           actions: assign({ result: (context, event: any) => event.data }),
@@ -357,7 +386,14 @@ export const rawAppMachine = {
       },
       invoke: {
         id: "signatorySignMessage",
-        src: (context: IContext, event: any) => signatoryClient.sign(event.dataToSign, event.address, event.passphrase, event.chainId),
+        src: (context: IContext, event: any) => {
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              signatoryCore
+                .sign(event.dataToSign, event.address, event.passphrase, event.chainId).then(resolve).catch(reject);
+            }, 200);
+          });
+        },
         onDone: {
           target: "success",
           actions: assign({ result: (context, event: any) => event.data }),

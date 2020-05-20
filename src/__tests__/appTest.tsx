@@ -48,18 +48,18 @@ const applicationModel = createModel(testApplicationMachine, {
 describe("sig app", () => {
   const testPlans = applicationModel.getSimplePathPlans();
   console.log("TESTPLANS?", testPlans);
-  testPlans.forEach((plan: TestPlan<any, IContext>) => {
-    describe(plan.description, () => {
-      afterEach(cleanup);
-      plan.paths.forEach((path) => {
-        it(plan.description, () => {
-          const rendered = render(<MyApp />);
-          return path.test(rendered);
-        });
-      });
-    });
-  });
-  it("should have full coverage", () => {
-    return applicationModel.testCoverage();
-  });
+  // testPlans.forEach((plan: TestPlan<any, IContext>) => {
+  //   describe(plan.description, () => {
+  //     afterEach(cleanup);
+  //     plan.paths.forEach((path) => {
+  //       it(plan.description, () => {
+  //         const rendered = render(<MyApp />);
+  //         return path.test(rendered);
+  //       });
+  //     });
+  //   });
+  // });
+  // it("should have full coverage", () => {
+  //   return applicationModel.testCoverage();
+  // });
 });

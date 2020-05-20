@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { JSONSchema } from "@open-rpc/meta-schema";
 import { Drawer, Button, IconButton } from "@material-ui/core";
-import { Theme as MuiTheme } from "rjsf-material-ui";
+import { Theme as MuiTheme } from "@etclabscore/rjsf-material-ui";
 import { withTheme, UiSchema } from "react-jsonschema-form";
 import { Close } from "@material-ui/icons";
 import PasswordWidget from "../components/PasswordWidget";

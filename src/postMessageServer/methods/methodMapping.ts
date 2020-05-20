@@ -1,26 +1,30 @@
-import { Sign, SignTransaction, SignTypedData, CreateAccount, ImportMnemonic, ListAccounts, NewAccount, Data, Address, ChainId, Transaction, TypedData, ImportMnemonicOptions } from "../__GENERATED_TYPES__";
+import {
+  ListAccounts,
+  NewAccount,
+  Data,
+  Address,
+  ChainId,
+  Transaction,
+  TypedData,
+  ImportMnemonicOptions,
+} from "../__GENERATED_TYPES__";
 import { State, EventObject } from "xstate";
 import { ICard } from "../../machines/appMachine";
 import { IPostMessageServerOptions } from "../postMessageServer";
-import SignatoryClient from "@etclabscore/signatory-client";
+import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
+import SignatoryLocalStorage from "../../storage/signatoryLocalStorage";
 export interface IMethodMapping {
   [methodName: string]: (...params: any) => Promise<any>;
 }
 
-const signatoryClient = new SignatoryClient({
-  transport: {
-    type: "http",
-    host: "localhost",
-    port: 2999,
-  },
-});
+const signatoryCore = signatoryFactory(new SignatoryLocalStorage());
 
 type TGenerateMethodMapping = (options: IPostMessageServerOptions) => IMethodMapping;
 
 const generateMethodMapping: TGenerateMethodMapping = (options) => {
 
   const listAccounts: ListAccounts = async () => {
-    return signatoryClient.listAccounts();
+    return signatoryCore.listAccounts();
   };
 
   const sign: any = async (dataToSign: Data, address: Address, chainId: ChainId, domain: any) => {

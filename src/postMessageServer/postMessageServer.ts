@@ -67,12 +67,12 @@ const generatePermissions = (
         }
         memo[key] = {
           description: methodObject.description,
-          method: (d: any, req: any, res: any, next: any, end: any) => {
+          method: (req: any, res: any, next: any, end: any) => {
             const paramsAsArray = req.params instanceof Array
               ? req.params
               : sortParamKeys(methodObject, req.params);
 
-            methodMapping[key](...paramsAsArray, d).then((result) => {
+            methodMapping[key](...paramsAsArray, domain).then((result) => {
               res.result = result;
               end();
             }).catch((e) => {
@@ -83,7 +83,6 @@ const generatePermissions = (
         };
         return memo;
       }, {} as any).value();
-    console.log("restrictedMethods", restrictedMethods);
     capabilities = new RpcCap.CapabilitiesController({
       safeMethods,
       restrictedMethods,
@@ -120,7 +119,11 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
   });
 
   const postMessageListener = async (ev: MessageEvent) => {
-    const engine = generatePermissions(methodMapping, options.appStateMachine.stateMachineInstance, { origin: ev.origin });
+    const engine = generatePermissions(
+      methodMapping,
+      options.appStateMachine.stateMachineInstance,
+      { origin: ev.origin },
+    );
     console.log("origin", ev.origin); //tslint:disable-line
     console.log("data", ev.data); //tslint:disable-line
     if (ev.origin === window.origin) {

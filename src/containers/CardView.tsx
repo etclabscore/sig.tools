@@ -3,7 +3,7 @@ import { useService } from "@xstate/react";
 import { Card, CardContent, Typography, Grid, ButtonBase, Tooltip } from "@material-ui/core";
 import { Hd, VpnKey } from "@material-ui/icons";
 import { ICard } from "../machines/appMachine";
-import { Theme as MuiTheme } from "rjsf-material-ui";
+import { Theme as MuiTheme } from "@etclabscore/rjsf-material-ui";
 import SignatoryOpenRPCDocument from "../openrpc.json";
 import refParser, { JSONSchema } from "@apidevtools/json-schema-ref-parser";
 import openrpcDocumentToJSONRPCSchema from "../helpers/OpenRPCDocumentMethodToJSONSChema";
@@ -239,7 +239,9 @@ const CardView = (props: IProps) => {
               marginLeft: "5px",
               marginTop: "5px",
               animation: "item-in 0.25s ease-in-out 0.15s both",
-            }} onClick={() => send("SHOW_EXPORT")}>
+            }} onClick={() => {
+              props.card?.ref?.parent?.send("EXPORT", {address: props.card.address});
+            }}>
 
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                 <CardContent>
@@ -269,7 +271,7 @@ const CardView = (props: IProps) => {
                   </CardContent>
                 </Card>
               </ButtonBase>
-              <ButtonBase style={{
+              {/* <ButtonBase style={{
                 ...styles.listItem,
                 marginLeft: "5px",
                 marginBottom: "5px",
@@ -281,7 +283,7 @@ const CardView = (props: IProps) => {
                     <Typography>Export Mnemonic</Typography>
                   </CardContent>
                 </Card>
-              </ButtonBase>
+              </ButtonBase> */}
             </div>
             <div style={{
               animation: "item-in 0.25s ease-in-out 0.30s both",

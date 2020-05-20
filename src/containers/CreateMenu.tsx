@@ -8,11 +8,12 @@ import { useTheme } from "@material-ui/core";
 
 interface IProps {
   onActionClick: (accountOrWallet: string) => void;
+  offsetTop?: boolean;
 }
 
 const actions = [
   { icon: <VpnKey />, name: "New Account", id: "account" },
-  { icon: <Hd />, name: "New HD Wallet", id: "wallet" },
+  // { icon: <Hd />, name: "New HD Wallet", id: "wallet" },
 ];
 
 const CreateMenu: React.FC<IProps> = (props) => {
@@ -25,7 +26,7 @@ const CreateMenu: React.FC<IProps> = (props) => {
       icon={<SpeedDialIcon />}
       onClick={() => setOpen(!open)}
       open={open}
-      style={{ position: "fixed", top: "70px", right: "25px", zIndex: 10 }}
+      style={{ position: "fixed", top: props.offsetTop ? "125px" : "75px", right: "25px", zIndex: 10 }}
       // onOpen={() => setOpen(true)}
       // onClose={() => setOpen(false)}
       direction={"down"}

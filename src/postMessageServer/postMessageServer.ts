@@ -124,8 +124,6 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
       options.appStateMachine.stateMachineInstance,
       { origin: ev.origin },
     );
-    console.log("origin", ev.origin); //tslint:disable-line
-    console.log("data", ev.data); //tslint:disable-line
     if (ev.origin === window.origin) {
       return;
     }

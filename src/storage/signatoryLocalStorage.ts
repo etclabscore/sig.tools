@@ -4,8 +4,10 @@ import * as ethUtil from "ethereumjs-util";
 
 export class SignatoryLocalStorage implements Storage {
   public storage: any;
+  public prefix: string;
 
-  constructor() {
+  constructor(prefix: string = "signatory-") {
+    this.prefix = prefix;
     this.storage = window.localStorage;
   }
 
@@ -29,17 +31,19 @@ export class SignatoryLocalStorage implements Storage {
     const serializedWallet = JSON.stringify(wallet);
     switch (wallet.type) {
       case "deterministic":
-        this.storage[wallet.uuid] = serializedWallet;
+        this.storage[this.prefix + wallet.uuid] = serializedWallet;
         break;
       case "non-deterministic":
-        this.storage[ethUtil.toChecksumAddress(wallet.address)] = serializedWallet;
+        this.storage[this.prefix + ethUtil.toChecksumAddress(wallet.address)] = serializedWallet;
         break;
     }
     return Promise.resolve(wallet);
   }
 
   public listWallets(type: WalletType, hidden: boolean): Promise<AccountMetadata[]> {
-    const wallets = Object.keys(this.storage).map((key) => JSON.parse(this.storage[key]) as AccountStorageData);
+    const wallets = Object.keys(this.storage)
+      .filter((key) => key.startsWith(this.prefix))
+      .map((key) => JSON.parse(this.storage[key]) as AccountStorageData);
     const filteredWallets = wallets.filter((wallet) => wallet.type === type && (wallet.visible || hidden));
     return Promise.resolve(filteredWallets.map((wallet) => {
       const { name, description, visible } = wallet;
@@ -56,7 +60,7 @@ export class SignatoryLocalStorage implements Storage {
   }
 
   private getEntry(key: string) {
-    return this.storage[key];
+    return this.storage[this.prefix + key];
   }
 }
 

@@ -139,7 +139,11 @@ export const rawAppMachine = {
             },
           },
           target: "error",
-          actions: assign({ error: (context, event: any) => event.data }),
+          actions: assign({
+            error: (context, event: any) => {
+              return event.data;
+            },
+          }),
         },
       },
     },

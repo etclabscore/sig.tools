@@ -29,7 +29,6 @@ const CodeInput: React.FC<IProps> = (props) => {
   };
 
   const handlePrev = () => {
-    console.log("handleprev");
     setCurrentIndex((prevCurrentIndex) => {
       const p = prevCurrentIndex - 1;
       if (elRefs[prevCurrentIndex] && elRefs[prevCurrentIndex].current) {
@@ -48,7 +47,6 @@ const CodeInput: React.FC<IProps> = (props) => {
       elRefs[currentIndex].current!.focus();
     }
   }, [currentIndex, elRefs]);
-  console.log("fieldValues", fieldValues);
   return (
     <Grid container justify="center" alignItems="center">
       {
@@ -79,24 +77,20 @@ const CodeInput: React.FC<IProps> = (props) => {
                 }
               }}
               onChange={(event) => {
-                console.log("changed", event.target.value);
                 let val = event.target.value;
                 if (!val) {
                   return;
                 }
                 let newFieldValues: any[] = [...fieldValues];
                 const valSplit = event.target.value.split("");
-                console.log("valSplit", valSplit);
                 if (valSplit.length > 0) {
                   const stepResult = step(valSplit.length);
-                  console.log("stepresult", stepResult);
                   if (!stepResult && currentIndex !== 0 && valSplit.length !== props.fields) {
                     // last, keep setting last value
                     newFieldValues = Object.assign([], newFieldValues, { [currentIndex]: valSplit[valSplit.length - 1] });
                   } else {
                     for (let ind = 0; ind < valSplit.length; ind++) {
                       const element = valSplit[ind];
-                      console.log("assigning element", element, ind);
                       newFieldValues = Object.assign([], newFieldValues, { [currentIndex + ind]: element });
                     }
                   }
@@ -116,14 +110,12 @@ const CodeInput: React.FC<IProps> = (props) => {
         type="text"
         inputProps={{ autoComplete: "user" }}
         value={""}
-        onChange={() => console.log("changed")}
       />
       <InputBase
         style={{ display: "none" }}
         type="password"
         inputProps={{ autoComplete: "new-password" }}
         value={fieldValues.join("") || ""}
-        onChange={() => console.log("changed")}
       />
     </Grid>
   );

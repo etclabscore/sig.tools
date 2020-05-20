@@ -23,13 +23,11 @@
 <br />
 <br />
 
-🚧 <b>sig.tools</b> is in early <b>alpha</b>. <a href="https://github.com/etclabscore/sig.tools/issues/new?assignees=&labels=&template=feature_request.md&title=">Give Feedback</a>.
-
+🚧 <b>sig.tools</b> is in early development<b>alpha</b>. Some features are not available. This project has not been through an audit, use at your own risk, testnet usage is recommended. <a href="https://github.com/etclabscore/sig.tools/issues/new?assignees=&labels=&template=feature_request.md&title=">Give Feedback and Report Bugs</a>.
 
 <br />
 <br />
 <br />
-
 
 ### Contributing
 

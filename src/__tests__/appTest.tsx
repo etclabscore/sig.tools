@@ -5,6 +5,7 @@ import { IContext, rawAppMachine } from "../machines/appMachine";
 import MyApp from "../containers/MyApp";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 import { TestPlan } from "@xstate/test/lib/types";
+import { act } from "react-dom/test-utils";
 
 const applicationMachine = Machine<IContext, any, any>(rawAppMachine);
 const testApplicationMachine = applicationMachine.withContext({
@@ -46,8 +47,11 @@ const applicationModel = createModel(testApplicationMachine, {
 });
 
 describe("sig app", () => {
-  const testPlans = applicationModel.getSimplePathPlans();
-  console.log("TESTPLANS?", testPlans);
+  it("runs", () => {
+      //rendered.container.innerHTML
+  });
+  // const testPlans = applicationModel.getSimplePathPlans();
+  // console.log("TESTPLANS?", testPlans);
   // testPlans.forEach((plan: TestPlan<any, IContext>) => {
   //   describe(plan.description, () => {
   //     afterEach(cleanup);

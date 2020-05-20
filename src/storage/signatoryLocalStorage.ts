@@ -51,6 +51,7 @@ export class SignatoryLocalStorage implements Storage {
           const { uuid, hdPath } = wallet;
           return { uuid, name, description, hdPath, type: wallet.type, hidden: !visible };
       }
+      return wallet;
     }));
   }
 

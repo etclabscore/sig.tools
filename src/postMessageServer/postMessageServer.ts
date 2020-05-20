@@ -1,8 +1,8 @@
 import openrpcDocument from "../openrpc.json";
 import generateMethodMapping, { IMethodMapping } from "./methods/methodMapping";
-import { State, Interpreter, StateNode, EventObject } from "xstate";
+import { State, Interpreter, EventObject } from "xstate";
 import { MethodObject, ContentDescriptorObject } from "@open-rpc/meta-schema";
-import { UserApprovalPrompt, IRequestedPermissions, IPermissionsRequest, RpcCapDomainEntry } from "rpc-cap/dist/src/@types";
+import { UserApprovalPrompt,  IPermissionsRequest } from "rpc-cap/dist/src/@types";
 import _ from "lodash";
 const RpcCap = require("rpc-cap");//tslint:disable-line
 const JsonRpcEngine = require("json-rpc-engine"); //tslint:disable-line
@@ -187,7 +187,6 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
         },
         id: ev.data.id,
       };
-      console.log("doc=", doc);
       (ev.source as any).postMessage(doc, "*");
       return;
     }
@@ -242,7 +241,6 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
 
   return {
     start: () => {
-      console.log("STARTED");
       window.addEventListener("message", postMessageListener);
     },
     stop: () => {

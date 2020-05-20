@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useService } from "@xstate/react";
 import { Card, CardContent, Typography, Grid, ButtonBase, Tooltip } from "@material-ui/core";
 import { Hd, VpnKey } from "@material-ui/icons";
 import { ICard } from "../machines/appMachine";
-import { Theme as MuiTheme } from "@etclabscore/rjsf-material-ui";
 import SignatoryOpenRPCDocument from "../openrpc.json";
 import refParser, { JSONSchema } from "@apidevtools/json-schema-ref-parser";
 import openrpcDocumentToJSONRPCSchema from "../helpers/OpenRPCDocumentMethodToJSONSChema";
@@ -14,8 +13,6 @@ import FormDrawer from "./FormDrawer";
 import useDarkMode from "use-dark-mode";
 import { QRCode } from "react-qrcode-logo";
 import CardsList from "./CardsList";
-const withTheme = require("@rjsf/core").withTheme; //tslint:disable-line
-const Form = withTheme(MuiTheme);
 
 interface IProps {
   card: ICard;
@@ -59,10 +56,8 @@ const styles = {
 
 const CardView = (props: IProps) => {
   const [state, send] = useService(props.card.ref!);
-  const [formSchema, setFormSchema] = useState<undefined | JSONSchema>();
   const [openrpcDocument, setOpenrpcDocument] = useState<undefined | JSONSchema>();
   const darkMode = useDarkMode();
-  const ref = useRef(null);
   const colorHash =
     darkMode.value
       ? new ColorHash({
@@ -203,7 +198,7 @@ const CardView = (props: IProps) => {
             }} onClick={() => props.onSignTransaction && props.onSignTransaction(props.card)}>
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                 <CardContent>
-                  <Typography>✍️</Typography>
+                  <Typography><span role="img" aria-label="sign-transaction">✍️</span></Typography>
                   <Typography>Sign Transaction</Typography>
                 </CardContent>
               </Card>
@@ -216,7 +211,7 @@ const CardView = (props: IProps) => {
             }} onClick={() => props.onSignMessage && props.onSignMessage(props.card)}>
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                 <CardContent style={{ width: "80%", margin: "0 auto" }}>
-                  <Typography>🔏</Typography>
+                  <Typography><span role="img" aria-label="sign-message">🔏</span></Typography>
                   <Typography>Sign Message</Typography>
                 </CardContent>
               </Card>
@@ -229,7 +224,7 @@ const CardView = (props: IProps) => {
             }} onClick={() => props.onSignTypedData && props.onSignTypedData(props.card)}>
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                 <CardContent>
-                  <Typography>📝</Typography>
+                  <Typography><span role="img" aria-label="sign-typed-data">📝</span></Typography>
                   <Typography>Sign Typed Data</Typography>
                 </CardContent>
               </Card>
@@ -245,7 +240,7 @@ const CardView = (props: IProps) => {
 
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                 <CardContent>
-                  <Typography>🔑</Typography>
+                  <Typography><span role="img" aria-label="export-account">🔑</span></Typography>
                   <Typography>Export Account</Typography>
                 </CardContent>
               </Card>
@@ -265,7 +260,7 @@ const CardView = (props: IProps) => {
               }} onClick={() => send("SHOW_SIGN_TRANSACTION")}>
                 <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                   <CardContent>
-                    <Typography>🔐</Typography>
+                    <Typography><span role="img" aria-label="new-account">🔐</span></Typography>
                     <Typography>New</Typography>
                     <Typography>Account</Typography>
                   </CardContent>

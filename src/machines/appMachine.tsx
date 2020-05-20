@@ -1,6 +1,6 @@
 import { createMachine, assign, spawn, Interpreter } from "xstate";
 import cardMachine from "./cardMachine";
-import { methods as signatoryFactory, MemoryStorage } from "@etclabscore/signatory-core/build/src/index";
+import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
 import accountsToTree from "../helpers/accountsToTree";
 import SignatoryLocalStorage from "../storage/signatoryLocalStorage";
 import saveJSON from "../helpers/saveJSON";

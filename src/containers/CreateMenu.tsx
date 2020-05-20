@@ -2,9 +2,7 @@ import React from "react";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { VpnKey, Hd } from "@material-ui/icons";
-import { useTheme } from "@material-ui/core";
+import { VpnKey } from "@material-ui/icons";
 
 interface IProps {
   onActionClick: (accountOrWallet: string) => void;
@@ -17,8 +15,6 @@ const actions = [
 ];
 
 const CreateMenu: React.FC<IProps> = (props) => {
-  const theme = useTheme();
-  const mobile = useMediaQuery(theme.breakpoints.down("xs"));
   const [open, setOpen] = React.useState(false);
   return (
     <SpeedDial

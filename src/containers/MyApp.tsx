@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useMachine } from "@xstate/react";
 import appMachine, { ICard, IContext } from "../machines/appMachine";
-import { Button, Grid, IconButton, MuiThemeProvider, CssBaseline, Paper, CircularProgress, Typography, FormControlLabel, Checkbox, InputBase, Container, TextField, Link, Collapse } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  IconButton,
+  MuiThemeProvider,
+  CssBaseline,
+  Paper,
+  CircularProgress,
+  Typography,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Collapse,
+} from "@material-ui/core";
 import SignatoryOpenRPCDocument from "../openrpc.json";
 import CardView from "./CardView";
 import refParser, { JSONSchema } from "@apidevtools/json-schema-ref-parser";
-import { ArrowBackIos, VpnKey, Hd, Close } from "@material-ui/icons";
+import { ArrowBackIos, Close } from "@material-ui/icons";
 import CardsList from "./CardsList";
 import { Flipper } from "react-flip-toolkit";
 import AppBar from "./AppBar";
@@ -14,20 +27,15 @@ import useDarkMode from "use-dark-mode";
 import CreateMenu from "./CreateMenu";
 import AppBarSignatory from "./AppBarSignatory";
 import postMessageServer from "../postMessageServer/postMessageServer";
-import FormDrawer from "./FormDrawer";
 import openrpcDocumentToJSONRPCSchema from "../helpers/OpenRPCDocumentMethodToJSONSChema";
 import _ from "lodash";
 import Alert from "@material-ui/lab/Alert";
 import FormPanel from "./FormPanel";
-import { green, red, grey } from "@material-ui/core/colors";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import SelectAccount from "./SelectAccount";
+import { green, red } from "@material-ui/core/colors";
 import { State } from "xstate";
 import HexToNumberConverter from "../components/HexToNumberConverter";
 import HexToStringConverter from "../components/HexToString";
 
-interface IProps {
-}
 export const matchesMachineState = (
   states: string[],
   machine: State<any, any, any, any>,
@@ -41,8 +49,9 @@ const configuredAppMachine = appMachine.withConfig({
   },
 }, { cards: [], formData: null, error: null, result: null, createData: null });
 
-const MyApp = (props: IProps) => {
-  const [state, send, myStateMachineService]: [any, any, any] = useMachine<IContext, any>(configuredAppMachine, { devTools: true });
+const MyApp = () => {
+  const [state, send, myStateMachineService]: [any, any, any] =
+    useMachine<IContext, any>(configuredAppMachine, { devTools: true });
   const [onboardingSchema, setOnboardingSchema] = useState();
   const darkMode = useDarkMode();
   const theme = darkMode.value ? darkTheme : lightTheme;
@@ -58,7 +67,7 @@ const MyApp = (props: IProps) => {
   const [openrpcDocument, setOpenrpcDocument] = useState<undefined | JSONSchema>();
   const [jsonrpcServer, setJsonrpcServer] = useState<any>();
   const { metadata, ...formData } = state.context.formData || { metadata: { origin: "" } };
-  let { domain, ...createData } = state.context.createData || { domain: "" };
+  let { domain, ...createData } = state.context.createData || { domain: "" }; //tslint:disable-line
   if (formData.domain) {
     domain = formData.domain;
     delete formData.domain;
@@ -77,6 +86,7 @@ const MyApp = (props: IProps) => {
     });
     pmServer.start();
     setJsonrpcServer(pmServer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.context, state.value, myStateMachineService]);
 
   useEffect(() => {
@@ -137,7 +147,16 @@ const MyApp = (props: IProps) => {
               <Close fontSize="inherit" />
             </IconButton>
           }
-        ><b>sig.tools</b> is in early development<b> alpha</b>. Some features are not available. <Link href="https://ethereumclassic.org/blog/2017-06-17-private-keys" color="textSecondary">Use at your own risk.</Link> <Link href="https://github.com/etclabscore/sig.tools/issues" color="secondary">Give Feedback.</Link></Alert>
+        >
+          <b>sig.tools</b> is in early development<b> alpha</b>.
+            &nbsp;Some features are not available.&nbsp;
+          <Link href="https://ethereumclassic.org/blog/2017-06-17-private-keys" color="textSecondary">
+            Use at your own risk.
+          </Link>
+          &nbsp;<Link href="https://github.com/etclabscore/sig.tools/issues" color="secondary">
+            Give Feedback.
+          </Link>
+        </Alert>
       </Collapse>
       <AppBar
         onDarkModeChange={darkMode.toggle}
@@ -338,7 +357,11 @@ const MyApp = (props: IProps) => {
               },
             },
           }}
-          formData={Object.assign({}, { newAccount: { name: "🧙‍♂️" } }, { newAccount: state.context.createData.newAccount })}
+          formData={Object.assign(
+            {},
+            { newAccount: { name: "🧙‍♂️" } },
+            { newAccount: state.context.createData.newAccount },
+          )}
           onSubmit={(e) => {
             send("SUBMIT", { ...e, type: "SUBMIT" });
           }}
@@ -347,7 +370,11 @@ const MyApp = (props: IProps) => {
           <Button type="submit" variant="contained" fullWidth color="primary">Create Account</Button>
         </FormPanel>
       }
-      {(state.matches("signingMessage") || state.matches("creatingAccount") || state.matches("creatingWallet") || state.matches("signingTransaction") || state.matches("signingTypedData")) &&
+      {(state.matches("signingMessage") ||
+        state.matches("creatingAccount") ||
+        state.matches("creatingWallet") ||
+        state.matches("signingTransaction") ||
+        state.matches("signingTypedData")) &&
         <Grid container justify="center" alignItems="center" style={{ paddingTop: "30px" }}>
           <CircularProgress />
         </Grid>
@@ -384,7 +411,7 @@ const MyApp = (props: IProps) => {
             onClick={() => send("CANCEL")}>
             <Close />
           </IconButton>
-          <Typography color="textSecondary">🎉 Success</Typography>
+          <Typography color="textSecondary"><span role="img" aria-label="success">🎉</span> Success</Typography>
           <pre style={{ overflow: "auto" }}>
             <code>
               {JSON.stringify(state.context.result, null, 4)}
@@ -447,7 +474,7 @@ const MyApp = (props: IProps) => {
           pointerEvents: state.matches("requestPermissions") ? "all" : "none",
           animation:
             (state.matches("requestPermissions") || (state.history && state.history.value === "requestPermissions"))
-              ? `scale-${state.matches("requestPermissions") ? "in" : "out"} 0.2s cubic-bezier(0.4, 0.0, 0.2, 1) 0s both`
+              ? `scale-${state.matches("requestPermissions") ? "in" : "out"} 0.2s cubic-bezier(0.4, 0.0, 0.2, 1) 0s both` //tslint:disable-line
               : "none",
           zIndex: 1300,
         }}>
@@ -508,11 +535,19 @@ const MyApp = (props: IProps) => {
           header={
             <Grid container direction="row">
               <Grid item xs={4} container justify="center" alignItems="center">
-                <Typography style={{ fontSize: "100px" }}>🔐</Typography>
+                <Typography style={{ fontSize: "100px" }}><span role="img" aria-label="sig.tools">🔐</span></Typography>
               </Grid>
               <Grid item container direction="column" xs={8} style={{ marginTop: "20px" }}>
                 <Typography variant="h4" gutterBottom>Welcome to sig.tools</Typography>
-                <Typography variant="caption"><b>sig.tools</b> is a tool to enable the distributed creation and (non-custodial) management of cryptographic accounts for the Ethereum Stack. <Link href="https://ethereumclassic.org/blog/2017-06-17-private-keys"><b>sig.tools</b> can <b>not</b> recover funds</Link>. Keep your keyfile safe.</Typography>
+                <Typography variant="caption">
+                  <b>sig.tools</b>
+                  &nbsp;is a tool to enable the distributed creation and (non-custodial) management of cryptographic
+                  accounts for the Ethereum Stack.
+                   <Link href="https://ethereumclassic.org/blog/2017-06-17-private-keys">
+                    <b>&nbsp;sig.tools</b> can <b>not</b> recover funds
+                  </Link>.
+                  Keep your keyfile safe.
+                </Typography>
               </Grid>
             </Grid>
           }

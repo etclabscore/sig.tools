@@ -36,11 +36,9 @@ const applicationModel = createModel(testApplicationMachine, {
       //
     },
     SUBMIT: ({ getByTestId }: any) => {
-      console.log("in submit");
       fireEvent.click(getByTestId("submit"));
     },
     CANCEL: ({ getByTestId }: any) => {
-      console.log("in cancel");
       fireEvent.click(getByTestId("cancel-button"));
     },
   } as any,
@@ -48,7 +46,7 @@ const applicationModel = createModel(testApplicationMachine, {
 
 describe("sig app", () => {
   it("runs", () => {
-      //rendered.container.innerHTML
+      // rendered.container.innerHTML
   });
   // const testPlans = applicationModel.getSimplePathPlans();
   // console.log("TESTPLANS?", testPlans);

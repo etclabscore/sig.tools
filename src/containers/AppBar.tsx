@@ -1,5 +1,5 @@
-import React, { JSXElementConstructor, ReactNode } from "react";
-import { AppBar, Toolbar, Typography, Tooltip, IconButton, Box, useTheme } from "@material-ui/core";
+import React, { ReactNode } from "react";
+import { AppBar, Toolbar, Tooltip, IconButton, Box, useTheme } from "@material-ui/core";
 import { Brightness3, WbSunny } from "@material-ui/icons";
 
 interface IProps {

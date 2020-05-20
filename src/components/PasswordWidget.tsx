@@ -1,7 +1,6 @@
 import React from "react";
 import CodeInput from "./CodeInput";
-import { Typography, Grid, TextField } from "@material-ui/core";
-import { grey } from "@material-ui/core/colors";
+import { Grid } from "@material-ui/core";
 
 interface IProps {
   onChange: (val: string) => void;

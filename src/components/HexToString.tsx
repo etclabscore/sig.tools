@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextField, Grid, Typography } from "@material-ui/core";
 import hexToStringMachine from "../machines/hexToStringMachine";
 import { useMachine } from "@xstate/react";

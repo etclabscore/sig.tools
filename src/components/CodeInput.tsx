@@ -1,6 +1,5 @@
-import React, { useState, useEffect, createRef, Ref, RefObject, useCallback } from "react";
-import { InputBase, Grid, Typography } from "@material-ui/core";
-import _ from "lodash";
+import React, { useState, useEffect, createRef, RefObject } from "react";
+import { InputBase, Grid } from "@material-ui/core";
 
 interface IProps {
   type: "password" | "text" | "number" | "emoji";
@@ -48,7 +47,7 @@ const CodeInput: React.FC<IProps> = (props) => {
     if (elRefs[currentIndex] && elRefs[currentIndex].current) {
       elRefs[currentIndex].current!.focus();
     }
-  }, [currentIndex]);
+  }, [currentIndex, elRefs]);
   console.log("fieldValues", fieldValues);
   return (
     <Grid container justify="center" alignItems="center">

@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/etclabscore/sig.tools/compare/1.0.1...1.0.2) (2020-05-20)
+
+
+### Bug Fixes
+
+* **README:** whitespace ([2a89ed2](https://github.com/etclabscore/sig.tools/commit/2a89ed2d7c60d690b01c794f768bad3c809b65ca))
+* remove debug string ([9eafe23](https://github.com/etclabscore/sig.tools/commit/9eafe2304c0595fe9419b0684a9b7aa7c3555105))
+
 ## [1.0.1](https://github.com/etclabscore/sig.tools/compare/1.0.0...1.0.1) (2020-05-20)
 
 

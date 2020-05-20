@@ -135,7 +135,6 @@ const CardView = (props: IProps) => {
                 <Flipped flipId={`account-${props.card.name}-${props.card.address || props.card.uuid}-name`} spring="stiff" translate>
                   <div style={{ width: "230px", overflow: "hidden", textOverflow: "elipsis" }}>
                     <Typography color="textSecondary">{props.card.name}</Typography>
-                    {state.history && state.history.value}
                   </div>
                 </Flipped>
                 <Flipped flipId={`account-${props.card.name}-${props.card.address || props.card.uuid}-hd`} spring="stiff" translate>

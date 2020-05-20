@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/etclabscore/sig.tools/compare/1.0.0...1.0.1) (2020-05-20)
+
+
+### Bug Fixes
+
+* **.releaserc:** disable pullTagsBranch ([d5b3e0b](https://github.com/etclabscore/sig.tools/commit/d5b3e0bf4a4dccd03263574fde73962273748813))
+
 # 1.0.0 (2020-05-20)
 
 

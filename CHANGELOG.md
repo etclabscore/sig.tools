@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/etclabscore/sig.tools/compare/1.0.3...1.0.4) (2020-05-29)
+
+
+### Bug Fixes
+
+* set hexToStringMachine initial value ([4e8737f](https://github.com/etclabscore/sig.tools/commit/4e8737ff8567a1329b8505487fe76f31d631685f))
+
 ## [1.0.3](https://github.com/etclabscore/sig.tools/compare/1.0.2...1.0.3) (2020-05-20)
 
 

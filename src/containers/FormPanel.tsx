@@ -3,7 +3,6 @@ import { Button, Grid, IconButton, Paper, Typography } from "@material-ui/core";
 import { JSONSchema } from "@apidevtools/json-schema-ref-parser";
 import { Close } from "@material-ui/icons";
 import { Theme as MuiTheme } from "@etclabscore/rjsf-material-ui";
-import PasswordWidget from "../components/PasswordWidget";
 import { withTheme } from "react-jsonschema-form";
 import FormDrawer from "./FormDrawer";
 const Form = withTheme(MuiTheme);
@@ -69,7 +68,7 @@ const FormPanel: React.FC<IProps> = (props) => {
           />
           {!props.hideClose &&
             <IconButton
-              id="cancel-button"
+              id="cancel"
               style={{
                 position: "absolute",
                 top: "0px",
@@ -97,7 +96,6 @@ const FormPanel: React.FC<IProps> = (props) => {
               ...props.uiSchema,
             }}
             widgets={{
-              password: PasswordWidget as any,
               ...props.widgets,
             }}
             onSubmit={(data) => {
@@ -109,7 +107,7 @@ const FormPanel: React.FC<IProps> = (props) => {
               }
             }}
           >
-            <Button type="submit" variant="contained" fullWidth color="primary">{props.title}</Button>
+            <Button id="submit" type="submit" variant="contained" fullWidth color="primary">{props.title}</Button>
           </Form>
 
         </div>

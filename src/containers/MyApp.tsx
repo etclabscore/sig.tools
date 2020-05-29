@@ -479,7 +479,7 @@ const MyApp = () => {
           zIndex: 1300,
         }}>
         <IconButton
-          id="cancel-button"
+          id="cancel"
           style={{
             position: "fixed",
             top: "0px",
@@ -514,8 +514,8 @@ const MyApp = () => {
             })
           }
           <div style={{ width: "100%", marginBottom: "20px" }} />
-          <Button variant="contained" onClick={() => send("SUBMIT")}>Trust</Button>
-          <Button onClick={() => send("CANCEL")}>Decline</Button>
+          <Button id="submit" variant="contained" onClick={() => send("SUBMIT")}>Trust</Button>
+          <Button id="cancel" onClick={() => send("CANCEL")}>Decline</Button>
         </Grid>
       </Paper>
       }

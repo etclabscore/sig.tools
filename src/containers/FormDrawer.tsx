@@ -4,7 +4,6 @@ import { Drawer, Button, IconButton } from "@material-ui/core";
 import { Theme as MuiTheme } from "@etclabscore/rjsf-material-ui";
 import { withTheme, UiSchema } from "react-jsonschema-form";
 import { Close } from "@material-ui/icons";
-import PasswordWidget from "../components/PasswordWidget";
 const Form = withTheme(MuiTheme);
 
 interface IProps {
@@ -43,9 +42,6 @@ const FormDrawer: React.FC<IProps> = (props) => {
           showErrorList={false}
           formData={props.formData}
           liveValidate={true}
-          widgets={{
-            password: PasswordWidget as any,
-          }}
           uiSchema={{
             "ui:autoFocus": true,
             ...props.uiSchema,

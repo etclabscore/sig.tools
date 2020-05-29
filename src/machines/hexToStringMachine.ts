@@ -9,6 +9,24 @@ export interface IHexStringMachineContext {
 const hexToNumberMachine: StateMachine<IHexStringMachineContext, any, any> = createMachine({
   initial: "active",
   context: { hex: "", string: "" },
+  entry: assign({
+    hex: (context: IHexStringMachineContext, event: any) => context.hex,
+    string: (context: IHexStringMachineContext, event: any) => {
+      let returnVal;
+      if (!context.hex) {
+        return "";
+      }
+      if (!context.hex.match(/^0x/)) {
+        return "";
+      }
+      try {
+        returnVal = hexToString(context.hex);
+      } catch (e) {
+        //
+      }
+      return returnVal || "";
+    },
+  }),
   states: {
     active: {
       on: {

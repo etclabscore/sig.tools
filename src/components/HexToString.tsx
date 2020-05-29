@@ -23,7 +23,7 @@ const HexToStringConverter: React.FC<IProps> = (props) => {
       <Grid container justify="space-around" alignItems="center">
         <TextField label="Hex" variant="outlined" value={state.context.hex || ""} onChange={(e) => send("HEX_INPUT", { value: e.target.value })} style={{ width: "43%" }} />
         <SwapHoriz />
-        <TextField label="String" variant="outlined" value={state.context.string || ""} onChange={(e) => send("STRING_INPUT", { value: e.target.value })} style={{ width: "43%" }} />
+        <TextField multiline label="String" variant="outlined" value={state.context.string || ""} onChange={(e) => send("STRING_INPUT", { value: e.target.value })} style={{ width: "43%" }} />
       </Grid>
     </>
   );

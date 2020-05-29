@@ -33,7 +33,6 @@ interface IProps {
 const PasswordWidget: React.FC<IProps> = (props) => {
   return (
     <Grid container justify="center" alignContent="center">
-
       <CodeInput type="password" fields={8} onChange={props.onChange} value={props.value}/>
     </Grid>
   );

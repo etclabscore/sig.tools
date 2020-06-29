@@ -2,7 +2,12 @@
   "tagFormat": "${version}",
   "branch": "master",
   "plugins": [
-    "@open-rpc/semantic-release-plugin",
+    [
+      "@open-rpc/semantic-release-plugin",
+      {
+        "documentLocation": "src/openrpc.json"
+      }
+    ],
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",

@@ -22,7 +22,7 @@
       "description": "get users permissions",
       "params": [],
       "result": {
-        "$ref": "#/components/schemas/PermissionsList"
+        "$ref": "#/components/contentDescriptors/PermissionsList"
       }
     },
     {
@@ -43,7 +43,7 @@
         }
       ],
       "result": {
-        "$ref": "#/components/schemas/PermissionsList"
+        "$ref": "#/components/contentDescriptors/PermissionsList"
       }
     },
     {
@@ -584,14 +584,12 @@
   "components": {
     "schemas": {
       "PermissionsList": {
-        "title": "PermissionsList",
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Permissions"
         }
       },
       "Permissions": {
-        "title": "Permissions",
         "type": "object"
       },
       "AccountExists": {

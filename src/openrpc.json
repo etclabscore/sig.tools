@@ -20,16 +20,9 @@
     {
       "name": "getPermissions",
       "description": "get users permissions",
-      "params": [
-      ],
+      "params": [],
       "result": {
-        "name": "permissions",
-        "schema": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/Permissions"
-          }
-        }
+        "$ref": "#/components/schemas/PermissionsList"
       }
     },
     {
@@ -39,6 +32,7 @@
         {
           "name": "requestPermissionsObject",
           "schema": {
+            "title": "requestPermissionObject",
             "type": "object",
             "properties": {
               "listAccounts": {
@@ -49,13 +43,7 @@
         }
       ],
       "result": {
-        "name": "permissions",
-        "schema": {
-          "type": "array",
-          "items": {
-            "$ref": "#/components/schemas/Permissions"
-          }
-        }
+        "$ref": "#/components/schemas/PermissionsList"
       }
     },
     {
@@ -595,6 +583,13 @@
   ],
   "components": {
     "schemas": {
+      "PermissionsList": {
+        "title": "PermissionsList",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Permissions"
+        }
+      },
       "Permissions": {
         "title": "Permissions",
         "type": "object"
@@ -900,6 +895,14 @@
       }
     },
     "contentDescriptors": {
+      "PermissionsList": {
+        "name": "permissionsList",
+        "summary": "list of permissions",
+        "description": "List of permissions a user has",
+        "schema": {
+          "$ref": "#/components/schemas/PermissionsList"
+        }
+      },
       "Address": {
         "name": "address",
         "summary": "Account address",

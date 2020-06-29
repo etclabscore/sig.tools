@@ -29,6 +29,32 @@
 <br />
 <br />
 
+### Javascript/Typescript SDK
+
+You can interact with `sig.tools` via `PostMessage` over `JSON-RPC`. There is a generated sdk from this repository you can install:
+
+```
+npm install --save sig.tools-sdk
+```
+
+and use in your dapp:
+
+```
+import SigtoolsSDK from "sig.tools-sdk";
+
+const sigtoolsSDK = new SigtoolsClient({
+  transport: {
+    type: "postmessagewindow",
+    host: "sig.tools",
+    port: 443,
+    protocol: "https",
+  },
+});
+
+const signedResult = await sigtoolsSDK.sign(hexString, address, chainId);
+console.log(signedResult);
+```
+
 ### Contributing
 
 How to contribute, build and release are outlined in [CONTRIBUTING.md](CONTRIBUTING.md), [BUILDING.md](BUILDING.md) and [RELEASING.md](RELEASING.md) respectively. Commits in this repository follow the [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md) specification.

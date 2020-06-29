@@ -18,6 +18,35 @@
   ],
   "methods": [
     {
+      "name": "getPermissions",
+      "description": "get users permissions",
+      "params": [],
+      "result": {
+        "$ref": "#/components/schemas/PermissionsList"
+      }
+    },
+    {
+      "name": "requestPermissions",
+      "description": "request additional permissions from the user",
+      "params": [
+        {
+          "name": "requestPermissionsObject",
+          "schema": {
+            "title": "requestPermissionObject",
+            "type": "object",
+            "properties": {
+              "listAccounts": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      ],
+      "result": {
+        "$ref": "#/components/schemas/PermissionsList"
+      }
+    },
+    {
       "name": "listAccounts",
       "summary": "Return the list of all not hidden (by default) accounts from the keystore",
       "params": [
@@ -554,6 +583,17 @@
   ],
   "components": {
     "schemas": {
+      "PermissionsList": {
+        "title": "PermissionsList",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Permissions"
+        }
+      },
+      "Permissions": {
+        "title": "Permissions",
+        "type": "object"
+      },
       "AccountExists": {
         "title": "AccountExists",
         "type": "boolean"
@@ -855,6 +895,14 @@
       }
     },
     "contentDescriptors": {
+      "PermissionsList": {
+        "name": "permissionsList",
+        "summary": "list of permissions",
+        "description": "List of permissions a user has",
+        "schema": {
+          "$ref": "#/components/schemas/PermissionsList"
+        }
+      },
       "Address": {
         "name": "address",
         "summary": "Account address",

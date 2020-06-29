@@ -136,69 +136,12 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
     if (ev.data.method === "rpc.discover") {
       const doc = {
         jsonrpc: "2.0",
-        result: {
-          ...openrpcDocument,
-          methods: [
-            ...openrpcDocument.methods,
-            {
-              name: "getPermissions",
-              description: "List the currently available restricted methods",
-              params: [],
-              result: {
-                name: "permissions",
-                schema: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                  },
-                },
-              },
-            },
-            {
-              name: "requestPermissions",
-              description: "request additional permissions from the user",
-              params: [
-                {
-                  name: "requestPermissionsObject",
-                  schema: {
-                    type: "object",
-                    properties: openrpcDocument.methods.reduce((memo, method, key) => {
-                      memo[method.name] = {
-                        type: "object",
-                      };
-                      return memo;
-                    }, {} as any),
-                  },
-                },
-              ],
-              result: {
-                name: "permissions",
-                schema: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                  },
-                },
-              },
-            },
-          ],
-        },
+        result: openrpcDocument,
         id: ev.data.id,
       };
       (ev.source as any).postMessage(doc, "*");
       return;
     }
-    // if (!methodMapping[ev.data.method]) {
-    //   window.parent.postMessage({
-    //     jsonrpc: "2.0",
-    //     error: {
-    //       code: 32009,
-    //       message: "Method not found",
-    //     },
-    //     id: ev.data.id,
-    //   }, "*");
-    //   return;
-    // }
     return engine.handle(ev.data, (e: Error, response: any) => {
       if (e) {
         if (e.message.includes("User Rejected Request")) {
@@ -227,14 +170,6 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
       }
       console.error("No origin defined");
     });
-    // const methodObject = openrpcDocument.methods.find((m) => m.name === ev.data.method) as MethodObject;
-    // const paramsAsArray = ev.data.params instanceof Array
-    //   ? ev.data.params
-    //   : sortParamKeys(methodObject, ev.data.params);
-
-    // methodMapping[ev.data.method](...paramsAsArray).then((results: any) => {
-    // }).catch((e: Error) => {
-    // });
   };
 
   return {

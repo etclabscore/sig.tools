@@ -6,7 +6,7 @@
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     "@semantic-release/github",
-    "@semantic-release/git",
+    "@semantic-release/git"
   ],
   "verifyConditions": [
     "@semantic-release/changelog",
@@ -15,6 +15,12 @@
     "@qiwi/semantic-release-gh-pages-plugin"
   ],
   "publish": [
+    [
+      "@semantic-release/exec",
+      {
+        "publishCmd": "./publish.sh"
+      }
+    ],
     "@semantic-release/github",
     {
       "path": "@qiwi/semantic-release-gh-pages-plugin",

@@ -1,3 +1,11 @@
+## [1.1.2](https://github.com/etclabscore/sig.tools/compare/1.1.1...1.1.2) (2020-06-29)
+
+
+### Bug Fixes
+
+* **readme:** sdk class variable name ([f9cbda5](https://github.com/etclabscore/sig.tools/commit/f9cbda5c6fc72f17e1addd3b0b7fe9c086139c16))
+* **semantic-release:** sdk publish.sh missing npm install & build ([e3f085f](https://github.com/etclabscore/sig.tools/commit/e3f085fb4bcbd7355ed38a9cdd556d329db8100e))
+
 ## [1.1.1](https://github.com/etclabscore/sig.tools/compare/1.1.0...1.1.1) (2020-06-29)
 
 

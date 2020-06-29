@@ -42,7 +42,7 @@ and use in your dapp:
 ```
 import SigtoolsSDK from "sig.tools-sdk";
 
-const sigtoolsSDK = new SigtoolsClient({
+const sigtoolsSDK = new SigtoolsSDK({
   transport: {
     type: "postmessagewindow",
     host: "sig.tools",

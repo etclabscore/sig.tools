@@ -6,7 +6,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:sdk": "open-rpc-generator -c open-rpc-generator-config.json",
+    "build:sdk": "open-rpc-generator generate -c open-rpc-generator-config.json",
     "lint": "tslint --fix -p .",
     "test": "react-scripts test --coverage --passWithNoTests",
     "typings": "open-rpc-typings -d src/openrpc.json --output-ts src/postMessageServer/__GENERATED_TYPES__/"

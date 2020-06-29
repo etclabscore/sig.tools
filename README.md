@@ -28,7 +28,9 @@
 <br />
 <br />
 <br />
+
 ### Javascript/Typescript SDK
+
 You can interact with `sig.tools` via `PostMessage` over `JSON-RPC`. There is a generated sdk from this repository you can install:
 
 ```

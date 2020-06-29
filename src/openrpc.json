@@ -27,7 +27,7 @@
         "schema": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/components/schemas/Permissions"
           }
         }
       }
@@ -53,7 +53,7 @@
         "schema": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/components/schemas/Permissions"
           }
         }
       }
@@ -595,6 +595,10 @@
   ],
   "components": {
     "schemas": {
+      "Permissions": {
+        "title": "Permissions",
+        "type": "object"
+      },
       "AccountExists": {
         "title": "AccountExists",
         "type": "boolean"

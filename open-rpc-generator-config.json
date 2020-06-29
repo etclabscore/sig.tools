@@ -1,0 +1,11 @@
+{
+    "openrpcDocument": "src/openrpc.json",
+    "outDir": "./generated",
+    "components": [
+        {
+            "type": "client",
+            "name": "sig.tools-sdk",
+            "language": "typescript"
+        }
+    ]
+}

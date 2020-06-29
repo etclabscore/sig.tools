@@ -18,6 +18,47 @@
   ],
   "methods": [
     {
+      "name": "getPermissions",
+      "description": "get users permissions",
+      "params": [
+      ],
+      "result": {
+        "name": "permissions",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "name": "requestPermissions",
+      "description": "request additional permissions from the user",
+      "params": [
+        {
+          "name": "requestPermissionsObject",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "listAccounts": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      ],
+      "result": {
+        "name": "permissions",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
       "name": "listAccounts",
       "summary": "Return the list of all not hidden (by default) accounts from the keystore",
       "params": [

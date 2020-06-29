@@ -1,3 +1,19 @@
+# [1.1.0](https://github.com/etclabscore/sig.tools/compare/1.0.4...1.1.0) (2020-06-29)
+
+
+### Bug Fixes
+
+* add documentation ([a7bc091](https://github.com/etclabscore/sig.tools/commit/a7bc091bcb78f7b2dfa97bf9bf754e0e75832c15))
+* change permissions on publish.sh ([e8ab7d5](https://github.com/etclabscore/sig.tools/commit/e8ab7d523414fe421c0616d080f44fce36e5469c))
+* **openrpc.json:** add more titles ([67886f7](https://github.com/etclabscore/sig.tools/commit/67886f7958857cfb9e04265cf494a3df65b46d2b))
+* **openrpc.json:** add titles ([7fa81bf](https://github.com/etclabscore/sig.tools/commit/7fa81bf09f08f925ac42e29fe7ec3fbea66ffe3c))
+* **README:** markdown newlines ([2ab5700](https://github.com/etclabscore/sig.tools/commit/2ab5700b5cb8fdc9ff5aac5db2ef2c1383d91da2))
+
+
+### Features
+
+* generate postmessage client ([d289a57](https://github.com/etclabscore/sig.tools/commit/d289a5758d7c0e93a8a7b70387e2fab473f2dfb2)), closes [#8](https://github.com/etclabscore/sig.tools/issues/8)
+
 ## [1.0.4](https://github.com/etclabscore/sig.tools/compare/1.0.3...1.0.4) (2020-05-29)
 
 

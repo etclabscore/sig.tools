@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/etclabscore/sig.tools/compare/1.1.0...1.1.1) (2020-06-29)
+
+
+### Bug Fixes
+
+* **openrpc.json:** schema refs ([800ef8c](https://github.com/etclabscore/sig.tools/commit/800ef8c5c91dbfc85aecf75e25c483c5eb30bc40))
+
 # [1.1.0](https://github.com/etclabscore/sig.tools/compare/1.0.4...1.1.0) (2020-06-29)
 
 

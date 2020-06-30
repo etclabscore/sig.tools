@@ -12,12 +12,8 @@
   ],
   "prepare": [
     "@open-rpc/semantic-release-plugin",
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    "@semantic-release/github",
-    "@semantic-release/git",
-    "@qiwi/semantic-release-gh-pages-plugin"
+    "@semantic-release/git"
   ],
   "verifyConditions": [
     {

@@ -1,3 +1,18 @@
+## [1.1.3](https://github.com/etclabscore/sig.tools/compare/1.1.2...1.1.3) (2020-06-30)
+
+
+### Bug Fixes
+
+* add openrpc sem rel plugin ([3912cc8](https://github.com/etclabscore/sig.tools/commit/3912cc8864c4c8aaaf62fcf22e0a4e8adf032931))
+* document path openrpc json sem rel plugin ([18636f2](https://github.com/etclabscore/sig.tools/commit/18636f241f899d073e9c9a133fa62ecad8c7eaad))
+* releaserc and add nodeversion ([ed208a9](https://github.com/etclabscore/sig.tools/commit/ed208a95459ec2907700225978feca6686e304cf))
+* **releaserc:** add all plugins to prepare ([c0b8b93](https://github.com/etclabscore/sig.tools/commit/c0b8b93eae125fe2aff7fc0ff9de4a68cc1aadac))
+* **releaserc:** notes ([dbd4e83](https://github.com/etclabscore/sig.tools/commit/dbd4e83603b19bbe89a1cafd177d121b4a25a063))
+* **releaserc:** remove publish for openrpc release ([b94518e](https://github.com/etclabscore/sig.tools/commit/b94518e4f9aa4d83a0303d4ebfbd39ff7b6ae5c0))
+* **releaserc:** remove unneeded plugins in prepare ([ab2204d](https://github.com/etclabscore/sig.tools/commit/ab2204da20740a2cd8a8a1519930a086c1b41185))
+* **releaserc:** try other option syntax ([7fb1d49](https://github.com/etclabscore/sig.tools/commit/7fb1d492bab063b6836d38d3dda74b1d992d80a9))
+* remove extra openrpc sem rel plugin ([52aef70](https://github.com/etclabscore/sig.tools/commit/52aef706552e838d291cb689a3e743a0b883b0f0))
+
 ## [1.1.2](https://github.com/etclabscore/sig.tools/compare/1.1.1...1.1.2) (2020-06-29)
 
 

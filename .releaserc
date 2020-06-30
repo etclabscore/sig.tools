@@ -16,7 +16,6 @@
       "documentLocation": "src/openrpc.json"
     },
     "@open-rpc/semantic-release-plugin",
-    "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
     "@semantic-release/git"
   ],

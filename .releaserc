@@ -2,7 +2,9 @@
   "tagFormat": "${version}",
   "branch": "master",
   "plugins": [
-    "@open-rpc/semantic-release-plugin",
+    ["@open-rpc/semantic-release-plugin", {
+      "documentLocation": "src/openrpc.json"
+    }],
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
@@ -11,19 +13,17 @@
     "@qiwi/semantic-release-gh-pages-plugin"
   ],
   "prepare": [
-    {
-      "path": "@open-rpc/semantic-release-plugin",
+    ["@open-rpc/semantic-release-plugin", {
       "documentLocation": "src/openrpc.json"
-    },
+    }],
     "@open-rpc/semantic-release-plugin",
     "@semantic-release/changelog",
     "@semantic-release/git"
   ],
   "verifyConditions": [
-    {
-      "path": "@open-rpc/semantic-release-plugin",
+    ["@open-rpc/semantic-release-plugin", {
       "documentLocation": "src/openrpc.json"
-    },
+    }],
     "@semantic-release/changelog",
     "@semantic-release/git",
     "@semantic-release/github",

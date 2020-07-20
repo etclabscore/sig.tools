@@ -6,6 +6,11 @@
             "type": "client",
             "name": "sig.tools-sdk",
             "language": "typescript"
+        },
+        {
+            "type": "docs",
+            "name": "sig.tools-sdk-docs",
+            "language": "gatsby"
         }
     ]
 }

@@ -100,7 +100,7 @@ jobs:
          command: sudo pip install awscli
       - run:
           name: Deploy to S3
-          command: aws s3 sync public/ s3://docs.sig.tools/ --delete
+          command: aws s3 sync generated/docs/gatsby/public/ s3://docs.sig.tools/ --delete
       - run:
           name: invalidate cloudfront
           command: aws cloudfront create-invalidation --distribution-id EG5W6SGNHL2D9 --paths '/*'

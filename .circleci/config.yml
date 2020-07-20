@@ -90,11 +90,10 @@ jobs:
             cargo install svgbob_cli
       - run: npm install
       - run: npm run build
-      - run: npm run build:sdk
-      - run: cd generated/docs/gatsby && npm install && npm run build && cd ../../../
       - run: npm install semantic-release @semantic-release/exec @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/npm @semantic-release/commit-analyzer @semantic-release/release-notes-generator @qiwi/semantic-release-gh-pages-plugin @open-rpc/semantic-release-plugin
       - run: git checkout .
       - run: ./node_modules/.bin/semantic-release
+      - run: cd generated/docs/gatsby && npm install && npm run build && cd ../../../
       - run:
          name: Install awscli
          command: sudo pip install awscli

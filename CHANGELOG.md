@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/etclabscore/sig.tools/compare/1.1.4...1.1.5) (2020-07-20)
+
+
+### Bug Fixes
+
+* **circleci:** docs generation order ([5f82f5a](https://github.com/etclabscore/sig.tools/commit/5f82f5a5ddba7eecc3400caf67592db3485b20cb))
+
 ## [1.1.4](https://github.com/etclabscore/sig.tools/compare/1.1.3...1.1.4) (2020-07-20)
 
 

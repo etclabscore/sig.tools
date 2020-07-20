@@ -1,3 +1,13 @@
+## [1.1.4](https://github.com/etclabscore/sig.tools/compare/1.1.3...1.1.4) (2020-07-20)
+
+
+### Bug Fixes
+
+* add docs site build/deploy ([7b423f8](https://github.com/etclabscore/sig.tools/commit/7b423f8ef5464a25911fe3eb48ab474396303e7e))
+* **circleci:** bump nodejs version for ci ([b288fce](https://github.com/etclabscore/sig.tools/commit/b288fce28305b74eb360496d2b45cb78c74a366e))
+* **gatsby deploy:** npm install before docs deploy ([c5bfa75](https://github.com/etclabscore/sig.tools/commit/c5bfa75498d4f336ebe310608f74efc4da444d64))
+* **release:** docs deploy folders ([5fafdf4](https://github.com/etclabscore/sig.tools/commit/5fafdf4357f0147044c5271f69b8ce76938337db))
+
 ## [1.1.3](https://github.com/etclabscore/sig.tools/compare/1.1.2...1.1.3) (2020-06-30)
 
 

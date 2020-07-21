@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/etclabscore/sig.tools/compare/1.1.5...1.1.6) (2020-07-21)
+
+
+### Bug Fixes
+
+* update openrpc generator to latest ([e3b4430](https://github.com/etclabscore/sig.tools/commit/e3b4430d2ac962ad1f136bd98e10843da94d0bc5))
+
 ## [1.1.5](https://github.com/etclabscore/sig.tools/compare/1.1.4...1.1.5) (2020-07-20)
 
 

@@ -12,6 +12,7 @@
   "servers": [
     {
       "name": "sig.tools",
+      "x-transport": "postmessagewindow",
       "description": "sig.tools JSON-RPC API is available over `postMessage`.",
       "url": "https://sig.tools"
     }

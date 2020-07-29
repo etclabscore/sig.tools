@@ -23,6 +23,7 @@
     "react-scripts": "^3.4.0",
     "ts-jest": "^25.3.0",
     "tslint": "^5.17.0",
+    "typedoc": "^0.17.0-3",
     "typescript": "^3.9.2"
   },
   "browserslist": {
@@ -45,7 +46,7 @@
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.51",
-    "@open-rpc/meta-schema": "^1.8.0",
+    "@open-rpc/meta-schema": "^1.12.6",
     "@rjsf/core": "^2.0.0-alpha.4",
     "@types/color-hash": "^1.0.0",
     "@types/lodash": "^4.14.149",

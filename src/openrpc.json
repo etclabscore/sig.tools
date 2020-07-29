@@ -21,6 +21,7 @@
     {
       "name": "getPermissions",
       "description": "get users permissions",
+      "x-transport": "postmessagewindow",
       "params": [],
       "result": {
         "$ref": "#/components/contentDescriptors/PermissionsList"

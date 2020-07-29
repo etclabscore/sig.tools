@@ -2,8 +2,10 @@ import openrpcDocument from "../openrpc.json";
 import generateMethodMapping, { IMethodMapping } from "./methods/methodMapping";
 import { State, Interpreter, EventObject } from "xstate";
 import { MethodObject, ContentDescriptorObject } from "@open-rpc/meta-schema";
-import { UserApprovalPrompt,  IPermissionsRequest } from "rpc-cap/dist/src/@types";
+import { UserApprovalPrompt, IPermissionsRequest } from "rpc-cap/dist/src/@types";
 import _ from "lodash";
+import changePermissionContext from "../helpers/changePermissionContext";
+import changePermissionError from "../helpers/changePermissionError";
 const RpcCap = require("rpc-cap");//tslint:disable-line
 const JsonRpcEngine = require("json-rpc-engine"); //tslint:disable-line
 
@@ -154,10 +156,11 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
             id: ev.data.id,
           }, "*");
         }
+        e = changePermissionError(e);
         (ev.source as any).postMessage({
           jsonrpc: "2.0",
           error: {
-            code: 32329,
+            code: (e as any).code || 32329,
             message: e.message,
           },
           id: ev.data.id,
@@ -165,7 +168,9 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
         return;
       }
       if (ev.source) {
-        (ev.source as any).postMessage(response, "*");
+        (ev.source as any).postMessage(
+          changePermissionContext(ev, response, "https://sig.tools")
+        , "*");
         return;
       }
       console.error("No origin defined");

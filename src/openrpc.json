@@ -46,7 +46,27 @@
       ],
       "result": {
         "$ref": "#/components/contentDescriptors/PermissionsList"
-      }
+      },
+      "examples": [
+        {
+          "name": "requestPermissionObjectExample",
+          "description": "example for a permission request for listAccounts",
+          "params": [
+            {
+              "name": "requestPermissionObject",
+              "value": {
+                "listAccounts": {}
+              }
+            }
+          ],
+          "result": {
+            "name": "permissionList",
+            "value": {
+
+            }
+          }
+        }
+      ]
     },
     {
       "name": "listAccounts",

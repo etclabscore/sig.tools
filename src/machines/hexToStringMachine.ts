@@ -7,7 +7,7 @@ export interface IHexStringMachineContext {
 }
 
 const hexToNumberMachine: StateMachine<IHexStringMachineContext, any, any> = createMachine({
-  initial: "active",
+  initial: "stringonly",
   context: { hex: "", string: "" },
   entry: assign({
     hex: (context: IHexStringMachineContext, event: any) => context.hex,
@@ -27,32 +27,40 @@ const hexToNumberMachine: StateMachine<IHexStringMachineContext, any, any> = cre
       return returnVal || "";
     },
   }),
+  on: {
+    HEX_INPUT: {
+      actions: assign({
+        hex: (_, event: any) => event.value,
+        string: (_, event: any) => {
+          let returnVal;
+          try {
+            returnVal = hexToString(event.value || "");
+          } catch (e) {
+            //
+          }
+          return returnVal || "";
+        },
+      }),
+    },
+    STRING_INPUT: {
+      actions: assign({
+        string: (_, event: any) => event.value,
+        hex: (_, event: any) => {
+          return stringToHex(event.value || "");
+        },
+      }),
+    },
+  },
   states: {
-    active: {
+    stringonly: {
       on: {
-        HEX_INPUT: {
-          actions: assign({
-            hex: (_, event: any) => event.value,
-            string: (_, event: any) => {
-              let returnVal;
-              try {
-                returnVal = hexToString(event.value || "");
-              } catch (e) {
-                //
-              }
-              return returnVal || "";
-            },
-          }),
-        },
-        STRING_INPUT: {
-          actions: assign({
-            string: (_, event: any) => event.value,
-            hex: (_, event: any) => {
-              return stringToHex(event.value || "");
-            },
-          }),
-        },
+        TOGGLE: "all",
       },
+    },
+    all: {
+      on: {
+        TOGGLE: "stringonly",
+      }
     },
   },
 });

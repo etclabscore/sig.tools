@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Grid, Typography } from "@material-ui/core";
+import { TextField, Grid, Typography, Link } from "@material-ui/core";
 import hexToStringMachine from "../machines/hexToStringMachine";
 import { useMachine } from "@xstate/react";
 import { SwapHoriz } from "@material-ui/icons";
@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const HexToStringConverter: React.FC<IProps> = (props) => {
-  const [state, send, machine] = useMachine(hexToStringMachine.withContext({hex: props.value, string: ""}));
+  const [state, send, machine] = useMachine(hexToStringMachine.withContext({ hex: props.value, string: "" }));
   machine.onChange((context: any) => {
     if (props.onChange) {
       props.onChange(context.hex);
@@ -20,9 +20,22 @@ const HexToStringConverter: React.FC<IProps> = (props) => {
   return (
     <>
       <Typography gutterBottom>{props.schema.title}</Typography>
-      <Grid container justify="space-around" alignItems="center">
-        <TextField label="Hex" variant="outlined" value={state.context.hex || ""} onChange={(e) => send("HEX_INPUT", { value: e.target.value })} style={{ width: "43%" }} />
-        <SwapHoriz />
+      <Link style={{ cursor: "pointer", userSelect: "none" }}>
+        <Typography variant="caption" color="primary" onClick={() => send("TOGGLE")}>raw</Typography>
+      </Link>
+      <Grid container justify="flex-start" alignItems="center">
+        {state.matches("all") &&
+          <TextField
+            label="Hex"
+            variant="outlined"
+            value={state.context.hex || ""}
+            onChange={(e) => send("HEX_INPUT", { value: e.target.value })}
+            style={{ width: "43%" }}
+          />
+        }
+        {state.matches("all") &&
+          <SwapHoriz />
+        }
         <TextField multiline label="String" variant="outlined" value={state.context.string || ""} onChange={(e) => send("STRING_INPUT", { value: e.target.value })} style={{ width: "43%" }} />
       </Grid>
     </>

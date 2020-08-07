@@ -1,3 +1,14 @@
+## [1.1.8](https://github.com/etclabscore/sig.tools/compare/1.1.7...1.1.8) (2020-08-07)
+
+
+### Bug Fixes
+
+* add toggle raw to numbers ([a2cbc6d](https://github.com/etclabscore/sig.tools/commit/a2cbc6dd59512e20c35544deb9b34197fb5677a4))
+* change permission context and permission error messages ([adab6e2](https://github.com/etclabscore/sig.tools/commit/adab6e209c66aaafce66d86e6075b5eb37dd583d))
+* convert hexToString to use raw toggle pattern ([a5e789f](https://github.com/etclabscore/sig.tools/commit/a5e789f65be2b64dafceaf82759a33e1330b31b9))
+* update docs gen ([9a30953](https://github.com/etclabscore/sig.tools/commit/9a30953f7749018bc4dd910de0a6a1ed329a2dcf))
+* use latest meta-schema and x-transport ([50495e5](https://github.com/etclabscore/sig.tools/commit/50495e5067e76b24eb8b8d98a2dca7a917ba7cb4))
+
 ## [1.1.7](https://github.com/etclabscore/sig.tools/compare/1.1.6...1.1.7) (2020-07-27)
 
 

@@ -4,6 +4,7 @@ import { Drawer, Button, IconButton } from "@material-ui/core";
 import { Theme as MuiTheme } from "@etclabscore/rjsf-material-ui";
 import { withTheme, UiSchema } from "react-jsonschema-form";
 import { Close } from "@material-ui/icons";
+
 const Form = withTheme(MuiTheme);
 
 interface IProps {
@@ -38,7 +39,7 @@ const FormDrawer: React.FC<IProps> = (props) => {
         {props.header}
         <Form
           noHtml5Validate
-          schema={props.schema}
+          schema={props.schema as any}
           showErrorList={false}
           formData={props.formData}
           liveValidate={true}

@@ -7,7 +7,7 @@ export interface IHexNumberMachineContext {
 }
 
 const hexToNumberMachine: StateMachine<IHexNumberMachineContext, any, any> = createMachine({
-  initial: "active",
+  initial: "numberonly",
   context: { hex: "", number: "" },
   entry: assign({
     hex: (context: IHexNumberMachineContext, event: any) => context.hex,
@@ -27,40 +27,48 @@ const hexToNumberMachine: StateMachine<IHexNumberMachineContext, any, any> = cre
       return returnVal || "";
     },
   }),
+  on: {
+    HEX_INPUT: {
+      actions: assign({
+        hex: (_, event: any) => event.value,
+        number: (_, event: any) => {
+          let returnVal;
+          if (!event.value.match(/^0x/)) {
+            return "";
+          }
+          try {
+            returnVal = hexToBigInt(event.value).toString();
+          } catch (e) {
+            //
+          }
+          return returnVal || "";
+        },
+      }),
+    },
+    NUMBER_INPUT: {
+      actions: assign({
+        number: (_, event: any) => event.value,
+        hex: (_, event: any) => {
+          let returnVal;
+          try {
+            returnVal = bigIntToHex(BigInt(event.value)).toString();
+          } catch (e) {
+            //
+          }
+          return returnVal || "0x";
+        },
+      }),
+    },
+  },
   states: {
-    active: {
+    numberonly: {
       on: {
-        HEX_INPUT: {
-          actions: assign({
-            hex: (_, event: any) => event.value,
-            number: (_, event: any) => {
-              let returnVal;
-              if (!event.value.match(/^0x/)) {
-                return "";
-              }
-              try {
-                returnVal = hexToBigInt(event.value).toString();
-              } catch (e) {
-                //
-              }
-              return returnVal || "";
-            },
-          }),
-        },
-        NUMBER_INPUT: {
-          actions: assign({
-            number: (_, event: any) => event.value,
-            hex: (_, event: any) => {
-              let returnVal;
-              try {
-                returnVal = bigIntToHex(BigInt(event.value)).toString();
-              } catch (e) {
-                //
-              }
-              return returnVal || "0x";
-            },
-          }),
-        },
+        TOGGLE: "all",
+      },
+    },
+    all: {
+      on: {
+        TOGGLE: "numberonly",
       },
     },
   },

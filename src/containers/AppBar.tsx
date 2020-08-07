@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { AppBar, Toolbar, Tooltip, IconButton, Box, useTheme } from "@material-ui/core";
-import { Brightness3, WbSunny } from "@material-ui/icons";
+import { Brightness3, WbSunny, Description } from "@material-ui/icons";
 
 interface IProps {
   // onClick: () => void;
@@ -12,6 +12,9 @@ interface IProps {
 
 const MyAppBar: React.FC<IProps> = ({ onDarkModeChange, darkMode, topItem, backItem }) => {
   const theme = useTheme();
+  const goToDocumentation = () => {
+    window.location.href = process.env.REACT_APP_DOCUMENTATION_URL || "https://docs.sig.tools";
+  };
   return (
     <>
       <AppBar elevation={0} position="fixed">
@@ -22,6 +25,11 @@ const MyAppBar: React.FC<IProps> = ({ onDarkModeChange, darkMode, topItem, backI
           <Box flexGrow={1} style={{ marginRight: "30px" }}>
             {topItem}
           </Box>
+          <Tooltip title="Developer Documentation">
+            <IconButton onClick={() => goToDocumentation()} tabIndex={2}>
+              <Description />
+            </IconButton>
+          </Tooltip>
           <Tooltip title="Toggle Theme">
             <IconButton onClick={() => onDarkModeChange(!!darkMode)} tabIndex={2}>
               {darkMode ? <Brightness3 /> : <WbSunny />}

@@ -20,7 +20,9 @@ const HexToNumberConverter: React.FC<IProps> = (props) => {
   return (
     <>
       <Typography variant="body2" gutterBottom>{props.schema.title}</Typography>
-      <Link style={{cursor: "pointer", userSelect: "none"}}><Typography variant="caption" color="primary" onClick={() => send("TOGGLE")}>raw</Typography></Link>
+      <Link style={{ cursor: "pointer", userSelect: "none" }}>
+        <Typography variant="caption" color="primary" onClick={() => send("TOGGLE")}>raw</Typography>
+      </Link>
       <Grid container justify="flex-start" alignItems="center">
         {state.matches("all") &&
           <TextField
@@ -32,7 +34,17 @@ const HexToNumberConverter: React.FC<IProps> = (props) => {
           />
         }
         {state.matches("all") && <SwapHoriz />}
-        <TextField type="number" label="Number" variant="outlined" value={state.context.number || ""} onChange={(e) => send("NUMBER_INPUT", { value: e.target.value })} style={{ width: "43%" }} />
+        <TextField
+          type="number"
+          label="Number"
+          variant="outlined"
+          value={state.context.number || ""}
+          inputProps={{
+            min: "0",
+            step: "1",
+          } as any}
+          onChange={(e) => send("NUMBER_INPUT", { value: e.target.value })} style={{ width: "43%" }}
+        />
       </Grid>
     </>
   );

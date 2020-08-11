@@ -1,3 +1,10 @@
+## [1.1.9](https://github.com/etclabscore/sig.tools/compare/1.1.8...1.1.9) (2020-08-11)
+
+
+### Bug Fixes
+
+* add window open for docs/inspector ([8701658](https://github.com/etclabscore/sig.tools/commit/8701658665c042aec45e11cb3ffafd3c189d2b5c))
+
 ## [1.1.8](https://github.com/etclabscore/sig.tools/compare/1.1.7...1.1.8) (2020-08-07)
 
 

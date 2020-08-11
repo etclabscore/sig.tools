@@ -10,11 +10,27 @@ interface IProps {
   backItem?: ReactNode;
 }
 
+const openPopupDocs = (url: string) => {
+  const width = window.screen.width - 400;
+  const height = window.screen.height;
+  const left = 400;
+  const top = 0;
+  const right = 0;
+
+  return window.open(
+    url,
+    "docs-sig-tools:popup",
+    `left=${left},top=${top},right=${right},width=${width},height=${height},resizable,scrollbars=yes,status=1`,
+  );
+};
+
 const MyAppBar: React.FC<IProps> = ({ onDarkModeChange, darkMode, topItem, backItem }) => {
   const theme = useTheme();
+
   const goToDocumentation = () => {
-    window.location.href = process.env.REACT_APP_DOCUMENTATION_URL || "https://docs.sig.tools";
+    openPopupDocs(process.env.REACT_APP_DOCUMENTATION_URL || "https://docs.sig.tools");
   };
+
   return (
     <>
       <AppBar elevation={0} position="fixed">

@@ -35,6 +35,7 @@ import { green, red } from "@material-ui/core/colors";
 import { State } from "xstate";
 import HexToNumberConverter from "../components/HexToNumberConverter";
 import HexToStringConverter from "../components/HexToString";
+import PasswordWidget from "../components/PasswordWidget";
 
 export const matchesMachineState = (
   states: string[],
@@ -342,7 +343,7 @@ const MyApp = () => {
         <FormPanel
           title={"Create Account"}
           skipPassphrase={true}
-          schema={openrpcDocumentToJSONRPCSchema(openrpcDocument, "createAccount") as any}
+          schema={onboardingSchema as any || {}}
           header={domain &&
             <Alert severity="info" style={{ marginBottom: "10px" }} variant="outlined">
               <Typography variant="body1">
@@ -356,6 +357,9 @@ const MyApp = () => {
                 "ui:widget": "password",
               },
             },
+          }}
+          widgets={{
+            password: PasswordWidget,
           }}
           formData={Object.assign(
             {},
@@ -531,6 +535,9 @@ const MyApp = () => {
                 "ui:widget": "password",
               },
             },
+          }}
+          widgets={{
+            password: PasswordWidget,
           }}
           header={
             <Grid container direction="row">

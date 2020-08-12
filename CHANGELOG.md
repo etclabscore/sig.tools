@@ -1,3 +1,10 @@
+## [1.1.10](https://github.com/etclabscore/sig.tools/compare/1.1.9...1.1.10) (2020-08-12)
+
+
+### Bug Fixes
+
+* add confirm password to account create ([038f80f](https://github.com/etclabscore/sig.tools/commit/038f80f295975f1e1aa3df12321bb12798fcdc38)), closes [#6](https://github.com/etclabscore/sig.tools/issues/6)
+
 ## [1.1.9](https://github.com/etclabscore/sig.tools/compare/1.1.8...1.1.9) (2020-08-11)
 
 

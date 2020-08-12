@@ -1,6 +1,5 @@
-import React from "react";
-import CodeInput from "./CodeInput";
-import { Grid } from "@material-ui/core";
+import React, { useState } from "react";
+import { Grid, TextField } from "@material-ui/core";
 
 interface IProps {
   onChange: (val: string) => void;
@@ -8,32 +7,40 @@ interface IProps {
   label: string;
 }
 
-// const spacing = 14;
-    //   <TextField
-    //     InputLabelProps={{
-    //       shrink: true,
-    //     }}
-    //     inputProps={{
-    //       style: {
-    //         letterSpacing: `${spacing + 5}px`,
-    //       },
-    //     }}
-    //     InputProps={{
-    //       disableUnderline: true,
-    //     }}
-    //     fullWidth={true}
-    //     placeholder={"•".repeat(8)}
-    //     label={props.label}
-    //     value={props.value || ""}
-    //     onChange={(event: any) => {
-    //       props.onChange(event.target.value);
-    //     }}
-    //     type="password"
-    //   />
 const PasswordWidget: React.FC<IProps> = (props) => {
+  const [password, setPassword] = useState(props.value);
+  const [passwordConfirmed, setPasswordConfirmed] = useState<boolean>(false);
   return (
     <Grid container justify="center" alignContent="center">
-      <CodeInput type="password" fields={8} onChange={props.onChange} value={props.value}/>
+      <TextField
+        variant="outlined"
+        fullWidth={true}
+        label={props.label}
+        value={password}
+        onChange={(event: any) => {
+          setPassword(event.target.value);
+        }}
+        type="password"
+      />
+      <br />
+      <br />
+      <br />
+      <TextField
+        variant="outlined"
+        fullWidth={true}
+        placeholder={"passphrase"}
+        label={"confirm passphrase"}
+        error={!passwordConfirmed && password}
+        onChange={(event: any) => {
+          if (event.target.value === password) {
+            props.onChange(event.target.value);
+            setPasswordConfirmed(true);
+          } else {
+            setPasswordConfirmed(false);
+          }
+        }}
+        type="password"
+      />
     </Grid>
   );
 };

@@ -36,6 +36,11 @@ import { State } from "xstate";
 import HexToNumberConverter from "../components/HexToNumberConverter";
 import HexToStringConverter from "../components/HexToString";
 import PasswordWidget from "../components/PasswordWidget";
+import { inspect } from "@xstate/inspect";
+
+if (window.location.search.includes("?inspect")) {
+  inspect({iframe: false});
+}
 
 export const matchesMachineState = (
   states: string[],

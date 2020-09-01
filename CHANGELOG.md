@@ -1,3 +1,10 @@
+## [1.1.11](https://github.com/etclabscore/sig.tools/compare/1.1.10...1.1.11) (2020-09-01)
+
+
+### Bug Fixes
+
+* **xstate:** add ?inspect to pop up the xstate inspector ([b40d832](https://github.com/etclabscore/sig.tools/commit/b40d8323c8d8e7644b2ab4132f551e16e5fe196f))
+
 ## [1.1.10](https://github.com/etclabscore/sig.tools/compare/1.1.9...1.1.10) (2020-08-12)
 
 

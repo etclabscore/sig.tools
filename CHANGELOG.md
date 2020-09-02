@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/etclabscore/sig.tools/compare/1.1.11...1.1.12) (2020-09-02)
+
+
+### Bug Fixes
+
+* update openrpc generator ([e54cb06](https://github.com/etclabscore/sig.tools/commit/e54cb06141c369402d117c73fefe081a36a08806))
+
 ## [1.1.11](https://github.com/etclabscore/sig.tools/compare/1.1.10...1.1.11) (2020-09-01)
 
 

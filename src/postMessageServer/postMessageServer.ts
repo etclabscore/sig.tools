@@ -85,12 +85,19 @@ const generatePermissions = (
         };
         return memo;
       }, {} as any).value();
+    let localStorageCapabilities = window.localStorage.capabilities;
+    if (localStorageCapabilities) {
+      localStorageCapabilities = JSON.parse(localStorageCapabilities);
+    }
     capabilities = new RpcCap.CapabilitiesController({
       safeMethods,
       restrictedMethods,
       // This library also depends on your ability to present the request
       // To an entity in charge of administrating permissions:
       requestUserApproval: userApprove,
+    }, localStorageCapabilities);
+    capabilities.subscribe((changed: any) => {
+      window.localStorage.capabilities = JSON.stringify(changed);
     });
     capabilitiesByDomain[domain.origin] = capabilities;
   }

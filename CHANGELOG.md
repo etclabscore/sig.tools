@@ -1,3 +1,10 @@
+## [1.1.13](https://github.com/etclabscore/sig.tools/compare/1.1.12...1.1.13) (2020-09-15)
+
+
+### Bug Fixes
+
+* **capabilities:** persist capabilities ([e22b466](https://github.com/etclabscore/sig.tools/commit/e22b4663a137769431fdd8cbf28045ced1e7376c))
+
 ## [1.1.12](https://github.com/etclabscore/sig.tools/compare/1.1.11...1.1.12) (2020-09-02)
 
 

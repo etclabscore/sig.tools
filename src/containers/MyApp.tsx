@@ -14,7 +14,6 @@ import {
   Checkbox,
   Link,
   Collapse,
-  Dialog,
 } from "@material-ui/core";
 import SignatoryOpenRPCDocument from "../openrpc.json";
 import CardView from "./CardView";
@@ -60,7 +59,7 @@ const configuredAppMachine = appMachine.withConfig({
 }, { cards: [], formData: null, error: null, result: null, createData: null });
 
 const MyApp = () => {
-  const [state, send, myStateMachineService]: [any, any, any] =
+  const [state, send]: [any, any, any] =
     useMachine<IContext, any>(configuredAppMachine, { devTools: true });
   const [infoDialogOpen, setInfoDialogOpen] = useState<boolean>(false);
   const [onboardingSchema, setOnboardingSchema] = useState();
@@ -154,6 +153,7 @@ const MyApp = () => {
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [capabilities]);
 
   return (

@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Dialog, DialogTitle, DialogProps, DialogContent, Card, CardContent, Grid, Typography, IconButton, Tooltip } from "@material-ui/core";
+import React from "react";
+import { Dialog, DialogProps, DialogContent, Card, CardContent, Grid, Typography, IconButton, Tooltip, Divider, useTheme, Link } from "@material-ui/core";
 import p from "../../package.json";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { Description, Delete } from "@material-ui/icons";
-import { CapabilitiesController } from "rpc-cap";
 import { IOcapLdCapability } from "rpc-cap/dist/src/@types/ocap-ld";
-import { RpcCapDomainRegistry, RpcCapDomainEntry } from "rpc-cap/dist/src/@types";
-import { capabilities } from "../capabilities";
+import { RpcCapDomainEntry } from "rpc-cap/dist/src/@types";
 
 type domainsListTuple = [string, RpcCapDomainEntry];
 
@@ -28,12 +26,13 @@ const openPopupDocs = (url: string) => {
   );
 };
 const InfoDialog: React.FC<IInfoDialogProps> = (props) => {
+  const theme = useTheme();
   const goToDocumentation = () => {
-    openPopupDocs(process.env.REACT_APP_DOCUMENTATION_URL || "https://docs.sig.tools");
+    openPopupDocs(process.env.REACT_APP_DOCUMENTATION_URL || "https://docs.sig.tools/api-documentation");
   };
 
   const goToGithub = () => {
-    window.open("https://github.com/etclabscore/sig.tools", "_blank");
+    window.open(process.env.REACT_APP_GITHUB_URL || "https://github.com/etclabscore/sig.tools", "_blank");
   };
 
   return (
@@ -41,16 +40,28 @@ const InfoDialog: React.FC<IInfoDialogProps> = (props) => {
       <DialogContent>
         <Card>
           <CardContent>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} justify="space-around">
               <Grid item>
-                <Tooltip title="Github" >
+                <Tooltip
+                  title={
+                    <Grid container justify="center" style={{ width: "200px", margin: 0, padding: 0 }}>
+                      <Typography variant="caption" style={{ fontSize: theme.typography.pxToRem(11) }}>Github</Typography>
+                      <Typography color="textPrimary" variant="caption" style={{ fontSize: theme.typography.pxToRem(11) }}>github.com/etclabscore/sig.tools</Typography>
+                    </Grid>
+                  }>
                   <IconButton onClick={goToGithub}>
                     <GitHubIcon />
                   </IconButton>
                 </Tooltip>
               </Grid>
               <Grid item>
-                <Tooltip title="Developer Documentation" >
+                <Tooltip
+                  title={
+                    <Grid container justify="center" style={{ width: "200px", margin: 0, padding: 0 }}>
+                      <Typography variant="caption" style={{ fontSize: theme.typography.pxToRem(11) }}>Developer Documentation</Typography>
+                      <Typography color="textPrimary" variant="caption" style={{ fontSize: theme.typography.pxToRem(11) }}>docs.sig.tools</Typography>
+                    </Grid>
+                  }>
                   <IconButton onClick={goToDocumentation}>
                     <Description />
                   </IconButton>
@@ -61,49 +72,53 @@ const InfoDialog: React.FC<IInfoDialogProps> = (props) => {
         </Card>
         <Card>
           <CardContent>
-            <Grid container spacing={3} direction="column">
+            <Grid container direction="column">
               <Grid item container justify="space-between" style={{ minWidth: "275px" }}>
                 <Grid item>
-                  Version
+                  <Typography>Version</Typography>
                 </Grid>
                 <Grid item>
-                  {p.version}
+                  <Typography color="textPrimary">{p.version}</Typography>
                 </Grid>
               </Grid>
               <Grid item container justify="space-between" style={{ minWidth: "275px" }}>
                 <Grid item>
-                  License
+                  <Typography>License</Typography>
                 </Grid>
                 <Grid item>
-                  Apache 2.0
+                  <Link href="https://github.com/etclabscore/sig.tools/blob/master/LICENSE.md" target="_blank">
+                    <Typography color="primary">Apache 2.0</Typography>
+                  </Link>
                 </Grid>
               </Grid>
+              <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
               <Grid item container justify="space-between">
                 <Grid item>
-                  <Typography color="textPrimary">
-                    Permissions
+                  <Typography color="textPrimary" gutterBottom variant="h6">
+                    Domain Permissions
                   </Typography>
                 </Grid>
                 {props.capabilitiesList && props.capabilitiesList.length === 0 &&
                   <Typography>No permissions.</Typography>
                 }
                 {props.capabilitiesList && props.capabilitiesList.map(([domain, domainPermissions]) => {
-                    return (
-                      <Grid item container alignItems="center" justify="space-between" key={JSON.stringify(domainPermissions)}>
-                        <Grid item>
-                          <Typography variant="caption" style={{fontSize: 12}}>{domain}</Typography>
-                        </Grid>
-                        <Grid item justify="center">
-                          {domainPermissions && domainPermissions.permissions && domainPermissions.permissions.length === 0 &&
-                            <Typography>No permissions.</Typography>
-                          }
-                          {domainPermissions && domainPermissions.permissions && domainPermissions.permissions.map((domainPermission: any) => {
-                            return (
-                              <>
-                                <Grid item>
-                                  <Typography variant="caption" color="secondary" style={{fontSize: 12}}>
-                                    {domainPermission.parentCapability}
-                                  </Typography>
+                  return (
+                    <Grid item container alignItems="center" justify="space-between" key={JSON.stringify(domainPermissions)}>
+                      <Grid item>
+                        <Typography variant="caption" style={{ fontSize: 12 }}>{domain}</Typography>
+                      </Grid>
+                      <Grid item justify="center">
+                        {domainPermissions && domainPermissions.permissions && domainPermissions.permissions.length === 0 &&
+                          <Typography>No permissions.</Typography>
+                        }
+                        {domainPermissions && domainPermissions.permissions && domainPermissions.permissions.map((domainPermission: any) => {
+                          return (
+                            <>
+                              <Grid item style={{ paddingTop: "5px", paddingBottom: "5px" }}>
+                                <Typography variant="caption" color="secondary" style={{ fontSize: 12 }}>
+                                  {domainPermission.parentCapability}
+                                </Typography>
+                                <Tooltip title="Remove" arrow>
                                   <IconButton size="small" onClick={() => {
                                     if (props.onRemoveCapability) {
                                       props.onRemoveCapability(domainPermission);
@@ -111,14 +126,15 @@ const InfoDialog: React.FC<IInfoDialogProps> = (props) => {
                                   }}>
                                     <Delete />
                                   </IconButton>
-                                </Grid>
-                              </>
-                            );
-                          })}
-                        </Grid>
+                                </Tooltip>
+                              </Grid>
+                            </>
+                          );
+                        })}
                       </Grid>
-                    );
-                  })}
+                    </Grid>
+                  );
+                })}
               </Grid>
             </Grid>
           </CardContent>

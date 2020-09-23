@@ -1,6 +1,5 @@
 import openrpcDocument from "../openrpc.json";
 import generateMethodMapping, { IMethodMapping } from "./methods/methodMapping";
-import { State, Interpreter, EventObject } from "xstate";
 import { MethodObject, ContentDescriptorObject } from "@open-rpc/meta-schema";
 import { UserApprovalPrompt, IPermissionsRequest } from "rpc-cap/dist/src/@types";
 import _ from "lodash";

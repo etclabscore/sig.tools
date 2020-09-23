@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { AppBar, Toolbar, Tooltip, IconButton, Box, useTheme } from "@material-ui/core";
-import { Brightness3, WbSunny, Description, Info } from "@material-ui/icons";
+import { Brightness3, WbSunny, Info } from "@material-ui/icons";
 
 interface IProps {
   // onClick: () => void;
@@ -10,20 +10,6 @@ interface IProps {
   backItem?: ReactNode;
   onInfoClick?: () => void;
 }
-
-const openPopupDocs = (url: string) => {
-  const width = window.screen.width - 400;
-  const height = window.screen.height;
-  const left = 400;
-  const top = 0;
-  const right = 0;
-
-  return window.open(
-    url,
-    "docs-sig-tools:popup",
-    `left=${left},top=${top},right=${right},width=${width},height=${height},resizable,scrollbars=yes,status=1`,
-  );
-};
 
 const MyAppBar: React.FC<IProps> = ({ onDarkModeChange, darkMode, topItem, backItem, onInfoClick }) => {
   const theme = useTheme();

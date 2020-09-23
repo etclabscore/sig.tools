@@ -8,8 +8,7 @@ import {
   TypedData,
   ImportMnemonicOptions,
 } from "../__GENERATED_TYPES__";
-import { State, EventObject } from "xstate";
-import { ICard, IContext } from "../../machines/appMachine";
+import { IContext } from "../../machines/appMachine";
 import { IPostMessageServerOptions } from "../postMessageServer";
 import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
 import SignatoryLocalStorage from "../../storage/signatoryLocalStorage";

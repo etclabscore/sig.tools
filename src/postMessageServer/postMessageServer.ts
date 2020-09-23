@@ -176,7 +176,7 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
         return new Error("Not started");
       }
       window.removeEventListener("message", postMessageListener);
-    }
+    },
   };
 };
 

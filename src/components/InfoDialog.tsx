@@ -40,7 +40,7 @@ const InfoDialog: React.FC<IInfoDialogProps> = (props) => {
       <DialogContent>
         <Card>
           <CardContent>
-            <Grid container spacing={3} justify="space-around">
+            <Grid container justify="space-around">
               <Grid item>
                 <Tooltip
                   title={
@@ -68,12 +68,9 @@ const InfoDialog: React.FC<IInfoDialogProps> = (props) => {
                 </Tooltip>
               </Grid>
             </Grid>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent>
+            <Divider style={{ marginTop: "15px", marginBottom: "20px" }} />
             <Grid container direction="column">
-              <Grid item container justify="space-between" style={{ minWidth: "275px" }}>
+              <Grid item container justify="space-between" style={{ minWidth: "270px" }}>
                 <Grid item>
                   <Typography>Version</Typography>
                 </Grid>
@@ -81,7 +78,7 @@ const InfoDialog: React.FC<IInfoDialogProps> = (props) => {
                   <Typography color="textPrimary">{p.version}</Typography>
                 </Grid>
               </Grid>
-              <Grid item container justify="space-between" style={{ minWidth: "275px" }}>
+              <Grid item container justify="space-between" style={{ minWidth: "270px" }}>
                 <Grid item>
                   <Typography>License</Typography>
                 </Grid>
@@ -91,7 +88,7 @@ const InfoDialog: React.FC<IInfoDialogProps> = (props) => {
                   </Link>
                 </Grid>
               </Grid>
-              <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
+              <Divider style={{ marginTop: "15px", marginBottom: "20px" }} />
               <Grid item container justify="space-between">
                 <Grid item>
                   <Typography color="textPrimary" gutterBottom variant="h6">
@@ -109,7 +106,9 @@ const InfoDialog: React.FC<IInfoDialogProps> = (props) => {
                       </Grid>
                       <Grid item justify="center">
                         {domainPermissions && domainPermissions.permissions && domainPermissions.permissions.length === 0 &&
-                          <Typography>No permissions.</Typography>
+                          <Grid container>
+                            <Typography>No permissions.</Typography>
+                          </Grid>
                         }
                         {domainPermissions && domainPermissions.permissions && domainPermissions.permissions.map((domainPermission: any) => {
                           return (

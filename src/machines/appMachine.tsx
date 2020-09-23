@@ -1,4 +1,4 @@
-import { createMachine, assign, spawn, Interpreter } from "xstate";
+import { createMachine, assign, spawn, Interpreter, StateMachine, MachineConfig } from "xstate";
 import cardMachine from "./cardMachine";
 import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
 import accountsToTree from "../helpers/accountsToTree";
@@ -23,15 +23,19 @@ interface IFormData {
   [k: string]: any;
 }
 
+type InvokePromiseSuccessReject = (context: IContext, event: any) => void;
+
 export interface IContext {
   cards: ICard[];
   formData: null | IFormData;
   error: null | Error;
   result: null | string;
   createData: null | IFormData;
+  invokePromiseSuccess?: undefined | InvokePromiseSuccessReject;
+  invokePromiseReject?: undefined | InvokePromiseSuccessReject;
 }
 
-export const rawAppMachine = {
+export const rawAppMachine: any = {
   id: "appMachine",
   initial: "idle",
   context: {
@@ -45,32 +49,74 @@ export const rawAppMachine = {
     REQUEST_PERMISSIONS: {
       target: "requestPermissions",
       actions: assign({
-        formData: (ctx: IContext, e) => {
-          return e;
+        formData: (ctx: IContext, e: any) => {
+          return e.approvalRequest;
+        },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
         },
       }),
     },
     SHOW_SIGN_MESSAGE: {
       target: "signMessage",
+      cond: (context: IContext, event: any) => {
+        const cardFound = context.cards.find((card: ICard) => {
+          return card.address === event.address;
+        });
+        return !!cardFound;
+      },
       actions: assign({
         formData: (ctx: IContext, e) => {
           return e;
+        },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
         },
       }),
     },
     SHOW_SIGN_TRANSACTION: {
       target: "signTransaction",
+      cond: (context: IContext, event: any) => {
+        const cardFound = context.cards.find((card: ICard) => {
+          return card.address === event.transaction.from;
+        });
+        return !!cardFound;
+      },
       actions: assign({
         formData: (ctx: IContext, e) => {
           return e;
+        },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
         },
       }),
     },
     SHOW_SIGN_TYPED_DATA: {
       target: "signTypedData",
+      cond: (context: IContext, event: any) => {
+        const cardFound = context.cards.find((card: ICard) => {
+          return card.address === event.address;
+        });
+        return !!cardFound;
+      },
       actions: assign({
         formData: (ctx: IContext, e) => {
           return e;
+        },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
         },
       }),
     },
@@ -80,6 +126,12 @@ export const rawAppMachine = {
         createData: (ctx, e) => {
           return e;
         },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
+        },
       }),
     },
     CREATE_WALLET: {
@@ -87,6 +139,12 @@ export const rawAppMachine = {
       actions: assign({
         createData: (ctx, e) => {
           return e;
+        },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
         },
       }),
     },
@@ -239,9 +297,32 @@ export const rawAppMachine = {
         },
       },
       on: {
-        CANCEL: "idle",
-        SUBMIT: "idle",
+        CANCEL: "cancelling",
+        SUBMIT: "success",
       },
+    },
+    cancelling: {
+      after: {
+        0: "idle",
+      },
+      invoke: {
+        id: "invokePromiseReject",
+        src: async (context: IContext, event: any) => {
+          if (context.invokePromiseReject) {
+            return context.invokePromiseReject(context, event);
+          }
+        },
+      },
+      onExit: {
+        actions: assign({
+          invokePromiseSuccess: () => {
+            return undefined;
+          },
+          invokePromiseReject: () => {
+            return undefined;
+          },
+        }),
+      } as any,
     },
     signMessage: {
       meta: {
@@ -250,7 +331,7 @@ export const rawAppMachine = {
         },
       },
       on: {
-        CANCEL: "idle",
+        CANCEL: "cancelling",
         SUBMIT: "signingMessage",
       },
     },
@@ -261,7 +342,7 @@ export const rawAppMachine = {
         },
       },
       on: {
-        CANCEL: "idle",
+        CANCEL: "cancelling",
         SUBMIT: "creatingAccount",
       },
     },
@@ -301,7 +382,7 @@ export const rawAppMachine = {
         },
       },
       on: {
-        CANCEL: "idle",
+        CANCEL: "cancelling",
         SUBMIT: "creatingWallet",
       },
     },
@@ -390,7 +471,7 @@ export const rawAppMachine = {
       },
       invoke: {
         id: "signatorySignMessage",
-        src: (context: IContext, event: any) => {
+        src: async (context: IContext, event: any) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
               signatoryCore
@@ -417,6 +498,24 @@ export const rawAppMachine = {
       on: {
         CANCEL: "idle",
       },
+      invoke: {
+        id: "invokePromiseReject",
+        src: async (context: IContext, event: any) => {
+          if (context.invokePromiseReject) {
+            return context.invokePromiseReject(context, event);
+          }
+        },
+      },
+      onExit: {
+        actions: assign({
+          invokePromiseSuccess: () => {
+            return undefined;
+          },
+          invokePromiseReject: () => {
+            return undefined;
+          },
+        }),
+      } as any,
     },
     success: {
       meta: {
@@ -427,6 +526,24 @@ export const rawAppMachine = {
       on: {
         CANCEL: "idle",
       },
+      invoke: {
+        id: "invokePromiseSuccess",
+        src: async (context: IContext, event: any) => {
+          if (context.invokePromiseSuccess) {
+            return context.invokePromiseSuccess(context, event);
+          }
+        },
+      },
+      exit: {
+        actions: assign({
+          invokePromiseSuccess: () => {
+            return undefined;
+          },
+          invokePromiseReject: () => {
+            return undefined;
+          },
+        }),
+      } as any,
     },
     signTransaction: {
       meta: {
@@ -435,7 +552,7 @@ export const rawAppMachine = {
         },
       },
       on: {
-        CANCEL: "list",
+        CANCEL: "cancelling",
         SUBMIT: "signingTransaction",
       },
     },
@@ -446,7 +563,7 @@ export const rawAppMachine = {
         },
       },
       on: {
-        CANCEL: "list",
+        CANCEL: "cancelling",
         SUBMIT: "signingTypedData",
       },
     },

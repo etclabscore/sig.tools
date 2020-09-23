@@ -69,6 +69,7 @@
     "react-qrcode-logo": "^2.2.1",
     "rpc-cap": "^2.0.0",
     "use-dark-mode": "^2.3.1",
+    "use-deep-compare-effect": "^1.4.0",
     "xstate": "^4.13.0"
   }
 }

@@ -9,7 +9,7 @@ import {
   ImportMnemonicOptions,
 } from "../__GENERATED_TYPES__";
 import { State, EventObject } from "xstate";
-import { ICard } from "../../machines/appMachine";
+import { ICard, IContext } from "../../machines/appMachine";
 import { IPostMessageServerOptions } from "../postMessageServer";
 import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
 import SignatoryLocalStorage from "../../storage/signatoryLocalStorage";
@@ -28,121 +28,86 @@ const generateMethodMapping: TGenerateMethodMapping = (options) => {
   };
 
   const sign: any = async (dataToSign: Data, address: Address, chainId: ChainId, domain: any) => {
-    const cardFound = options.appStateMachine.state.context.cards.find((card: ICard) => {
-      return card.address === address;
-    });
-    if (cardFound) {
-      options.appStateMachine.send("SHOW_SIGN_MESSAGE", {
+    return new Promise((resolve, reject) => {
+      options.send("SHOW_SIGN_MESSAGE", {
         dataToSign,
         address,
         chainId,
         domain,
-      });
-    }
-    return new Promise((resolve, reject) => {
-      const listener = (state: State<any>, event: EventObject) => {
-        if (event.type === "CANCEL") {
-          options.appStateMachine.stateMachineInstance.off(listener);
+        invokePromiseSuccess: async (context: IContext, event: any) => {
+          resolve(event.data);
+        },
+        invokePromiseReject: async (context: IContext, event: any) => {
           reject(new Error("User Rejected Request"));
-        } else if (state.value === "success") {
-          options.appStateMachine.stateMachineInstance.off(listener);
-          resolve(state.context.result);
-        }
-      };
-      options.appStateMachine.stateMachineInstance.onTransition(listener);
+        },
+      });
     });
   };
 
   const signTransaction: any = async (transaction: Transaction, chainId: ChainId, domain: any) => {
-    const cardFound = options.appStateMachine.state.context.cards.find((card: ICard) => {
-      return card.address === transaction.from;
-    });
     if (!domain) {
       domain = chainId;
       chainId = undefined as any;
     }
-    if (cardFound) {
-      options.appStateMachine.send("SHOW_SIGN_TRANSACTION", {
+    return new Promise((resolve, reject) => {
+      options.send("SHOW_SIGN_TRANSACTION", {
         transaction,
         chainId,
         domain,
-      });
-    }
-    return new Promise((resolve, reject) => {
-      const listener = (state: State<any>, event: EventObject) => {
-        if (event.type === "CANCEL") {
-          options.appStateMachine.stateMachineInstance.off(listener);
+        invokePromiseSuccess: async (context: IContext, event: any, data: any) => {
+          resolve(data);
+        },
+        invokePromiseReject: async (context: IContext, event: any, error: any) => {
           reject(new Error("User Rejected Request"));
-        } else if (state.value === "success") {
-          options.appStateMachine.stateMachineInstance.off(listener);
-          resolve(state.context.result);
-        }
-      };
-      options.appStateMachine.stateMachineInstance.onTransition(listener);
+        },
+      });
     });
   };
 
   const signTypedData: any = async (typedData: TypedData, address: Address, chainId: ChainId, domain: any) => {
-    const cardFound = options.appStateMachine.state.context.cards.find((card: ICard) => {
-      return card.address === address;
-    });
-    if (cardFound) {
-      options.appStateMachine.send("SHOW_SIGN_TYPED_DATA", {
+    return new Promise((resolve, reject) => {
+      options.send("SHOW_SIGN_TYPED_DATA", {
         typedData,
         address,
         chainId,
         domain,
+        invokePromiseSuccess: async (context: IContext, event: any, data: any) => {
+          resolve(data);
+        },
+        invokePromiseReject: async (context: IContext, event: any, error: any) => {
+          reject(error);
+        },
       });
-    }
-    return new Promise((resolve, reject) => {
-      const listener = (state: State<any>, event: EventObject) => {
-        if (event.type === "CANCEL") {
-          options.appStateMachine.stateMachineInstance.off(listener);
-          reject(new Error("User Rejected Request"));
-        } else if (state.value === "success") {
-          options.appStateMachine.stateMachineInstance.off(listener);
-          resolve(state.context.result);
-        }
-      };
-      options.appStateMachine.stateMachineInstance.onTransition(listener);
     });
   };
 
   const createAccount: any = async (newAccount: NewAccount, domain: any) => {
-    options.appStateMachine.send("CREATE_ACCOUNT", {
-      newAccount,
-      domain,
-    });
     return new Promise((resolve, reject) => {
-      const listener = (state: State<any>, event: EventObject) => {
-        if (event.type === "CANCEL") {
-          options.appStateMachine.stateMachineInstance.off(listener);
-          reject(new Error("User Rejected Request"));
-        } else if (state.value === "success") {
-          options.appStateMachine.stateMachineInstance.off(listener);
-          resolve(state.context.result);
-        }
-      };
-      options.appStateMachine.stateMachineInstance.onTransition(listener);
+      options.send("CREATE_ACCOUNT", {
+        newAccount,
+        domain,
+        invokePromiseSuccess: async (context: IContext, event: any, data: any) => {
+          resolve(data);
+        },
+        invokePromiseReject: async (context: IContext, event: any, error: any) => {
+          reject(error);
+        },
+      });
     });
   };
 
   const importMnemonic: any = async (importMnemonicOptions: ImportMnemonicOptions, domain: any) => {
-    options.appStateMachine.send("CREATE_WALLET", {
-      importMnemonicOptions,
-      domain,
-    });
     return new Promise((resolve, reject) => {
-      const listener = (state: State<any>, event: EventObject) => {
-        if (event.type === "CANCEL") {
-          options.appStateMachine.stateMachineInstance.off(listener);
-          reject(new Error("User Cancelled"));
-        } else if (state.value === "success") {
-          options.appStateMachine.stateMachineInstance.off(listener);
-          resolve(state.context.result);
-        }
-      };
-      options.appStateMachine.stateMachineInstance.onTransition(listener);
+      options.send("CREATE_WALLET", {
+        importMnemonicOptions,
+        domain,
+        invokePromiseSuccess: async (context: IContext, event: any, data: any) => {
+          resolve(data);
+        },
+        invokePromiseReject: async (context: IContext, event: any, error: any) => {
+          reject(error);
+        },
+      });
     });
   };
 

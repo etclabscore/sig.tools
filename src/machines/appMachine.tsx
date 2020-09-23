@@ -5,8 +5,6 @@ import accountsToTree from "../helpers/accountsToTree";
 import SignatoryLocalStorage from "../storage/signatoryLocalStorage";
 import saveJSON from "../helpers/saveJSON";
 
-const assert: any = (global as any).assert || null;
-
 const signatoryCore = signatoryFactory(new SignatoryLocalStorage());
 
 export interface ICard {
@@ -23,15 +21,19 @@ interface IFormData {
   [k: string]: any;
 }
 
+type InvokePromiseSuccessReject = (context: IContext, event: any) => void;
+
 export interface IContext {
   cards: ICard[];
   formData: null | IFormData;
   error: null | Error;
   result: null | string;
   createData: null | IFormData;
+  invokePromiseSuccess?: undefined | InvokePromiseSuccessReject;
+  invokePromiseReject?: undefined | InvokePromiseSuccessReject;
 }
 
-export const rawAppMachine = {
+export const rawAppMachine: any = {
   id: "appMachine",
   initial: "idle",
   context: {
@@ -45,32 +47,74 @@ export const rawAppMachine = {
     REQUEST_PERMISSIONS: {
       target: "requestPermissions",
       actions: assign({
-        formData: (ctx: IContext, e) => {
-          return e;
+        formData: (ctx: IContext, e: any) => {
+          return e.approvalRequest;
+        },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
         },
       }),
     },
     SHOW_SIGN_MESSAGE: {
       target: "signMessage",
+      cond: (context: IContext, event: any) => {
+        const cardFound = context.cards.find((card: ICard) => {
+          return card.address === event.address;
+        });
+        return !!cardFound;
+      },
       actions: assign({
         formData: (ctx: IContext, e) => {
           return e;
+        },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
         },
       }),
     },
     SHOW_SIGN_TRANSACTION: {
       target: "signTransaction",
+      cond: (context: IContext, event: any) => {
+        const cardFound = context.cards.find((card: ICard) => {
+          return card.address === event.transaction.from;
+        });
+        return !!cardFound;
+      },
       actions: assign({
         formData: (ctx: IContext, e) => {
           return e;
+        },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
         },
       }),
     },
     SHOW_SIGN_TYPED_DATA: {
       target: "signTypedData",
+      cond: (context: IContext, event: any) => {
+        const cardFound = context.cards.find((card: ICard) => {
+          return card.address === event.address;
+        });
+        return !!cardFound;
+      },
       actions: assign({
         formData: (ctx: IContext, e) => {
           return e;
+        },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
         },
       }),
     },
@@ -80,6 +124,12 @@ export const rawAppMachine = {
         createData: (ctx, e) => {
           return e;
         },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
+        },
       }),
     },
     CREATE_WALLET: {
@@ -88,26 +138,22 @@ export const rawAppMachine = {
         createData: (ctx, e) => {
           return e;
         },
+        invokePromiseSuccess: (ctx: IContext, e: any) => {
+          return e.invokePromiseSuccess;
+        },
+        invokePromiseReject: (ctx: IContext, e: any) => {
+          return e.invokePromiseReject;
+        },
       }),
     },
   },
   states: {
     onboarding: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("onboarding"));
-        },
-      },
       on: {
         SUBMIT: "creatingAccount",
       },
     },
     idle: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("idle"));
-        },
-      },
       invoke: {
         id: "signatoryListAccounts",
         src: async (context: IContext, event: any) => {
@@ -123,21 +169,11 @@ export const rawAppMachine = {
             },
           },
           {
-            meta: {
-              test: ({ getByTestId }: any) => {
-                assert.ok(getByTestId("idle"));
-              },
-            },
             target: "list",
             actions: assign({ cards: (context, event: any) => event.data }),
           },
         ],
         onError: {
-          meta: {
-            test: ({ getByTestId }: any) => {
-              assert.ok(getByTestId("idle"));
-            },
-          },
           target: "error",
           actions: assign({
             error: (context, event: any) => {
@@ -148,11 +184,6 @@ export const rawAppMachine = {
       },
     },
     list: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("list"));
-        },
-      },
       entry: assign({
         cards: (ctx: IContext, e) => {
           if (!ctx.cards) {
@@ -177,11 +208,6 @@ export const rawAppMachine = {
       },
     },
     details: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("details"));
-        },
-      },
       on: {
         "CARD.SELECT": {
           target: "nestedDetails",
@@ -207,11 +233,6 @@ export const rawAppMachine = {
       },
     },
     nestedDetails: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("nested-details"));
-        },
-      },
       on: {
         BACK: {
           target: "details",
@@ -233,44 +254,54 @@ export const rawAppMachine = {
       },
     },
     requestPermissions: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("request-permissions"));
-        },
-      },
       on: {
-        CANCEL: "idle",
-        SUBMIT: "idle",
+        CANCEL: "cancelling",
+        SUBMIT: {
+          target: "success",
+          actions: assign({
+            result: (context, event: any) => {
+              return "Granted Permissions";
+            },
+          }),
+        },
       },
     },
-    signMessage: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("sign-message"));
+    cancelling: {
+      after: {
+        0: "idle",
+      },
+      invoke: {
+        id: "invokePromiseReject",
+        src: async (context: IContext, event: any) => {
+          if (context.invokePromiseReject) {
+            return context.invokePromiseReject(context, event);
+          }
         },
       },
+      onExit: {
+        actions: assign({
+          invokePromiseSuccess: () => {
+            return undefined;
+          },
+          invokePromiseReject: () => {
+            return undefined;
+          },
+        }),
+      } as any,
+    },
+    signMessage: {
       on: {
-        CANCEL: "idle",
+        CANCEL: "cancelling",
         SUBMIT: "signingMessage",
       },
     },
     createAccount: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("createAccount"));
-        },
-      },
       on: {
-        CANCEL: "idle",
+        CANCEL: "cancelling",
         SUBMIT: "creatingAccount",
       },
     },
     creatingAccount: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("creatingAccount"));
-        },
-      },
       invoke: {
         id: "signatoryCreateAccount",
         src: (context: IContext, event: any) => {
@@ -295,22 +326,12 @@ export const rawAppMachine = {
       },
     },
     createWallet: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("createWallet"));
-        },
-      },
       on: {
-        CANCEL: "idle",
+        CANCEL: "cancelling",
         SUBMIT: "creatingWallet",
       },
     },
     creatingWallet: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("creatingWallet"));
-        },
-      },
       invoke: {
         id: "signatoryCreateWallet",
         src: (context: IContext, event: any) => {
@@ -335,11 +356,6 @@ export const rawAppMachine = {
       },
     },
     signingTypedData: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("signingTypedData"));
-        },
-      },
       invoke: {
         id: "signatorySignTypedData",
         src: (context: IContext, event: any) =>
@@ -355,11 +371,6 @@ export const rawAppMachine = {
       },
     },
     signingTransaction: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("signingTransaction"));
-        },
-      },
       invoke: {
         id: "signatorySignTransaction",
         src: (context: IContext, event: any) => {
@@ -383,14 +394,9 @@ export const rawAppMachine = {
       },
     },
     signingMessage: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("signingMessage"));
-        },
-      },
       invoke: {
         id: "signatorySignMessage",
-        src: (context: IContext, event: any) => {
+        src: async (context: IContext, event: any) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
               signatoryCore
@@ -409,44 +415,60 @@ export const rawAppMachine = {
       },
     },
     error: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("error"));
-        },
-      },
       on: {
         CANCEL: "idle",
       },
+      invoke: {
+        id: "invokePromiseReject",
+        src: async (context: IContext, event: any) => {
+          if (context.invokePromiseReject) {
+            return context.invokePromiseReject(context, event);
+          }
+        },
+      },
+      onExit: {
+        actions: assign({
+          invokePromiseSuccess: () => {
+            return undefined;
+          },
+          invokePromiseReject: () => {
+            return undefined;
+          },
+        }),
+      } as any,
     },
     success: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("success"));
-        },
-      },
       on: {
         CANCEL: "idle",
       },
-    },
-    signTransaction: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("sign-transaction"));
+      invoke: {
+        id: "invokePromiseSuccess",
+        src: async (context: IContext, event: any) => {
+          if (context.invokePromiseSuccess) {
+            return context.invokePromiseSuccess(context, event);
+          }
         },
       },
+      onExit: {
+        actions: assign({
+          invokePromiseSuccess: () => {
+            return undefined;
+          },
+          invokePromiseReject: () => {
+            return undefined;
+          },
+        }),
+      } as any,
+    },
+    signTransaction: {
       on: {
-        CANCEL: "list",
+        CANCEL: "cancelling",
         SUBMIT: "signingTransaction",
       },
     },
     signTypedData: {
-      meta: {
-        test: ({ getByTestId }: any) => {
-          assert.ok(getByTestId("signTypedData"));
-        },
-      },
       on: {
-        CANCEL: "list",
+        CANCEL: "cancelling",
         SUBMIT: "signingTypedData",
       },
     },

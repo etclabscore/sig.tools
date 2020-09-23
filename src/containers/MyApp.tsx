@@ -37,9 +37,12 @@ import HexToNumberConverter from "../components/HexToNumberConverter";
 import HexToStringConverter from "../components/HexToString";
 import PasswordWidget from "../components/PasswordWidget";
 import { inspect } from "@xstate/inspect";
+import InfoDialog from "../components/InfoDialog";
+import { capabilities } from "../capabilities";
+import { RpcCapDomainEntry } from "rpc-cap/dist/src/@types";
 
 if (window.location.search.includes("?inspect")) {
-  inspect({iframe: false});
+  inspect({ iframe: false });
 }
 
 export const matchesMachineState = (
@@ -56,8 +59,9 @@ const configuredAppMachine = appMachine.withConfig({
 }, { cards: [], formData: null, error: null, result: null, createData: null });
 
 const MyApp = () => {
-  const [state, send, myStateMachineService]: [any, any, any] =
+  const [state, send]: [any, any, any] =
     useMachine<IContext, any>(configuredAppMachine, { devTools: true });
+  const [infoDialogOpen, setInfoDialogOpen] = useState<boolean>(false);
   const [onboardingSchema, setOnboardingSchema] = useState();
   const darkMode = useDarkMode();
   const theme = darkMode.value ? darkTheme : lightTheme;
@@ -84,16 +88,12 @@ const MyApp = () => {
       jsonrpcServer.stop();
     }
     const pmServer = postMessageServer({
-      appStateMachine: {
-        send,
-        state,
-        stateMachineInstance: myStateMachineService,
-      },
+      send,
     });
     pmServer.start();
     setJsonrpcServer(pmServer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.context, state.value, myStateMachineService]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     refParser.dereference(SignatoryOpenRPCDocument as any || {})
@@ -134,6 +134,28 @@ const MyApp = () => {
   };
   const [showAlpha, setShowAlpha] = useState(true);
 
+  const onInfoDialogClose = () => {
+    setInfoDialogOpen(false);
+  };
+
+  const handleInfoClick = () => {
+    setInfoDialogOpen(true);
+  };
+
+  type domainsListTuple = [string, RpcCapDomainEntry];
+  const [capabilitiesList, setCapabilitiesList] = useState<domainsListTuple[]>(Object.entries(capabilities?.getDomains() || {}));
+  useEffect(() => {
+    if (capabilities) {
+      setCapabilitiesList(Object.entries(capabilities.getDomains()));
+      capabilities.subscribe(() => {
+        if (capabilities) {
+          setCapabilitiesList(Object.entries(capabilities.getDomains()));
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [capabilities]);
+
   return (
     <MuiThemeProvider theme={theme}>
       <div id={state.value} />
@@ -167,6 +189,7 @@ const MyApp = () => {
       <AppBar
         onDarkModeChange={darkMode.toggle}
         darkMode={darkMode.value}
+        onInfoClick={handleInfoClick}
         backItem={matchesMachineState(["details", "nestedDetails"], state) &&
           <IconButton id="back" onClick={() => {
             send("BACK");
@@ -570,6 +593,17 @@ const MyApp = () => {
           <Button id="submit" type="submit" variant="contained" fullWidth color="primary">Submit</Button>
         </FormPanel>
       }
+      <InfoDialog
+        open={infoDialogOpen}
+        onClose={onInfoDialogClose}
+        capabilitiesList={capabilitiesList}
+        onRemoveCapability={(cap) => {
+          if (capabilities) {
+            capabilities.removePermissionsFor(cap.invoker, [cap]);
+            setCapabilitiesList(Object.entries(capabilities.getDomains()));
+          }
+        }}>
+      </InfoDialog>
     </MuiThemeProvider >
   );
 };

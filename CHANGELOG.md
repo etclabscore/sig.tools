@@ -1,3 +1,19 @@
+# [1.2.0](https://github.com/etclabscore/sig.tools/compare/1.1.13...1.2.0) (2020-09-23)
+
+
+### Bug Fixes
+
+* move build to publish.sh to get semantic release version in package.json at build time ([5dcce78](https://github.com/etclabscore/sig.tools/commit/5dcce785a0e62cd3a24e6bd2150df7694cc55236))
+* npm audit fix ([0e77540](https://github.com/etclabscore/sig.tools/commit/0e77540cda1d5b04d7d06d9b748725301d778a34))
+* remove appMachine test meta ([78ddba3](https://github.com/etclabscore/sig.tools/commit/78ddba37065c4d5207cb16220b60dd8f47756517))
+* remove verify gh pages directory ([92385cd](https://github.com/etclabscore/sig.tools/commit/92385cd15731cfda29c41d15c531626fa3ce15bf))
+* styles + linting for new info dialog ([8a0367b](https://github.com/etclabscore/sig.tools/commit/8a0367b0298d21ee9de1c41cdf0d24855095ed73))
+
+
+### Features
+
+* add info dialog + permissions list ([442133e](https://github.com/etclabscore/sig.tools/commit/442133e58383faa29e55a6687e7c9585439a9fdf))
+
 ## [1.1.13](https://github.com/etclabscore/sig.tools/compare/1.1.12...1.1.13) (2020-09-15)
 
 

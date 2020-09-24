@@ -46,6 +46,9 @@ export const rawAppMachine: any = {
   on: {
     REQUEST_PERMISSIONS: {
       target: "requestPermissions",
+      cond: (context: IContext, event: any) => {
+        return context.cards.length > 0;
+      },
       actions: assign({
         formData: (ctx: IContext, e: any) => {
           return e.approvalRequest;

@@ -569,24 +569,31 @@ const MyApp = () => {
           }}
           header={
             <Grid container direction="row">
-              <Grid item xs={4} container justify="center" alignItems="center">
-                <Typography style={{ fontSize: "100px" }}><span role="img" aria-label="sig.tools">🔐</span></Typography>
-              </Grid>
-              <Grid item container direction="column" xs={8} style={{ marginTop: "20px" }}>
-                <Typography variant="h4" gutterBottom>Welcome to sig.tools</Typography>
+              <Grid item container direction="column">
+                <Grid container justify="space-evenly" alignContent="space-around">
+                  <Grid item>
+                    <Typography variant="h4" gutterBottom color="textPrimary">
+                      Getting Started
+                   </Typography>
+                  </Grid>
+                </Grid>
+                <br />
                 <Typography variant="caption">
+                  <span role="img" aria-label="sig.tools">🔐</span>
                   <b>sig.tools</b>
-                  &nbsp;is a tool to enable the distributed creation and (non-custodial) management of cryptographic
-                  accounts for the Ethereum Stack.
-                   <Link href="https://ethereumclassic.org/blog/2017-06-17-private-keys">
-                    <b>&nbsp;sig.tools</b> can <b>not</b> recover funds
+                  &nbsp;manages cryptographic accounts for the Ethereum stack.
+                </Typography>
+                <br />
+                <Typography variant="caption">
+                  <Link href="https://ethereumclassic.org/blog/2017-06-17-private-keys">
+                    <b>sig.tools</b> can <b>not</b> recover funds
                   </Link>.
-                  Keep your keyfile safe.
+                  Keep your keyfile and password in a safe place.
                 </Typography>
               </Grid>
             </Grid>
           }
-          formData={Object.assign({}, { newAccount: { name: "🧙‍♂️" } }, state.context.createData)}
+          formData={state.context.createData}
           title={"Set Up Your Account"}
           onSubmit={(e) => send("SUBMIT", { ...e, type: "SUBMIT" })}
         >

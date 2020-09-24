@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/etclabscore/sig.tools/compare/1.2.0...1.2.1) (2020-09-24)
+
+
+### Bug Fixes
+
+* use npm semantic release plugin but disable publish to bump package version ([ec61401](https://github.com/etclabscore/sig.tools/commit/ec61401acca9712c113770e898fea6d62f206aa0))
+
 # [1.2.0](https://github.com/etclabscore/sig.tools/compare/1.1.13...1.2.0) (2020-09-23)
 
 

@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/etclabscore/sig.tools/compare/1.2.1...1.2.2) (2020-09-24)
+
+
+### Bug Fixes
+
+* add condition to fix onboarding empty screen issue ([68a541d](https://github.com/etclabscore/sig.tools/commit/68a541d1daeaef51e0389a3fc5ff20f4eb3ce04e))
+
 ## [1.2.1](https://github.com/etclabscore/sig.tools/compare/1.2.0...1.2.1) (2020-09-24)
 
 

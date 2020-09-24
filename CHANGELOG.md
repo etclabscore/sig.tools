@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/etclabscore/sig.tools/compare/1.2.2...1.2.3) (2020-09-24)
+
+
+### Bug Fixes
+
+* **onboarding:** clean up onboarding view ([011a41f](https://github.com/etclabscore/sig.tools/commit/011a41fd3cd0bf598a0a80f82f2b5b81ac07460c))
+
 ## [1.2.2](https://github.com/etclabscore/sig.tools/compare/1.2.1...1.2.2) (2020-09-24)
 
 

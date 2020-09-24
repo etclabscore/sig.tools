@@ -5,6 +5,9 @@
     ["@open-rpc/semantic-release-plugin", {
       "documentLocation": "src/openrpc.json"
     }],
+    ["@semantic-release/npm", {
+      "npmPublish": false
+    }],
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
@@ -13,6 +16,7 @@
     "@qiwi/semantic-release-gh-pages-plugin"
   ],
   "prepare": [
+    "@semantic-release/npm",
     ["@open-rpc/semantic-release-plugin", {
       "documentLocation": "src/openrpc.json"
     }],

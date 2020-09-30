@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/etclabscore/sig.tools/compare/1.2.4...1.2.5) (2020-09-30)
+
+
+### Bug Fixes
+
+* upgrade @xstate/react ([ae8487c](https://github.com/etclabscore/sig.tools/commit/ae8487c78d6bee3e463ff98230b68053c593ff47))
+
 ## [1.2.4](https://github.com/etclabscore/sig.tools/compare/1.2.3...1.2.4) (2020-09-30)
 
 

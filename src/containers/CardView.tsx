@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useService } from "@xstate/react";
+import { useActor } from "@xstate/react";
 import { Card, CardContent, Typography, Grid, ButtonBase, Tooltip } from "@material-ui/core";
 import { Hd, VpnKey } from "@material-ui/icons";
 import { ICard } from "../machines/appMachine";
@@ -55,7 +55,7 @@ const styles = {
 };
 
 const CardView = (props: IProps) => {
-  const [state, send] = useService(props.card.ref!);
+  const [state, send] = useActor(props.card.ref!);
   const [openrpcDocument, setOpenrpcDocument] = useState<undefined | JSONSchema>();
   const darkMode = useDarkMode();
   const colorHash =
@@ -77,6 +77,13 @@ const CardView = (props: IProps) => {
       });
   }, []);
 
+  if (!state) {
+    return null;
+  }
+  if (!send) {
+    return null;
+  }
+
   return (
     <>
       {openrpcDocument && state.matches("selected") &&
@@ -86,8 +93,8 @@ const CardView = (props: IProps) => {
             address: props.card.address,
           }}
           open={state.matches({ selected: "signMessage" })}
-          onSubmit={(e) => send("SUBMIT", e)}
-          onClose={() => send("CANCEL")}
+          onSubmit={(e) => send(e)}
+          onClose={() => send({ type: "CANCEL" })}
         />
       }
       {openrpcDocument && state.matches("selected") &&
@@ -99,8 +106,8 @@ const CardView = (props: IProps) => {
             },
           }}
           open={state.matches({ selected: "signTransaction" })}
-          onSubmit={() => send("SUBMIT")}
-          onClose={() => send("CANCEL")}
+          onSubmit={() => send({ type: "SUBMIT" })}
+          onClose={() => send({ type: "CANCEL" })}
         />
       }
       {openrpcDocument && state.matches("selected") &&
@@ -110,8 +117,8 @@ const CardView = (props: IProps) => {
             address: props.card.address,
           }}
           open={state.matches({ selected: "signTypedData" })}
-          onSubmit={() => send("SUBMIT")}
-          onClose={() => send("CANCEL")}
+          onSubmit={() => send({ type: "SUBMIT" })}
+          onClose={() => send({ type: "CANCEL" })}
         />
       }
       <Grid container direction="column" justify="center" alignItems="center">
@@ -234,7 +241,7 @@ const CardView = (props: IProps) => {
               marginTop: "5px",
               animation: "item-in 0.25s ease-in-out 0.15s both",
             }} onClick={() => {
-              props.card?.ref?.parent?.send("EXPORT", {address: props.card.address});
+              props.card?.ref?.parent?.send("EXPORT", { address: props.card.address });
             }}>
 
               <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
@@ -256,7 +263,7 @@ const CardView = (props: IProps) => {
                 marginRight: "5px",
                 marginBottom: "5px",
                 animation: "item-in 0.25s ease-in-out 0.20s both",
-              }} onClick={() => send("SHOW_SIGN_TRANSACTION")}>
+              }} onClick={() => send({ type: "SHOW_SIGN_TRANSACTION" })}>
                 <Card style={{ ...styles.cardItem, width: "100%", height: "100%" }}>
                   <CardContent>
                     <Typography><span role="img" aria-label="new-account">🔐</span></Typography>

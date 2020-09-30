@@ -187,20 +187,32 @@ export const rawAppMachine: any = {
       },
     },
     list: {
-      onEntry: assign({
-        cards: (ctx: IContext, e) => {
-          if (!ctx.cards) {
-            return [];
-          }
-          const results = ctx.cards.map((card: ICard) => {
-            return {
-              ...card,
-              ref: spawn(cardMachine.withContext({ card })),
-            };
+      onEntry: [
+        assign({
+          cards: (ctx: IContext, e) => {
+            if (!ctx.cards) {
+              return [];
+            }
+            const results = ctx.cards.map((card: ICard) => {
+              if (card.ref) {
+                return card;
+              }
+              return {
+                ...card,
+                ref: spawn(cardMachine.withContext({ card })),
+              };
+            });
+            return results;
+          },
+        }),
+        (context: IContext, event: any) => {
+          context.cards.forEach((card: ICard) => {
+            if (card.ref) {
+              card.ref.send("DESELECT");
+            }
           });
-          return results;
         },
-      }),
+      ],
       on: {
         "CARD.SELECT": {
           target: "details",

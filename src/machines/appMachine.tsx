@@ -1,4 +1,4 @@
-import { createMachine, assign, spawn, Interpreter, MachineConfig } from "xstate";
+import { createMachine, assign, spawn, Interpreter } from "xstate";
 import cardMachine from "./cardMachine";
 import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
 import accountsToTree from "../helpers/accountsToTree";

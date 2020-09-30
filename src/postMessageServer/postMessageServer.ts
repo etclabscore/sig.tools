@@ -36,10 +36,23 @@ const generatePermissions = (
       options.send("REQUEST_PERMISSIONS", {
         approvalRequest,
         invokePromiseSuccess: async (context: IContext, event: any, data: any) => {
-          resolve(approvalRequest.permissions);
+          let permissions = {
+            listAccounts: {
+              ...approvalRequest.permissions.listAccounts,
+            },
+          };
+          if (context.caveats) {
+            permissions = {
+              listAccounts: {
+                ...approvalRequest.permissions.listAccounts,
+                caveats: [context.caveats],
+              },
+            };
+          }
+          resolve(permissions);
         },
         invokePromiseReject: async (context: IContext, event: any, error: any) => {
-          reject(error);
+          reject(new Error("User Rejected Request"));
         },
       });
     });

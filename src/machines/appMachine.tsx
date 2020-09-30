@@ -1,9 +1,11 @@
 import { createMachine, assign, spawn, Interpreter } from "xstate";
 import cardMachine from "./cardMachine";
-import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
+import { methods as signatoryFactory, Account } from "@etclabscore/signatory-core/build/src/index";
 import accountsToTree from "../helpers/accountsToTree";
 import SignatoryLocalStorage from "../storage/signatoryLocalStorage";
 import saveJSON from "../helpers/saveJSON";
+import { IOcapLdCaveat } from "@xops.net/rpc-cap";
+import _ from "lodash";
 
 const signatoryCore = signatoryFactory(new SignatoryLocalStorage());
 
@@ -11,6 +13,7 @@ export interface ICard {
   name?: string;
   parent?: string;
   description?: string;
+  hidden?: boolean;
   uuid?: string;
   address?: string;
   ref?: Interpreter<any>;
@@ -29,6 +32,7 @@ export interface IContext {
   error: null | Error;
   result: null | string;
   createData: null | IFormData;
+  caveats?: IOcapLdCaveat;
   invokePromiseSuccess?: undefined | InvokePromiseSuccessReject;
   invokePromiseReject?: undefined | InvokePromiseSuccessReject;
 }
@@ -271,8 +275,40 @@ export const rawAppMachine: any = {
     requestPermissions: {
       on: {
         CANCEL: "cancelling",
+        ACCOUNTS_CHANGED: {
+          actions: assign({
+            caveats: (context: any, event: any) => {
+              const filtered = context.cards.filter((card: any) => {
+                return event.accounts.includes(card);
+              });
+              if (filtered.length === 0) {
+                return;
+              }
+              return {
+                name: "filteredAccounts",
+                type: "filterResponse",
+                value: filtered.map((value: ICard) => {
+                  return _.omitBy({
+                    address: value.address,
+                    name: value.name,
+                    hidden: value.hidden,
+                    description: value.description,
+                    parent: value.parent,
+                  }, _.isUndefined);
+                }),
+              };
+            },
+          }),
+        },
         SUBMIT: {
           target: "success",
+          cond: (context: IContext, event: any) => {
+            if (context.caveats) {
+              return context.caveats;
+            } else {
+              return false;
+            }
+          },
           actions: assign({
             result: (context, event: any) => {
               return "Granted Permissions";
@@ -448,6 +484,9 @@ export const rawAppMachine: any = {
             invokePromiseReject: () => {
               return undefined;
             },
+            caveats: () => {
+              return undefined;
+            },
           }),
         },
       },
@@ -469,6 +508,9 @@ export const rawAppMachine: any = {
               return undefined;
             },
             invokePromiseReject: () => {
+              return undefined;
+            },
+            caveats: () => {
               return undefined;
             },
           }),

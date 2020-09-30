@@ -36,14 +36,9 @@ import { State } from "xstate";
 import HexToNumberConverter from "../components/HexToNumberConverter";
 import HexToStringConverter from "../components/HexToString";
 import PasswordWidget from "../components/PasswordWidget";
-import { inspect } from "@xstate/inspect";
 import InfoDialog from "../components/InfoDialog";
 import { capabilities } from "../capabilities";
 import { RpcCapDomainEntry } from "rpc-cap/dist/src/@types";
-
-if (window.location.search.includes("?inspect")) {
-  inspect({ iframe: false });
-}
 
 export const matchesMachineState = (
   states: string[],

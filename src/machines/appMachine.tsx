@@ -1,4 +1,4 @@
-import { createMachine, assign, spawn, Interpreter } from "xstate";
+import { createMachine, assign, spawn, Interpreter, MachineConfig } from "xstate";
 import cardMachine from "./cardMachine";
 import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
 import accountsToTree from "../helpers/accountsToTree";
@@ -49,7 +49,7 @@ export const rawAppMachine: any = {
       cond: (context: IContext, event: any) => {
         return context.cards.length > 0;
       },
-      actions: assign({
+      actions: assign<IContext>({
         formData: (ctx: IContext, e: any) => {
           return e.approvalRequest;
         },
@@ -187,7 +187,7 @@ export const rawAppMachine: any = {
       },
     },
     list: {
-      entry: assign({
+      onEntry: assign({
         cards: (ctx: IContext, e) => {
           if (!ctx.cards) {
             return [];
@@ -280,17 +280,17 @@ export const rawAppMachine: any = {
             return context.invokePromiseReject(context, event);
           }
         },
+        onDone: {
+          actions: assign({
+            invokePromiseSuccess: () => {
+              return undefined;
+            },
+            invokePromiseReject: () => {
+              return undefined;
+            },
+          }),
+        },
       },
-      onExit: {
-        actions: assign({
-          invokePromiseSuccess: () => {
-            return undefined;
-          },
-          invokePromiseReject: () => {
-            return undefined;
-          },
-        }),
-      } as any,
     },
     signMessage: {
       on: {
@@ -428,17 +428,17 @@ export const rawAppMachine: any = {
             return context.invokePromiseReject(context, event);
           }
         },
+        onDone: {
+          actions: assign({
+            invokePromiseSuccess: () => {
+              return undefined;
+            },
+            invokePromiseReject: () => {
+              return undefined;
+            },
+          }),
+        },
       },
-      onExit: {
-        actions: assign({
-          invokePromiseSuccess: () => {
-            return undefined;
-          },
-          invokePromiseReject: () => {
-            return undefined;
-          },
-        }),
-      } as any,
     },
     success: {
       on: {
@@ -451,17 +451,17 @@ export const rawAppMachine: any = {
             return context.invokePromiseSuccess(context, event);
           }
         },
+        onDone: {
+          actions: assign({
+            invokePromiseSuccess: () => {
+              return undefined;
+            },
+            invokePromiseReject: () => {
+              return undefined;
+            },
+          }),
+        },
       },
-      onExit: {
-        actions: assign({
-          invokePromiseSuccess: () => {
-            return undefined;
-          },
-          invokePromiseReject: () => {
-            return undefined;
-          },
-        }),
-      } as any,
     },
     signTransaction: {
       on: {

@@ -54,7 +54,7 @@ const configuredAppMachine = appMachine.withConfig({
 }, { cards: [], formData: null, error: null, result: null, createData: null });
 
 const MyApp = () => {
-  const [state, send]: [any, any, any] =
+  const [state, send, service]: [any, any, any] =
     useMachine<IContext, any>(configuredAppMachine, { devTools: true });
   const [infoDialogOpen, setInfoDialogOpen] = useState<boolean>(false);
   const [onboardingSchema, setOnboardingSchema] = useState();
@@ -77,6 +77,12 @@ const MyApp = () => {
     domain = formData.domain;
     delete formData.domain;
   }
+
+  useEffect(() => {
+    if (window.location.search.includes("?inspect")) {
+      window.__xstate__.register(service);
+    }
+  }, [service]);
 
   useEffect(() => {
     if (jsonrpcServer) {

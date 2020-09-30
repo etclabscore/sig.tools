@@ -1,3 +1,11 @@
+## [1.2.4](https://github.com/etclabscore/sig.tools/compare/1.2.3...1.2.4) (2020-09-30)
+
+
+### Bug Fixes
+
+* xstate inspect ([a965218](https://github.com/etclabscore/sig.tools/commit/a96521889fa6d244ad8bdec2fc920433edde678e))
+* **appMachine:** remove unused MachineConfig type ([f5d7275](https://github.com/etclabscore/sig.tools/commit/f5d7275ccb1f6ecda71489f7620419f94a7aa2f1))
+
 ## [1.2.3](https://github.com/etclabscore/sig.tools/compare/1.2.2...1.2.3) (2020-09-24)
 
 

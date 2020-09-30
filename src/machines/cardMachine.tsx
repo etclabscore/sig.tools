@@ -8,7 +8,7 @@ interface ICardMachineContext {
 // Stateless machine definition
 // machine.transition(...) is a pure function used by the interpreter.
 const cardMachine: StateMachine<ICardMachineContext, any, any> = createMachine({
-  id: "toggle",
+  id: "cardMachine",
   initial: "initial",
   context: {
     card: {},

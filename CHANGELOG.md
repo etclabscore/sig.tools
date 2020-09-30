@@ -1,3 +1,10 @@
+## [1.2.6](https://github.com/etclabscore/sig.tools/compare/1.2.5...1.2.6) (2020-09-30)
+
+
+### Bug Fixes
+
+* allow xstate inspect ([96a05a7](https://github.com/etclabscore/sig.tools/commit/96a05a7152ae68037a6db0633dc2e08f05987cce))
+
 ## [1.2.5](https://github.com/etclabscore/sig.tools/compare/1.2.4...1.2.5) (2020-09-30)
 
 

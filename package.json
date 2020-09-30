@@ -51,7 +51,7 @@
     "@types/color-hash": "^1.0.0",
     "@types/lodash": "^4.14.149",
     "@types/react-jsonschema-form": "^1.7.1",
-    "@xstate/inspect": "^0.1.0",
+    "@xstate/inspect": "^0.1.1",
     "@xstate/react": "^0.8.1",
     "@xstate/test": "^0.4.0",
     "color-hash": "^1.0.3",

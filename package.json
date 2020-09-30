@@ -14,7 +14,7 @@
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@open-rpc/generator": "^1.18.5",
+    "@open-rpc/generator": "^1.18.6",
     "@open-rpc/typings": "^1.9.0",
     "@testing-library/react": "^10.0.4",
     "@types/jest": "^24.0.13",

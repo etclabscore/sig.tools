@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/etclabscore/sig.tools/compare/1.2.8...1.3.0) (2020-10-01)
+
+
+### Bug Fixes
+
+* linting ([8850db8](https://github.com/etclabscore/sig.tools/commit/8850db81ca79aabfffa7be205a957f1daba445ee))
+
+
+### Features
+
+* add list account caveats ([75b749f](https://github.com/etclabscore/sig.tools/commit/75b749fde5525f361ddea0df0781b5b05b1f4709))
+
 ## [1.2.8](https://github.com/etclabscore/sig.tools/compare/1.2.7...1.2.8) (2020-10-01)
 
 

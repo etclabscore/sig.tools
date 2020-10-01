@@ -8,7 +8,6 @@ import {
   MuiThemeProvider,
   CssBaseline,
   Paper,
-  CircularProgress,
   Typography,
   FormControlLabel,
   Checkbox,
@@ -18,7 +17,7 @@ import {
 import SignatoryOpenRPCDocument from "../openrpc.json";
 import CardView from "./CardView";
 import refParser, { JSONSchema } from "@apidevtools/json-schema-ref-parser";
-import { ArrowBackIos, Close } from "@material-ui/icons";
+import { ArrowBackIos, Close, ScreenLockPortrait } from "@material-ui/icons";
 import CardsList from "./CardsList";
 import { Flipper } from "react-flip-toolkit";
 import AppBar from "./AppBar";
@@ -41,6 +40,7 @@ import { capabilities } from "../capabilities";
 import { RpcCapDomainEntry } from "@xops.net/rpc-cap";
 import AccountSelectList from "../components/AccountSelectList";
 import { Account } from "@etclabscore/signatory-core";
+import EmptyCard from "../components/EmptyCard";
 
 export const matchesMachineState = (
   states: string[],
@@ -412,7 +412,12 @@ const MyApp = () => {
         state.matches("signingTransaction") ||
         state.matches("signingTypedData")) &&
         <Grid container justify="center" alignItems="center" style={{ paddingTop: "30px" }}>
-          <CircularProgress />
+          <EmptyCard content={
+            <Grid container direction="column" justify="center" alignItems="center">
+              <ScreenLockPortrait fontSize="large" />
+              <Typography color="textSecondary">{state.value.includes("signing") ? "Signing" : "Creating"}</Typography>
+            </Grid>
+          } />
         </Grid>
       }
       {

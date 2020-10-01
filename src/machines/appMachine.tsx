@@ -245,7 +245,7 @@ export const rawAppMachine: any = {
                 const keyfile = await signatoryCore.exportAccount(e.address);
                 saveJSON(keyfile, `${e.address}-keyfile.json`);
                 resolve();
-              }, 200);
+              }, 300);
             });
           },
         },
@@ -363,7 +363,7 @@ export const rawAppMachine: any = {
                 saveJSON(keyfile, `${r}-keyfile.json`);
                 resolve(r);
               }).catch(reject);
-            }, 200);
+            }, 300);
           });
         },
         onDone: {
@@ -389,7 +389,7 @@ export const rawAppMachine: any = {
           return new Promise((resolve: any, reject: any) => {
             setTimeout(() => {
               signatoryCore.importMnemonic(event.importMnemonicOptions).then(resolve).catch(reject);
-            }, 200);
+            }, 300);
           });
         },
         onDone: {
@@ -431,7 +431,7 @@ export const rawAppMachine: any = {
                 .signTransaction(event.transaction, event.passphrase, event.chainId)
                 .then(resolve)
                 .catch(reject);
-            }, 200);
+            }, 300);
           });
         },
         onDone: {
@@ -452,7 +452,7 @@ export const rawAppMachine: any = {
             setTimeout(() => {
               signatoryCore
                 .sign(event.dataToSign, event.address, event.passphrase, event.chainId).then(resolve).catch(reject);
-            }, 200);
+            }, 300);
           });
         },
         onDone: {

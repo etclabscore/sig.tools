@@ -3,8 +3,8 @@ import { Dialog, DialogProps, DialogContent, Card, CardContent, Grid, Typography
 import p from "../../package.json";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { Description, Delete } from "@material-ui/icons";
-import { IOcapLdCapability } from "rpc-cap/dist/src/@types/ocap-ld";
-import { RpcCapDomainEntry } from "rpc-cap/dist/src/@types";
+import { IOcapLdCapability } from "@xops.net/rpc-cap";
+import { RpcCapDomainEntry } from "@xops.net/rpc-cap";
 
 type domainsListTuple = [string, RpcCapDomainEntry];
 

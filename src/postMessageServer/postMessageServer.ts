@@ -1,11 +1,11 @@
 import openrpcDocument from "../openrpc.json";
 import generateMethodMapping, { IMethodMapping } from "./methods/methodMapping";
 import { MethodObject, ContentDescriptorObject } from "@open-rpc/meta-schema";
-import { UserApprovalPrompt, IPermissionsRequest } from "rpc-cap/dist/src/@types";
+import { UserApprovalPrompt, IPermissionsRequest } from "@xops.net/rpc-cap";
 import _ from "lodash";
 import changePermissionContext from "../helpers/changePermissionContext";
 import changePermissionError from "../helpers/changePermissionError";
-import { CapabilitiesController } from "rpc-cap";
+import { CapabilitiesController } from "@xops.net/rpc-cap";
 import { setCapabilities } from "../capabilities";
 import { IContext } from "../machines/appMachine";
 

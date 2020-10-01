@@ -38,7 +38,7 @@ import HexToStringConverter from "../components/HexToString";
 import PasswordWidget from "../components/PasswordWidget";
 import InfoDialog from "../components/InfoDialog";
 import { capabilities } from "../capabilities";
-import { RpcCapDomainEntry } from "rpc-cap/dist/src/@types";
+import { RpcCapDomainEntry } from "@xops.net/rpc-cap";
 
 export const matchesMachineState = (
   states: string[],

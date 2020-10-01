@@ -1,3 +1,10 @@
+## [1.2.8](https://github.com/etclabscore/sig.tools/compare/1.2.7...1.2.8) (2020-10-01)
+
+
+### Bug Fixes
+
+* use slim rpc cap lib to save on deps ([4f8c31d](https://github.com/etclabscore/sig.tools/commit/4f8c31df45dce7c3a98502f72a72abb9f62448da))
+
 ## [1.2.7](https://github.com/etclabscore/sig.tools/compare/1.2.6...1.2.7) (2020-09-30)
 
 

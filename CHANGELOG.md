@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/etclabscore/sig.tools/compare/1.3.0...1.3.1) (2020-10-01)
+
+
+### Bug Fixes
+
+* add emptycard for loading and signing ([8f5e729](https://github.com/etclabscore/sig.tools/commit/8f5e729cfed425ed7d30a3f52a40496bab4ed417))
+
 # [1.3.0](https://github.com/etclabscore/sig.tools/compare/1.2.8...1.3.0) (2020-10-01)
 
 

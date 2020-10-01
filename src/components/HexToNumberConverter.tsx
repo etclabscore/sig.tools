@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const HexToNumberConverter: React.FC<IProps> = (props) => {
-  const [state, send, machine] = useMachine(hexToNumberMachine.withContext({ hex: props.value, number: "" }));
+  const [state, send, machine] = useMachine(hexToNumberMachine.withContext({ hex: props.value, number: "" }), { devtools: true });
   machine.onChange((context: any) => {
     if (props.onChange) {
       props.onChange(context.hex);

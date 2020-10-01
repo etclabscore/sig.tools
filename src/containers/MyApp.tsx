@@ -39,6 +39,8 @@ import PasswordWidget from "../components/PasswordWidget";
 import InfoDialog from "../components/InfoDialog";
 import { capabilities } from "../capabilities";
 import { RpcCapDomainEntry } from "@xops.net/rpc-cap";
+import AccountSelectList from "../components/AccountSelectList";
+import { Account } from "@etclabscore/signatory-core";
 
 export const matchesMachineState = (
   states: string[],
@@ -93,6 +95,7 @@ const MyApp = () => {
     });
     pmServer.start();
     setJsonrpcServer(pmServer);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -532,16 +535,18 @@ const MyApp = () => {
           {state.context.formData && state.context.formData.permissions &&
             _.map(state.context.formData.permissions, (value, key) => {
               return (
-                <Grid container direction="row">
+                <Grid container direction="column">
                   <FormControlLabel
                     control={<Checkbox checked={true} name={key} />}
                     label={`Trust this app to [${key}]?`}
                   />
-                  {/* {key === "listAccounts" &&
+                  {key === "listAccounts" &&
                     <>
-                      <SelectAccount accounts={state.context.cards} />
+                      <br />
+                      <Typography>Select account(s)</Typography>
+                      <AccountSelectList accounts={state.context.cards} onChange={(accounts: Account[]) => send("ACCOUNTS_CHANGED", { accounts })} />
                     </>
-                  } */}
+                  }
                 </Grid>
               );
             })

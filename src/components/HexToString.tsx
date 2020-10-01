@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const HexToStringConverter: React.FC<IProps> = (props) => {
-  const [state, send, machine] = useMachine(hexToStringMachine.withContext({ hex: props.value, string: "" }));
+  const [state, send, machine] = useMachine(hexToStringMachine.withContext({ hex: props.value, string: "" }), { devTools: true });
   machine.onChange((context: any) => {
     if (props.onChange) {
       props.onChange(context.hex);

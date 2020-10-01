@@ -12,6 +12,7 @@ import { IContext } from "../../machines/appMachine";
 import { IPostMessageServerOptions } from "../postMessageServer";
 import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
 import SignatoryLocalStorage from "../../storage/signatoryLocalStorage";
+import _ from "lodash";
 export interface IMethodMapping {
   [methodName: string]: (...params: any) => Promise<any>;
 }
@@ -23,7 +24,8 @@ type TGenerateMethodMapping = (options: IPostMessageServerOptions) => IMethodMap
 const generateMethodMapping: TGenerateMethodMapping = (options) => {
 
   const listAccounts: ListAccounts = async () => {
-    return signatoryCore.listAccounts();
+    const r = await signatoryCore.listAccounts();
+    return r.map((item) => _.omitBy(item, _.isUndefined)) as any;
   };
 
   const sign: any = async (dataToSign: Data, address: Address, chainId: ChainId, domain: any) => {

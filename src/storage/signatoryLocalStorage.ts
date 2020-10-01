@@ -1,6 +1,7 @@
 import { Storage, AccountStorageData, AccountMetadata } from "@etclabscore/signatory-core/build/src/lib/storage";
 import { WalletType, DeterministicWallet, NonDeterministicWallet } from "@etclabscore/signatory-core/build/src/lib/wallet";
 import * as ethUtil from "ethereumjs-util";
+import _ from "lodash";
 
 export class SignatoryLocalStorage implements Storage {
   public storage: any;
@@ -50,10 +51,12 @@ export class SignatoryLocalStorage implements Storage {
       switch (wallet.type) {
         case "non-deterministic":
           const { address, parent } = wallet;
-          return { address, parent, name, description, type: wallet.type, hidden: !visible };
+          return _.omitBy<AccountMetadata>({
+            address, parent, name, description, type: wallet.type, hidden: !visible,
+          }, _.isUndefined);
         case "deterministic":
           const { uuid, hdPath } = wallet;
-          return { uuid, name, description, hdPath, type: wallet.type, hidden: !visible };
+          return { uuid, name, description, hdPath, type: wallet.type, hidden: !visible } as any;
       }
       return wallet;
     }));

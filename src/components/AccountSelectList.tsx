@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { List, ListItem, ListItemText, ListItemSecondaryAction, Checkbox, Typography, Button } from "@material-ui/core";
+import { List, ListItem, ListItemText, ListItemSecondaryAction, Checkbox, Typography } from "@material-ui/core";
 import { Account } from "@etclabscore/signatory-core";
 
 interface IProps {

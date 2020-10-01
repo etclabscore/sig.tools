@@ -13,7 +13,6 @@ import { IPostMessageServerOptions } from "../postMessageServer";
 import { methods as signatoryFactory } from "@etclabscore/signatory-core/build/src/index";
 import SignatoryLocalStorage from "../../storage/signatoryLocalStorage";
 import _ from "lodash";
-import { AccountMetadata } from "@etclabscore/signatory-core/build/src/lib/storage";
 export interface IMethodMapping {
   [methodName: string]: (...params: any) => Promise<any>;
 }

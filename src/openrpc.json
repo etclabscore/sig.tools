@@ -376,19 +376,6 @@
       ]
     },
     {
-      "name": "importKeyfile",
-      "summary": "Import an account from Keyfile",
-      "description": "Import a new account from an external keyfile. should comply with the [Web3 Secret Storage Definition](https://github.com/ethereumproject/wiki/wiki/Web3-Secret-Storage-Definition)",
-      "params": [
-        {
-          "$ref": "#/components/contentDescriptors/Keyfile"
-        }
-      ],
-      "result": {
-        "$ref": "#/components/contentDescriptors/Address"
-      }
-    },
-    {
       "name": "generateMnemonic",
       "summary": "Generate a mnemonic phrase",
       "description": "Generates a new 24 words long mnemonic phrase",

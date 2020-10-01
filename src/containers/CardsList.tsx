@@ -2,6 +2,7 @@ import React from "react";
 import { ButtonBase } from "@material-ui/core";
 import { ICard } from "../machines/appMachine";
 import CardView from "./CardView";
+import EmptyCard from "../components/EmptyCard";
 
 interface IProps {
   cards: ICard[];
@@ -13,6 +14,7 @@ const TAB_INDEX_START = 3;
 const CardsList: React.FC<IProps> = ({ cards, onCardSelect }) => {
   return (
     <>
+      {cards.length === 0 && <EmptyCard />}
       {cards.map((card, i) => (
         <ButtonBase key={i}
           onClick={() => onCardSelect && onCardSelect(card)}

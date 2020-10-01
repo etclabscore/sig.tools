@@ -77,11 +77,9 @@ const FormPanel: React.FC<IProps> = (props) => {
               }}
               onClick={() => {
                 setOpen(false);
-                setTimeout(() => {
-                  if (props.onCancel) {
-                    props.onCancel();
-                  }
-                }, 90);
+                if (props.onCancel) {
+                  props.onCancel();
+                }
               }}>
               <Close />
             </IconButton>

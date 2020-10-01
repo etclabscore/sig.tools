@@ -1,4 +1,4 @@
-import { CapabilitiesController } from "rpc-cap";
+import { CapabilitiesController } from "@xops.net/rpc-cap";
 
 export let capabilities: null | CapabilitiesController = null;
 

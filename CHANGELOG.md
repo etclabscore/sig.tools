@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/etclabscore/sig.tools/compare/1.3.1...1.3.2) (2020-10-03)
+
+
+### Bug Fixes
+
+* add json view to hex string ([a65c6b3](https://github.com/etclabscore/sig.tools/commit/a65c6b39f483f315cfce03d28ff468e163b890d6))
+
 ## [1.3.1](https://github.com/etclabscore/sig.tools/compare/1.3.0...1.3.1) (2020-10-01)
 
 

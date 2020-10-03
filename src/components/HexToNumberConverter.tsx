@@ -21,7 +21,7 @@ const HexToNumberConverter: React.FC<IProps> = (props) => {
     <>
       <Typography variant="body2" gutterBottom>{props.schema.title}</Typography>
       <Link style={{ cursor: "pointer", userSelect: "none" }}>
-        <Typography variant="caption" color="primary" onClick={() => send("TOGGLE")}>raw</Typography>
+        <Typography variant="caption" color="primary" onClick={() => send("TOGGLE")}>{state.matches("all") ? "number" : "raw"}</Typography>
       </Link>
       <Grid container justify="flex-start" alignItems="center">
         {state.matches("all") &&

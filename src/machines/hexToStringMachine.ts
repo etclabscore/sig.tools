@@ -50,17 +50,24 @@ const hexToNumberMachine: StateMachine<IHexStringMachineContext, any, any> = cre
         },
       }),
     },
+    SHOW_JSON: "jsononly",
   },
   states: {
     stringonly: {
       on: {
-        TOGGLE: "all",
+        SHOW_HEX: "all",
       },
     },
     all: {
       on: {
-        TOGGLE: "stringonly",
-      }
+        SHOW_STRING: "stringonly",
+      },
+    },
+    jsononly: {
+      on: {
+        SHOW_STRING: "stringonly",
+        SHOW_HEX: "all",
+      },
     },
   },
 });

@@ -10,6 +10,8 @@
   <b><a href="https://sig.tools">sig.tools</a></b> is a tool to enable the distributed creation and (non-custodial) management of cryptographic accounts for the Ethereum Stack.
     <br />
     <a href="https://sig.tools">sig.tools</a>
+    .
+    <a href="https://docs.sig.tools">docs.sig.tools</a>
     ·
     <a href="https://github.com/etclabscore/sig.tools/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
@@ -19,6 +21,9 @@
 </h1>
 
 <br />
+<p align="center">
+<img src="https://user-images.githubusercontent.com/364566/95103575-9d3b7c00-06e9-11eb-94af-e7532ed4a5fa.gif" />
+</p>
 <br />
 <br />
 <br />
@@ -26,8 +31,8 @@
 🚧 <b>sig.tools</b> is in early development <b>alpha</b>. Some features are not available. This project has not been through an audit, use at your own risk, testnet usage is recommended. <a href="https://github.com/etclabscore/sig.tools/issues/new?assignees=&labels=&template=feature_request.md&title=">Give Feedback and Report Bugs</a>.
 
 <br />
-<br />
-<br />
+
+[View the Documentation](https://docs.sig.tools)
 
 ### Javascript/Typescript SDK
 

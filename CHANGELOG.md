@@ -1,3 +1,11 @@
+## [1.3.3](https://github.com/etclabscore/sig.tools/compare/1.3.2...1.3.3) (2020-10-06)
+
+
+### Bug Fixes
+
+* **README:**  add signing demo gif + link to docs ([74f6060](https://github.com/etclabscore/sig.tools/commit/74f6060fc84cf32787ab8ed250ea4c3507f22981))
+* better signTypedData when formData provided ([8368d77](https://github.com/etclabscore/sig.tools/commit/8368d77a683e27b31c4590996d41816503e6e7be))
+
 ## [1.3.2](https://github.com/etclabscore/sig.tools/compare/1.3.1...1.3.2) (2020-10-03)
 
 

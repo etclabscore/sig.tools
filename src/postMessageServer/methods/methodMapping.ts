@@ -73,10 +73,10 @@ const generateMethodMapping: TGenerateMethodMapping = (options) => {
         chainId,
         domain,
         invokePromiseSuccess: async (context: IContext, event: any, data: any) => {
-          resolve(data);
+          resolve(event.data);
         },
         invokePromiseReject: async (context: IContext, event: any, error: any) => {
-          reject(error);
+          reject(new Error("User Rejected Request"));
         },
       });
     });
@@ -91,7 +91,7 @@ const generateMethodMapping: TGenerateMethodMapping = (options) => {
           resolve(data);
         },
         invokePromiseReject: async (context: IContext, event: any, error: any) => {
-          reject(error);
+          reject(new Error("User Rejected Request"));
         },
       });
     });
@@ -106,7 +106,7 @@ const generateMethodMapping: TGenerateMethodMapping = (options) => {
           resolve(data);
         },
         invokePromiseReject: async (context: IContext, event: any, error: any) => {
-          reject(error);
+          reject(new Error("User Rejected Request"));
         },
       });
     });

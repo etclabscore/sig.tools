@@ -1,30 +1,20 @@
 import React, { useState, ReactElement } from "react";
 import { Button, Grid, IconButton, Paper, Typography } from "@material-ui/core";
-import { JSONSchema } from "@apidevtools/json-schema-ref-parser";
 import { Close } from "@material-ui/icons";
-import { Theme as MuiTheme } from "@etclabscore/rjsf-material-ui";
-import { withTheme } from "react-jsonschema-form";
-import FormDrawer from "../components/FormDrawer";
-const Form = withTheme(MuiTheme);
+import FormDrawer from "./FormDrawer";
 
 interface IProps {
   id?: string;
-  schema: JSONSchema;
-  formData: any;
-  skipPassphrase?: boolean;
-  uiSchema?: any;
-  widgets?: any;
   title?: string;
   header?: ReactElement;
-  onSubmit?: (data: any) => void;
+  onSubmit?: (passphrase: string) => void;
   onCancel?: () => void;
   hideClose?: boolean;
 }
 
-const FormPanel: React.FC<IProps> = (props) => {
+const PasswordPromptForm: React.FC<IProps> = (props) => {
   const [open, setOpen] = useState<boolean>(true);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const [localFormData, setLocalFormData] = useState(props.formData);
   return (
     <>
       <Paper
@@ -60,9 +50,9 @@ const FormPanel: React.FC<IProps> = (props) => {
               "ui:widget": "password",
             }}
             open={drawerOpen}
-            onSubmit={(data) => {
+            onSubmit={(data: any) => {
               if (props.onSubmit) {
-                props.onSubmit({ ...localFormData, passphrase: data.formData });
+                props.onSubmit(data.formData);
               }
             }}
           />
@@ -84,33 +74,16 @@ const FormPanel: React.FC<IProps> = (props) => {
               <Close />
             </IconButton>
           }
-          <Form
-            noHtml5Validate
-            schema={props.schema as any}
-            showErrorList={false}
-            formData={props.formData}
-            uiSchema={{
-              "ui:autoFocus": true,
-              ...props.uiSchema,
+          {props.children}
+          <Button
+            onClick={() => {
+              setDrawerOpen(true);
             }}
-            widgets={{
-              ...props.widgets,
-            }}
-            onSubmit={(data) => {
-              if (props.skipPassphrase && props.onSubmit) {
-                props.onSubmit(data.formData);
-              } else {
-                setLocalFormData(data.formData);
-                setDrawerOpen(true);
-              }
-            }}
-          >
-            <Button id="submit" type="submit" variant="contained" fullWidth color="primary">{props.title}</Button>
-          </Form>
+            id="submit" type="submit" variant="contained" fullWidth color="primary">{props.title}</Button>
         </div>
       </Paper>
     </>
   );
 };
 
-export default FormPanel;
+export default PasswordPromptForm;

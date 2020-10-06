@@ -41,6 +41,7 @@ import { RpcCapDomainEntry } from "@xops.net/rpc-cap";
 import AccountSelectList from "../components/AccountSelectList";
 import { Account } from "@etclabscore/signatory-core";
 import EmptyCard from "../components/EmptyCard";
+import PasswordPromptForm from "../components/PasswordPromptForm";
 
 export const matchesMachineState = (
   states: string[],
@@ -324,32 +325,59 @@ const MyApp = () => {
         </FormPanel>
       }
       {state.matches("signTypedData") && state.context.formData &&
-        <FormPanel
-          id="sign-typed-data"
-          header={domain &&
-            <Alert severity="info" style={{ marginBottom: "10px" }} variant="outlined">
-              <Typography variant="body1">
-                {domain && domain.origin}
-              </Typography>
-            </Alert>
+        <>
+          {
+            (typeof state.context.formData.typedData.message === "object" && typeof state.context.formData.typedData.domain === "object")
+              ?
+              <PasswordPromptForm
+                title="Sign"
+                onSubmit={(passphrase: string) => {
+                  send("SUBMIT", { ...state.context.formData, passphrase, type: "SUBMIT" });
+                }}
+                onCancel={() => send("CANCEL")}
+              >
+                <Grid>
+                  <Typography variant="h5" gutterBottom>Sign Typed Data</Typography>
+                  <Typography gutterBottom color="secondary">Verifying Contract: </Typography>
+                  <Typography style={{ fontSize: "10.5px" }} gutterBottom>{state.context.formData.typedData.domain.verifyingContract}</Typography>
+                  <Typography gutterBottom color="textPrimary">Message</Typography>
+                  <pre style={{ overflow: "auto", margin: 0, marginBottom: "20px" }}>
+                    <code>
+                      {JSON.stringify(state.context.formData.typedData.message, null, 4)}
+                    </code>
+                  </pre>
+                </Grid>
+              </PasswordPromptForm>
+              :
+              <FormPanel
+                id="sign-typed-data"
+                header={domain &&
+                  <Alert severity="info" style={{ marginBottom: "10px" }} variant="outlined">
+                    <Typography variant="body1">
+                      {domain && domain.origin}
+                    </Typography>
+                  </Alert>
+                }
+                schema={openrpcDocumentToJSONRPCSchema(openrpcDocument, "signTypedData") as any}
+                formData={state.context.formData}
+                uiSchema={{
+                  chainId: {
+                    "ui:widget": HexToNumberConverter,
+                  },
+                }}
+                title={"Sign"}
+                onSubmit={(e) => {
+                  send("SUBMIT", { ...e, type: "SUBMIT" });
+                }}
+                onCancel={() => send("CANCEL")}
+              >
+                <Button type="submit" variant="contained" fullWidth color="primary">Sign</Button>
+              </FormPanel>
           }
-          schema={openrpcDocumentToJSONRPCSchema(openrpcDocument, "signTypedData") as any}
-          formData={state.context.formData}
-          uiSchema={{
-            chainId: {
-              "ui:widget": HexToNumberConverter,
-            },
-          }}
-          title={"Sign"}
-          onSubmit={(e) => {
-            send("SUBMIT", { ...e, type: "SUBMIT" });
-          }}
-          onCancel={() => send("CANCEL")}
-        >
-          <Button type="submit" variant="contained" fullWidth color="primary">Sign</Button>
-        </FormPanel>
+        </>
       }
-      {state.matches("createWallet") &&
+      {
+        state.matches("createWallet") &&
         <FormPanel
           id="create-wallet"
           title={"Create Wallet"}
@@ -371,7 +399,8 @@ const MyApp = () => {
           <Button type="submit" variant="contained" fullWidth color="primary">Create Wallet</Button>
         </FormPanel>
       }
-      {state.matches("createAccount") &&
+      {
+        state.matches("createAccount") &&
         <FormPanel
           title={"Create Account"}
           skipPassphrase={true}
@@ -406,11 +435,12 @@ const MyApp = () => {
           <Button type="submit" variant="contained" fullWidth color="primary">Create Account</Button>
         </FormPanel>
       }
-      {(state.matches("signingMessage") ||
-        state.matches("creatingAccount") ||
-        state.matches("creatingWallet") ||
-        state.matches("signingTransaction") ||
-        state.matches("signingTypedData")) &&
+      {
+        (state.matches("signingMessage") ||
+          state.matches("creatingAccount") ||
+          state.matches("creatingWallet") ||
+          state.matches("signingTransaction") ||
+          state.matches("signingTypedData")) &&
         <Grid container justify="center" alignItems="center" style={{ paddingTop: "30px" }}>
           <EmptyCard content={
             <Grid container direction="column" justify="center" alignItems="center">
@@ -461,108 +491,112 @@ const MyApp = () => {
           <Button variant="contained" onClick={() => send("CANCEL")}>Ok</Button>
         </Paper>
       }
-      {<Paper
-        id="error"
-        style={{
-          position: "absolute",
-          backgroundColor: red[500],
-          width: "100%",
-          top: "0",
-          left: "0",
-          right: "0",
-          bottom: "0",
-          padding: "50px",
-          overflow: "auto",
-          opacity: 0,
-          pointerEvents: state.matches("error") ? "all" : "none",
-          animation: (state.matches("error") || (state.history && state.history.value === "error"))
-            ? `scale-${state.matches("error") ? "in" : "out"} 0.2s cubic-bezier(0.4, 0.0, 0.2, 1) 0s both`
-            : "none",
-          zIndex: 1300,
-        }}
-      >
-        <IconButton
-          id="cancel-button"
+      {
+        <Paper
+          id="error"
           style={{
-            position: "fixed",
-            top: "0px",
-            right: "5px",
-            zIndex: 1400,
-          }}
-          onClick={() => send("CANCEL")}>
-          <Close />
-        </IconButton>
-        <Typography color="textPrimary">Error</Typography>
-        <pre style={{ overflow: "auto" }}>
-          <code>
-            {state.context.error && JSON.stringify(state.context.error, null, 4)}
-          </code>
-        </pre>
-      </Paper>}
-      {<Paper
-        id="request-permissions"
-        style={{
-          position: "absolute",
-          width: "100%",
-          top: "0",
-          left: "0",
-          right: "0",
-          bottom: "0",
-          padding: "50px",
-          overflow: "auto",
-          display: state.context.cards.length === 0 ? "none" : "block",
-          opacity: 0,
-          pointerEvents: state.matches("requestPermissions") ? "all" : "none",
-          animation:
-            (state.matches("requestPermissions") || (state.history && state.history.value === "requestPermissions"))
-              ? `scale-${state.matches("requestPermissions") ? "in" : "out"} 0.2s cubic-bezier(0.4, 0.0, 0.2, 1) 0s both` //tslint:disable-line
+            position: "absolute",
+            backgroundColor: red[500],
+            width: "100%",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            padding: "50px",
+            overflow: "auto",
+            opacity: 0,
+            pointerEvents: state.matches("error") ? "all" : "none",
+            animation: (state.matches("error") || (state.history && state.history.value === "error"))
+              ? `scale-${state.matches("error") ? "in" : "out"} 0.2s cubic-bezier(0.4, 0.0, 0.2, 1) 0s both`
               : "none",
-          zIndex: 1300,
-        }}>
-        <IconButton
-          id="cancel"
-          style={{
-            position: "fixed",
-            top: "0px",
-            right: "5px",
-            zIndex: 1400,
+            zIndex: 1300,
           }}
-          onClick={() => send("CANCEL")}>
-          <Close />
-        </IconButton>
-        <Grid container>
-          <Grid container direction="column" style={{ marginBottom: "20px" }}>
-            <Typography variant="h3" gutterBottom>Permissions Needed</Typography>
-            <Alert severity="info" style={{ marginBottom: "10px" }} variant="outlined">
-              <Typography variant="body1">{metadata && metadata.origin}</Typography>
-            </Alert>
-          </Grid>
-          {state.context.formData && state.context.formData.permissions &&
-            _.map(state.context.formData.permissions, (value, key) => {
-              return (
-                <Grid container direction="column">
-                  <FormControlLabel
-                    control={<Checkbox checked={true} name={key} />}
-                    label={`Trust this app to [${key}]?`}
-                  />
-                  {key === "listAccounts" &&
-                    <>
-                      <br />
-                      <Typography>Select account(s)</Typography>
-                      <AccountSelectList accounts={state.context.cards} onChange={(accounts: Account[]) => send("ACCOUNTS_CHANGED", { accounts })} />
-                    </>
-                  }
-                </Grid>
-              );
-            })
-          }
-          <div style={{ width: "100%", marginBottom: "20px" }} />
-          <Button id="submit" variant="contained" onClick={() => send("SUBMIT")}>Trust</Button>
-          <Button id="cancel" onClick={() => send("CANCEL")}>Decline</Button>
-        </Grid>
-      </Paper>
+        >
+          <IconButton
+            id="cancel-button"
+            style={{
+              position: "fixed",
+              top: "0px",
+              right: "5px",
+              zIndex: 1400,
+            }}
+            onClick={() => send("CANCEL")}>
+            <Close />
+          </IconButton>
+          <Typography color="textPrimary">Error</Typography>
+          <pre style={{ overflow: "auto" }}>
+            <code>
+              {state.context.error && JSON.stringify(state.context.error, null, 4)}
+            </code>
+          </pre>
+        </Paper>
       }
-      {state.matches("onboarding") &&
+      {
+        <Paper
+          id="request-permissions"
+          style={{
+            position: "absolute",
+            width: "100%",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            padding: "50px",
+            overflow: "auto",
+            display: state.context.cards.length === 0 ? "none" : "block",
+            opacity: 0,
+            pointerEvents: state.matches("requestPermissions") ? "all" : "none",
+            animation:
+              (state.matches("requestPermissions") || (state.history && state.history.value === "requestPermissions"))
+                ? `scale-${state.matches("requestPermissions") ? "in" : "out"} 0.2s cubic-bezier(0.4, 0.0, 0.2, 1) 0s both` //tslint:disable-line
+                : "none",
+            zIndex: 1300,
+          }}>
+          <IconButton
+            id="cancel"
+            style={{
+              position: "fixed",
+              top: "0px",
+              right: "5px",
+              zIndex: 1400,
+            }}
+            onClick={() => send("CANCEL")}>
+            <Close />
+          </IconButton>
+          <Grid container>
+            <Grid container direction="column" style={{ marginBottom: "20px" }}>
+              <Typography variant="h3" gutterBottom>Permissions Needed</Typography>
+              <Alert severity="info" style={{ marginBottom: "10px" }} variant="outlined">
+                <Typography variant="body1">{metadata && metadata.origin}</Typography>
+              </Alert>
+            </Grid>
+            {state.context.formData && state.context.formData.permissions &&
+              _.map(state.context.formData.permissions, (value, key) => {
+                return (
+                  <Grid container direction="column">
+                    <FormControlLabel
+                      control={<Checkbox checked={true} name={key} />}
+                      label={`Trust this app to [${key}]?`}
+                    />
+                    {key === "listAccounts" &&
+                      <>
+                        <br />
+                        <Typography>Select account(s)</Typography>
+                        <AccountSelectList accounts={state.context.cards} onChange={(accounts: Account[]) => send("ACCOUNTS_CHANGED", { accounts })} />
+                      </>
+                    }
+                  </Grid>
+                );
+              })
+            }
+            <div style={{ width: "100%", marginBottom: "20px" }} />
+            <Button id="submit" variant="contained" onClick={() => send("SUBMIT")}>Trust</Button>
+            <Button id="cancel" onClick={() => send("CANCEL")}>Decline</Button>
+          </Grid>
+        </Paper>
+      }
+      {
+        state.matches("onboarding") &&
         <FormPanel
           id="onboarding"
           skipPassphrase={true}

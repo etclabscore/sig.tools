@@ -9,7 +9,7 @@ import openrpcDocumentToJSONRPCSchema from "../helpers/OpenRPCDocumentMethodToJS
 import "./CardView.css";
 import { Flipped } from "react-flip-toolkit";
 import ColorHash from "color-hash";
-import FormDrawer from "./FormDrawer";
+import FormDrawer from "../components/FormDrawer";
 import useDarkMode from "use-dark-mode";
 import { QRCode } from "react-qrcode-logo";
 import CardsList from "./CardsList";

@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/etclabscore/sig.tools/compare/1.3.3...1.3.4) (2020-10-07)
+
+
+### Bug Fixes
+
+* **signTypedData:** load form when typedData doesnt exist ([3966213](https://github.com/etclabscore/sig.tools/commit/39662135ee7e55ab57d0108443b2d350175f6ac0))
+
 ## [1.3.3](https://github.com/etclabscore/sig.tools/compare/1.3.2...1.3.3) (2020-10-06)
 
 

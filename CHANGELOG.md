@@ -1,3 +1,10 @@
+## [1.3.5](https://github.com/etclabscore/sig.tools/compare/1.3.4...1.3.5) (2020-10-07)
+
+
+### Bug Fixes
+
+* cleanup old files + move createmenu + formpanel to components dir ([503440c](https://github.com/etclabscore/sig.tools/commit/503440c5a25faa194eab8676faf8b1720ba73d5f))
+
 ## [1.3.4](https://github.com/etclabscore/sig.tools/compare/1.3.3...1.3.4) (2020-10-07)
 
 

@@ -4,7 +4,7 @@ import { JSONSchema } from "@apidevtools/json-schema-ref-parser";
 import { Close } from "@material-ui/icons";
 import { Theme as MuiTheme } from "@etclabscore/rjsf-material-ui";
 import { withTheme } from "react-jsonschema-form";
-import FormDrawer from "../components/FormDrawer";
+import FormDrawer from "./FormDrawer";
 const Form = withTheme(MuiTheme);
 
 interface IProps {

@@ -327,7 +327,7 @@ const MyApp = () => {
       {state.matches("signTypedData") && state.context.formData &&
         <>
           {
-            (typeof state.context.formData.typedData.message === "object" && typeof state.context.formData.typedData.domain === "object")
+            (state.context.formData.typedData && typeof state.context.formData.typedData.message === "object" && typeof state.context.formData.typedData.domain === "object")
               ?
               <PasswordPromptForm
                 title="Sign"

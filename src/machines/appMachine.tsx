@@ -412,7 +412,6 @@ export const rawAppMachine: any = {
         src: (context: IContext, event: any) => {
           return new Promise((resolve: any, reject: any) => {
             setTimeout(() => {
-              debugger
               signatoryCore.signTypedData(event.typedData, event.address, event.passphrase, event.chainId).then(resolve).catch(reject);
             }, 300);
           });
@@ -423,9 +422,13 @@ export const rawAppMachine: any = {
         },
         onError: {
           target: "error",
-          actions: assign({ error: (context, event: any) => {
-            return event.data.message;
-          } }),
+          actions: assign({
+            error: (context, event: any) => {
+              if (event.data) {
+                return event.data.message;
+              }
+            },
+          }),
         },
       },
     },
@@ -469,7 +472,13 @@ export const rawAppMachine: any = {
         },
         onError: {
           target: "error",
-          actions: assign({ error: (context, event: any) => event.data.message }),
+          actions: assign({
+            error: (context, event: any) => {
+              if (event.data) {
+                return event.data.message;
+              }
+            },
+          }),
         },
       },
     },

@@ -46,7 +46,7 @@
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.51",
-    "@open-rpc/meta-schema": "^1.12.6",
+    "@open-rpc/meta-schema": "^1.13.13",
     "@rjsf/core": "^2.0.0-alpha.4",
     "@types/color-hash": "^1.0.0",
     "@types/lodash": "^4.14.149",

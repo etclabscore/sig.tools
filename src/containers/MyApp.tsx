@@ -338,8 +338,11 @@ const MyApp = () => {
               >
                 <Grid>
                   <Typography variant="h5" gutterBottom>Sign Typed Data</Typography>
+                  <Typography color="primary" gutterBottom>{state.context.formData.typedData.domain.name}</Typography>
                   <Typography gutterBottom color="secondary">Verifying Contract: </Typography>
                   <Typography style={{ fontSize: "10.5px" }} gutterBottom>{state.context.formData.typedData.domain.verifyingContract}</Typography>
+                  <Typography gutterBottom color="secondary">Chain ID: </Typography>
+                  <Typography gutterBottom>{state.context.formData.typedData.domain.chainId}</Typography>
                   <Typography gutterBottom color="textPrimary">Message</Typography>
                   <pre style={{ overflow: "auto", margin: 0, marginBottom: "20px" }}>
                     <code>

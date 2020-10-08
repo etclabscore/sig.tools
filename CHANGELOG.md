@@ -1,3 +1,11 @@
+## [1.3.6](https://github.com/etclabscore/sig.tools/compare/1.3.5...1.3.6) (2020-10-08)
+
+
+### Bug Fixes
+
+* **signTypedData:** add chainId + name ([08545c7](https://github.com/etclabscore/sig.tools/commit/08545c7ed7857b6bffc042d4dbdf42dc12003579))
+* npm audit fix ([a901acd](https://github.com/etclabscore/sig.tools/commit/a901acdb87a6eaf0779985b30ab66c46644855f2))
+
 ## [1.3.5](https://github.com/etclabscore/sig.tools/compare/1.3.4...1.3.5) (2020-10-07)
 
 

@@ -1,3 +1,10 @@
+## [1.3.7](https://github.com/etclabscore/sig.tools/compare/1.3.6...1.3.7) (2020-10-19)
+
+
+### Bug Fixes
+
+* update generator + docs ([e22a8d3](https://github.com/etclabscore/sig.tools/commit/e22a8d39d4981af0dd03f03adc104c7de84a7402))
+
 ## [1.3.6](https://github.com/etclabscore/sig.tools/compare/1.3.5...1.3.6) (2020-10-08)
 
 

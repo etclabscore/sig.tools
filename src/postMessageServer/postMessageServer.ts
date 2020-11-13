@@ -9,6 +9,8 @@ import { CapabilitiesController } from "@xops.net/rpc-cap";
 import { setCapabilities } from "../capabilities";
 import { IContext } from "../machines/appMachine";
 
+const copyDocument = JSON.stringify(openrpcDocument);
+const copyOpenRPCDocument = JSON.parse(copyDocument);
 
 const JsonRpcEngine = require("json-rpc-engine"); //tslint:disable-line
 
@@ -136,7 +138,7 @@ const postMessageServer = (options: IPostMessageServerOptions) => {
     if (ev.data.method === "rpc.discover") {
       const doc = {
         jsonrpc: "2.0",
-        result: openrpcDocument,
+        result: copyOpenRPCDocument,
         id: ev.data.id,
       };
       (ev.source as any).postMessage(doc, "*");

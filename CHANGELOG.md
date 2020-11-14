@@ -1,3 +1,11 @@
+## [1.3.8](https://github.com/etclabscore/sig.tools/compare/1.3.7...1.3.8) (2020-11-14)
+
+
+### Bug Fixes
+
+* return not dereffed openrpc document for rpc.discover ([d2af316](https://github.com/etclabscore/sig.tools/commit/d2af3165245a2f518d4560951d077acd0b830ae9))
+* update generator to latest ([6fa2a62](https://github.com/etclabscore/sig.tools/commit/6fa2a62a5c154ace847381ddf5c10c1683315225))
+
 ## [1.3.7](https://github.com/etclabscore/sig.tools/compare/1.3.6...1.3.7) (2020-10-19)
 
 

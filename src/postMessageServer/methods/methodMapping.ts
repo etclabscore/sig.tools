@@ -46,10 +46,6 @@ const generateMethodMapping: TGenerateMethodMapping = (options) => {
   };
 
   const signTransaction: any = async (transaction: Transaction, chainId: ChainId, domain: any) => {
-    if (!domain) {
-      domain = chainId;
-      chainId = undefined as any;
-    }
     return new Promise((resolve, reject) => {
       options.send("SHOW_SIGN_TRANSACTION", {
         transaction,

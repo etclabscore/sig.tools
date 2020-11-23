@@ -51,10 +51,10 @@ const generateMethodMapping: TGenerateMethodMapping = (options) => {
         transaction,
         chainId,
         domain,
-        invokePromiseSuccess: async (context: IContext, event: any, data: any) => {
-          resolve(data);
+        invokePromiseSuccess: async (context: IContext, event: any) => {
+          resolve(event.data);
         },
-        invokePromiseReject: async (context: IContext, event: any, error: any) => {
+        invokePromiseReject: async (context: IContext, event: any) => {
           reject(new Error("User Rejected Request"));
         },
       });
@@ -68,10 +68,10 @@ const generateMethodMapping: TGenerateMethodMapping = (options) => {
         address,
         chainId,
         domain,
-        invokePromiseSuccess: async (context: IContext, event: any, data: any) => {
+        invokePromiseSuccess: async (context: IContext, event: any) => {
           resolve(event.data);
         },
-        invokePromiseReject: async (context: IContext, event: any, error: any) => {
+        invokePromiseReject: async (context: IContext, event: any) => {
           reject(new Error("User Rejected Request"));
         },
       });
@@ -98,8 +98,8 @@ const generateMethodMapping: TGenerateMethodMapping = (options) => {
       options.send("CREATE_WALLET", {
         importMnemonicOptions,
         domain,
-        invokePromiseSuccess: async (context: IContext, event: any, data: any) => {
-          resolve(data);
+        invokePromiseSuccess: async (context: IContext, event: any) => {
+          resolve(event.data);
         },
         invokePromiseReject: async (context: IContext, event: any, error: any) => {
           reject(new Error("User Rejected Request"));

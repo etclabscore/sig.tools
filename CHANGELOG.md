@@ -1,3 +1,11 @@
+## [1.3.9](https://github.com/etclabscore/sig.tools/compare/1.3.8...1.3.9) (2020-11-23)
+
+
+### Bug Fixes
+
+* chainId signTransaction ([d3d58b8](https://github.com/etclabscore/sig.tools/commit/d3d58b89f2565a17ee5aa36525a46ab3479c2c2c))
+* issue with resolving signTransaction result for JSON-RPC ([4ea992d](https://github.com/etclabscore/sig.tools/commit/4ea992d46b0540d2aaefaffce7da4ce7d8702f42))
+
 ## [1.3.8](https://github.com/etclabscore/sig.tools/compare/1.3.7...1.3.8) (2020-11-14)
 
 
